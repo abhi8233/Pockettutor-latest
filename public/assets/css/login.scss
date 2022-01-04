@@ -1,0 +1,86 @@
+// @import "./variable";
+@import "./common";   
+
+// Login
+.login-main{
+    height: 100vh;     
+    .navbar{
+        .collapse{
+            .navbar-nav{
+                li{ 
+                    &:first-child{
+                        border-right: 2px solid #707070;
+                    } 
+                    .nav-link{      
+                        font-size: 16px;          
+                        color: $colorBlack;
+                        &.active{
+                            color: $colorPrimary;
+                        } 
+                    }
+                }
+            }
+        } 
+    }
+    main{
+        // height: 90vh;
+    }
+    .login-right-img{
+        background-image: url("../images/login-right.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 30% 100%;
+        min-height: 100vh;
+    }
+    .subscription{
+        display: inline-flex;
+        background: #fff;
+        // width: 400px;
+        align-items: center;
+        justify-content: space-evenly;
+        border-radius: 5px;
+        // padding: 20px 15px;
+        .option{
+            background: #fff;
+            height: 100%;
+            width: 24%;  
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            // margin: 0 10px;  
+            border-radius: 5px; 
+            cursor: pointer; 
+            padding: 8px; 
+            // border: 2px solid lightgrey;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: rgb(0 0 0 / 10%) 0px 2px 5px 0px !important;
+            color: $colorGrey;
+        }
+        input[type="radio"]{
+            display: none;
+            &:checked + label{
+                border-color: $colorPrimary;
+                background: $colorPrimary;
+                color: $colorWhite;
+            }
+        }
+    }
+}
+
+// Forget
+.forget-form{
+    .forget-icon-main{
+        &:before{
+            content: "";
+            background-color: #1a73e826; 
+            height: 70px;
+            width: 70px;
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            border-radius: 40px;
+        }
+    }
+    
+}
