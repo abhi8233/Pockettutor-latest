@@ -1,0 +1,131 @@
+$colorPrimary : #0077B6;
+$colorWhite: #ffffff;
+$colorBlack: #252a32;
+$contetBg:#E8EDF3;
+$colrGrey:#868C95;
+$colrBlack:#000000;
+$colorRed: #F0140B; 
+$colorGrey: #707070;  
+
+
+//Color Initialisation
+$theme-colors-default: (
+    "primary": $colorPrimary,
+    "white": $colorWhite,
+    "red": $colorRed,
+    "black": $colorBlack,
+    "grey": $colorGrey,
+) !default;
+
+//Pixel and Percentage Initialisation
+$widthPercentage: (
+    0: 0,
+    30: 30%,
+    60: 60%,
+    80: 80%,
+    100: 100%,
+) !default;
+
+$widthNumber: (
+    0: 0px,
+    50: 50px,
+    100: 100px,
+) !default;
+
+
+//Color Things
+@each $name, $color in $theme-colors-default {
+    .pt-box-#{$name}{
+        box-shadow: $color !important ;
+    }
+    .pt-color-#{$name} {
+        color: $color !important;
+    }
+    .pt-bg-#{$name} {
+        background-color: $color !important;
+    }
+    .pt-fill-#{$name} {
+        fill: $color !important;
+    }
+    .pt-border-color-#{$name} {
+        border-color: $color !important;
+    }
+}
+
+//width class - start
+@each $size, $val in $widthPercentage {
+    .pt-width-p-#{$size} {
+        width: $val !important;
+    }
+    .pt-min-width-p-#{$size} {
+        min-width: $val !important;
+    }
+}
+@each $size, $val in $widthNumber {
+    .pt-width-px-#{$size} {
+        width: $val !important;
+    }
+    .pt-flex-basis-px-#{$size} {
+        flex-basis: $val !important;
+    }
+    .pt-min-width-px-#{$size} {
+        min-width: $val !important;
+    }
+}
+//width class - end
+
+//height class - start
+@each $size, $val in $widthPercentage {
+    .pt-height-p-#{$size} {
+        height: $val !important;
+    }
+}
+@each $size, $val in $widthNumber {
+    .pt-height-px-#{$size} {
+        height: $val !important;
+    }
+    .pt-max-height-px-#{$size} {
+        max-height: $val !important;
+    }
+}
+//height class - end
+
+// css for custom font size
+$fontInPixel: (
+    1em: 1em,   
+    14: 14px,                                                                             
+    16: 16px,                                                                             
+    12: 12px,                                                                             
+    18: 18px,                                                                             
+    24: 24px,
+    17: 17px,
+    30: 30px,
+    32: 32px,
+    36: 36px,
+    20: 20px,
+    26: 26px,
+    25: 25px,
+    40: 40px,
+    48: 48px,
+    50: 50px
+) !default;
+
+//font size class - start
+@each $size, $val in $fontInPixel {                          
+    .pt-font-size-px-#{$size} {
+        font-size: $val !important;
+    }
+}
+
+// css for custom border radius
+$radiusInPixel: (
+    3: 3px,
+    30: 30px,
+) !default;
+
+//font size class - start
+@each $size, $val in $radiusInPixel {                          
+    .pt-border-radius-px-#{$size} {
+        border-radius: $val !important;
+    }
+}

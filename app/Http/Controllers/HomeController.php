@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use \App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,39 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user=Auth::user();
+
+        if ($user->role == 'Student') {
+            return view('student.dashboard');
+        }else{
+            return view('home');
+        }
+    }
+    public function adminHome()
+    {
+//        dd('hes');
+        return view('adminHome');
+    }
+
+    public function editProfile(){
+        $user=Auth::user();
+        $specializations= \App\Models\Specialization::orderBy('id','desc')->get();
+        $institutions= \App\Models\Institution::orderBy('id','desc')->get();
+        $fieldInterests= \App\Models\FieldInterest::orderBy('id','desc')->get();
+        $languages= \App\Models\Languages::orderBy('id','desc')->get();
+        $countries= \App\Models\Country::orderBy('id','desc')->get();
+        $states= \App\Models\State::orderBy('id','desc')->get();
+        return view('users.editprofile',compact('specializations','institutions','fieldInterests','languages','countries','states','user'));
+    }
+    public function updateProfile(Request $request){
+        $params=$request->all();
+        unset($params['_token'],$params['_method']);
+        $user=User::where('id',Auth::user()->id)->update([$params]);
+        if($user){
+            return response()->Json(['status' => 'success']);
+        }else{
+            return response()->Json(['status' => 'error']);
+        }
+
     }
 }

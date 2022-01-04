@@ -1,0 +1,59 @@
+@import 'variable';
+
+// Setting Email Template
+ .email-template{
+     .nav-tabs{
+        justify-content: flex-end;
+        border: unset;
+        .nav-item{
+            width: 130px;
+            text-align: center;
+            .nav-link{
+                color: $colorPrimary;
+                width: 100%;
+                &.active{
+                    background-color: $colorPrimary; 
+                    color: $colorWhite;
+                    border-radius: 0;
+                }
+            } 
+        }
+     }
+ }
+
+ // Tabs
+ .tab-main-common{
+     &.tab-content{
+         .accordion-item{
+            border-color: $colorPrimary;
+             .accordion-header{
+                 .accordion-button{
+                    background-color: $colorPrimary; 
+                    color: $colorWhite;
+                    &.collapsed{
+                        &:after{
+                            content: "\f0d7";
+                            font-family: "Font Awesome 5 Free"; 
+                            font-weight: 900; 
+                            background-image: unset;
+                            font-size: 24px;
+                            height: unset;
+                            width: unset;
+                            transform: rotate(-90deg);
+                        }
+                    }
+                    &:after{
+                        content: "\f0d7";
+                        font-family: "Font Awesome 5 Free"; 
+                        font-weight: 900; 
+                        background-image: unset;
+                        font-size: 24px;
+                        height: unset;
+                        width: unset;
+                        transform: rotate(0deg);
+                    }
+                }
+             }
+         }
+     }
+ }

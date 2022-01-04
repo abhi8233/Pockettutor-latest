@@ -14,15 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth/login');
+	/*if (Auth::check()) {
+		return view('student.dashboard');
+	}else{
+		return view('auth.login');
+	}*/
+	return view('auth.login');
 }); 
+
 Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('country/select', 'App\Http\Controllers\Students\CountryController@select')->name('country.select');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 /*---------------------------------- ADMIN ---------------------------------------*/
 // Route::group(['middleware' => ['auth', 'verified','admin']], function () { 
 Route::group(['middleware' => []], function () { 
-
 	Route::get('admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin_dashboard');
 });
 
@@ -40,11 +46,12 @@ Route::group(['middleware' => []], function () {
 	Route::get('tutor/dashboard', [App\Http\Controllers\Tutor\DashboardController::class, 'index'])->name('tutor_dashboard');
 });
 
-
+Route::resource('book-slot', 'App\Http\Controllers\Booking\BookingController');
+Route::get('tutor/select', 'App\Http\Controllers\Booking\BookingSlotController@select')->name('tutor.select');
 /*------------------------------------ BOOKING -------------------------------------*/
-// Route::group(['middleware' => ['auth', 'verified','booking']], function () { 
-
-// });
+/*Route::group(['middleware' => ['auth', 'verified','booking']], function () { 
+	
+});*/
 
 /*------------------------------------ FRONT ---------------------------------------*/
 // Route::group(['middleware' => ['auth', 'verified','front']], function () { 

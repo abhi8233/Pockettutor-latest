@@ -1,35 +1,58 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 	<head>
-		<title>@yield('title', 'Pocket Tutor')</title>
 		<meta charset="utf-8">
-	    <meta name="csrf-token" content="{{ csrf_token() }}">
-	    <link href="{{ asset('assets/images/fevicon.png') }}" rel="shortcut icon">
-	    
-	    <!-- Common script files -->
-	    <script src="{{ asset('js/app.js') }}" defer></script>
+		<title>@yield('title', 'Pocket Tutor Super Admin')</title>
+		<meta name="csrf-token" content="{{ csrf_token() }}">
+		<link href="{{ asset('assets/images/fevicon.png') }}" rel="shortcut icon">
+		<meta name="description" content="Pocke Tutor">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+
+		<!-- css -->
+		<link rel="stylesheet" type="text/css" href="../assets/scss/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" />
+		<link rel="stylesheet" type="text/css" href="../assets/scss/common.css" />
+		<link rel="stylesheet" type="text/css" href="../assets/scss/super-admin.css" />
+		<link rel="stylesheet" type="text/css" href="../assets/fonts/font-awesome/all.min.css" />
+		<link rel="stylesheet" type="text/css" href="../assets/fonts/md-icons/materialdesignicons.min.css" />
+		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+		<!-- scripts -->
+		<script type="text/javascript" src="../assets/js/jquery.min.js"></script>
+		<script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+		<script type="text/javascript" src="../assets/js/common.js"></script>
 		
-	    <!-- Common Fonts files -->
-	    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    	<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-	    <!-- Common Styles -->
-	    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+		<!-- Common script files -->
+		<script src="{{ asset('js/app.js') }}" defer></script>
 
-  		@yield('css-hooks')
+		<!-- Common Fonts files -->
+		<link rel="dns-prefetch" href="//fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+		<!-- Common Styles -->
+		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+		@yield('css-hooks')
 	</head>
-	<body>
-		<div id="app">
+	<body id="pt">
+	<div class="super-admin-wrap user-main">
 			<!-- start top bar -->
 		    @include('student.header')
 		    <!-- end top bar --> 
-		    <div class="wrapper">
-			    <!-- start side bar -->
-			    @include('student.sidebar')
-			    <!-- end side bar -->
+		    
+	    <!-- start side bar -->
+	    @include('student.sidebar')
+	    <!-- end side bar -->
 		    
 		        @yield('content')
-		    </div>
+		    
 		    <!-- start bottom bar -->
 		    @include('student.footer')
 		    <!-- end bottom bar --> 
