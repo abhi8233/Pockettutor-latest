@@ -4,8 +4,8 @@
 <div class="student-list-page">
     <div class="page-head px-3 py-2 d-flex justify-content-between align-items-center">
         <label class="page-title d-flex align-items-center">
-            <i class="mdi mdi-view-dashboard-outline" aria-hidden="true"></i>
-            <span class="ps-1">Booking List</span>
+            <i class="mdi mdi-account-outline" aria-hidden="true"></i>
+            <span class="ps-1">Feedback</span>
         </label>
         <div class="d-flex align-items-center">
             <input type="text" class="form-control" id="stu_list_daterange" />
@@ -17,60 +17,44 @@
                 <tr>
                     <th>Sr. No</th>
                     <th>Tutor Name</th>
-                    <th>Booking Date & Time</th>
-                    <th>Meeting Link</th>
-                    <th>Meeting minutes</th>
-                    <th>Status</th>
+                    <th>Feedback</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>1</td>
                     <td>Lorem</td>
-                    <td>15-12-2021 11:30 AM</td>
-                    <td>www.abcmeeting.com/Lorem</td>
-                    <td>20min</td>
-                    <td>Pending</td>
+                    <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</td>
                 </tr>
                 <tr>
                     <td>1</td>
                     <td>Lorem</td>
-                    <td>15-12-2021 11:30 AM</td>
-                    <td>www.abcmeeting.com/Lorem</td>
-                    <td>20min</td>
-                    <td>Pending</td>
+                    <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</td>
                 </tr>
                 <tr>
                     <td>1</td>
                     <td>Lorem</td>
-                    <td>15-12-2021 11:30 AM</td>
-                    <td>www.abcmeeting.com/Lorem</td>
-                    <td>20min</td>
-                    <td>Pending</td>
+                    <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</td>
                 </tr>
                 <tr>
                     <td>1</td>
                     <td>Lorem</td>
-                    <td>15-12-2021 11:30 AM</td>
-                    <td>www.abcmeeting.com/Lorem</td>
-                    <td>20min</td>
-                    <td>Pending</td>
+                    <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</td>
                 </tr>
                 <tr>
                     <td>1</td>
                     <td>Lorem</td>
-                    <td>15-12-2021 11:30 AM</td>
-                    <td>www.abcmeeting.com/Lorem</td>
-                    <td>20min</td>
-                    <td>Pending</td>
+                    <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</td>
                 </tr>
                 <tr>
                     <td>1</td>
                     <td>Lorem</td>
-                    <td>15-12-2021 11:30 AM</td>
-                    <td>www.abcmeeting.com/Lorem</td>
-                    <td>20min</td>
-                    <td>Pending</td>    
+                    <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Lorem</td>
+                    <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</td>
                 </tr>
 
             </tbody>

@@ -399,107 +399,88 @@
   border-radius: 30px !important;
 }
 
-.email-template {
-  padding-bottom: 15px !important;
+#pt {
+  background-color: #E8EDF3;
 }
-.email-template .nav-tabs {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 15px;
-  border: unset;
+#pt .booking .booking-main {
+  background-color: #ffffff;
 }
-.email-template .nav-tabs .nav-item {
-  width: 130px;
-  text-align: center;
+#pt .booking .booking-main .date-time input[type=date],
+#pt .booking .booking-main .date-time input[type=time] {
+  color: #707070;
 }
-.email-template .nav-tabs .nav-item .nav-link {
-  color: #0077B6;
-  width: 100%;
+#pt .booking .booking-main .date-time input[type=date]:focus-visible,
+#pt .booking .booking-main .date-time input[type=time]:focus-visible {
+  outline: unset;
 }
-.email-template .nav-tabs .nav-item .nav-link.active {
-  background-color: #0077B6;
-  color: #ffffff;
-  border-radius: 0;
+#pt .booking .booking-main .date-time ::-webkit-calendar-picker-indicator {
+  filter: invert(0.5);
 }
-.email-template .tab-content {
-  padding: 0px 15px;
+#pt .booking .tutor-main .tutor-inner .profile-img {
+  position: relative;
 }
-
-.tab-main-common.tab-content .accordion-item {
-  border-color: #0077B6;
+#pt .booking .tutor-main .tutor-inner .profile-img .tutor-img {
+  border: 4px solid #6E7070;
+  border-radius: 50%;
 }
-.tab-main-common.tab-content .accordion-item .accordion-header .accordion-button {
-  background-color: #0077B6;
-  color: #ffffff;
+#pt .booking .tutor-main .tutor-inner .profile-img .flag {
+  position: absolute;
+  top: 13px;
+  right: -10px;
+  height: 14px;
+  width: 25px;
 }
-.tab-main-common.tab-content .accordion-item .accordion-header .accordion-button.collapsed:after {
-  content: "";
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  background-image: unset;
-  font-size: 24px;
-  height: unset;
-  width: unset;
-  transform: rotate(-90deg);
+#pt .booking .tutor-main .tutor-inner .tutor-name {
+  color: #6E7070;
+  font-weight: 300;
 }
-.tab-main-common.tab-content .accordion-item .accordion-header .accordion-button:after {
-  content: "";
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  background-image: unset;
-  font-size: 24px;
-  height: unset;
-  width: unset;
-  transform: rotate(0deg);
-}
-.tab-main-common.tab-content .accordion-item .accordion-header .form-check-input:checked {
-  background-color: #c1c1c1;
-  border-color: #c1c1c1;
-}
-.tab-main-common.tab-content .accordion-item .accordion-body textarea {
-  border: unset !important;
-}
-
-.availability-main .tab-content ul li {
-  margin: 8px 0px;
-}
-.availability-main .tab-content ul li .radio .form-check .form-check-input {
-  height: 25px;
-  width: 50px !important;
-}
-.availability-main .tab-content ul li .time .select2-container:nth-child(2) {
-  margin-right: 10px;
-}
-.availability-main .tab-content .week-selection ul {
-  list-style: none;
-}
-.availability-main .tab-content .week-selection ul li {
-  font-size: 20px;
-  font-weight: 200;
+#pt .booking .tutor-main .tutor-inner:hover {
   cursor: pointer;
 }
-.availability-main .tab-content .week-selection ul li .active {
+#pt .booking .tutor-main .tutor-inner:hover .tutor-img {
+  border: 4px solid #0077B6;
+}
+#pt .booking .tutor-main .tutor-inner:hover .tutor-name {
   color: #0077B6;
   font-weight: 400;
 }
-.availability-main .tab-content .weekdays .text {
-  width: 80px;
+
+.rate {
+  float: left;
 }
 
-.profile-main .profile-tabs .nav {
-  border: unset;
+.rate:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
 }
-.profile-main .profile-tabs .nav .nav-item {
-  width: 100%;
+
+.rate:not(:checked) > label {
+  float: right;
+  width: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 20px;
+  color: #ccc;
 }
-.profile-main .profile-tabs .nav .nav-item .nav-link {
-  width: 100%;
-  text-align: left;
-  border: unset;
-  color: #868C95;
+
+.rate:not(:checked) > label:before {
+  content: "★ ";
 }
-.profile-main .profile-tabs .nav .nav-item .nav-link.active {
-  color: #0077B6;
-  background-color: transparent;
-}/*# sourceMappingURL=super-admin.css.map */
+
+.rate > input:checked ~ label {
+  color: #ffc700;
+}
+
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+  color: #deb217;
+}
+
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}/*# sourceMappingURL=booking.css.map */

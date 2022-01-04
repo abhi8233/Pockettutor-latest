@@ -21,15 +21,21 @@ $theme-colors-default: (
 $widthPercentage: (
     0: 0,
     30: 30%,
+    40: 40%,
     60: 60%,
     80: 80%,
     100: 100%,
+    auto: auto,
 ) !default;
 
 $widthNumber: (
     0: 0px,
+    40: 40px,
     50: 50px,
+    88: 88px,
     100: 100px,
+    150: 150px,
+    auto: auto, 
 ) !default;
 
 
@@ -103,6 +109,7 @@ $fontInPixel: (
     32: 32px,
     36: 36px,
     20: 20px,
+    22: 22px,
     26: 26px,
     25: 25px,
     40: 40px,

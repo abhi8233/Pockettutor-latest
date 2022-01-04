@@ -1,40 +1,47 @@
-@import 'variable';
+@import "variable";
 
 // Setting Email Template
- .email-template{
-     .nav-tabs{
-        justify-content: flex-end;
+.email-template {
+    padding-bottom: 15px !important;
+    .nav-tabs {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 15px;
         border: unset;
-        .nav-item{
+        .nav-item {
             width: 130px;
             text-align: center;
-            .nav-link{
+            .nav-link {
                 color: $colorPrimary;
                 width: 100%;
-                &.active{
-                    background-color: $colorPrimary; 
+                &.active {
+                    background-color: $colorPrimary;
                     color: $colorWhite;
                     border-radius: 0;
                 }
-            } 
+            }
         }
-     }
- }
+    }
+    .tab-content {
+        padding: 0px 15px;
+    }
+}
 
- // Tabs
- .tab-main-common{
-     &.tab-content{
-         .accordion-item{
+// Tabs
+.tab-main-common {
+    &.tab-content {
+        .accordion-item {
             border-color: $colorPrimary;
-             .accordion-header{
-                 .accordion-button{
-                    background-color: $colorPrimary; 
+            .accordion-header {
+                .accordion-button {
+                    background-color: $colorPrimary;
                     color: $colorWhite;
-                    &.collapsed{
-                        &:after{
+                    &.collapsed {
+                        &:after {
                             content: "\f0d7";
-                            font-family: "Font Awesome 5 Free"; 
-                            font-weight: 900; 
+                            font-family: "Font Awesome 5 Free";
+                            font-weight: 900;
                             background-image: unset;
                             font-size: 24px;
                             height: unset;
@@ -42,10 +49,10 @@
                             transform: rotate(-90deg);
                         }
                     }
-                    &:after{
+                    &:after {
                         content: "\f0d7";
-                        font-family: "Font Awesome 5 Free"; 
-                        font-weight: 900; 
+                        font-family: "Font Awesome 5 Free";
+                        font-weight: 900;
                         background-image: unset;
                         font-size: 24px;
                         height: unset;
@@ -53,7 +60,88 @@
                         transform: rotate(0deg);
                     }
                 }
-             }
-         }
-     }
- }
+                .form-check-input {
+                    &:checked {
+                        background-color: #c1c1c1;
+                        border-color: #c1c1c1;
+                    }
+                }
+            }
+            .accordion-body {
+                textarea {
+                    border: unset !important;
+                }
+            }
+        }
+    }
+}
+
+.availability-main {
+    .tab-content {
+        ul {
+            li {
+                margin: 8px 0px;
+                .text {
+                    // width: 80px;
+                }
+                .radio {
+                    .form-check {
+                        .form-check-input {
+                            height: 25px;
+                            width: 50px !important;
+                        }
+                    }
+                }
+                .time {
+                    .select2-container {
+                        &:nth-child(2) {
+                            margin-right: 10px;
+                        }
+                    }
+                }
+            }
+        }
+        .week-selection{
+            ul{
+                list-style: none;
+                li{
+                    font-size: 20px;
+                    font-weight: 200;
+                    cursor: pointer;
+                    .active{
+                        color: $colorPrimary;
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+        .weekdays{
+            .text{
+                width: 80px;
+            }
+        }
+    }
+}
+
+
+// Profile
+.profile-main{
+    .profile-tabs{
+        .nav{
+            border: unset;
+            .nav-item{
+                width: 100%;
+                .nav-link{
+                    width: 100%;
+                    text-align: left;
+                    border: unset;
+                    color: #868C95;
+                    &.active{
+                        color: $colorPrimary;
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+    }
+}

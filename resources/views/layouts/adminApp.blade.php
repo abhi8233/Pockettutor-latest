@@ -8,26 +8,25 @@
 	<link href="{{ asset('assets/images/fevicon.png') }}" rel="shortcut icon">
 	<meta name="description" content="Pocke Tutor">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-
+	<!-- {{URL::asset('assets/icons/key.svg')}} -->
 	<!-- css -->
-	<link rel="stylesheet" type="text/css" href="../assets/scss/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets/scss/bootstrap.min.css')}}" />
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/scss/common.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/scss/super-admin.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/fonts/font-awesome/all.min.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/fonts/md-icons/materialdesignicons.min.css" />
+	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets/scss/common.css')}}" />
+	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets/scss/super-admin.css')}}" />
+	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets/fonts/font-awesome/all.min.css')}}" />
+	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets/fonts/md-icons/materialdesignicons.min.css')}}" />
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 	<!-- scripts -->
-	<script type="text/javascript" src="../assets/js/jquery.min.js"></script>
-	<script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="{{URL::asset('assets/js/jquery.min.js')}}"></script>
+	<script type="text/javascript" src="{{URL::asset('assets/js/bootstrap.min.js')}}"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-	<script type="text/javascript" src="../assets/js/common.js"></script>
+	<script type="text/javascript" src="{{URL::asset('assets/js/common.js')}}"></script>
 	
 
 	<!-- Common script files -->
