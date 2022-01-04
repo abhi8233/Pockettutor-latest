@@ -1,8 +1,12 @@
 $colorPrimary : #0077B6;
 $colorWhite: #ffffff;
-$colorBlack: #000000;
+$colorBlack: #252a32;
+$contetBg:#E8EDF3;
+$colrGrey:#868C95;
+$colrBlack:#000000;
 $colorRed: #F0140B; 
-$colorGrey: #707070;
+$colorGrey: #707070;  
+
 
 //Color Initialisation
 $theme-colors-default: (
@@ -16,14 +20,22 @@ $theme-colors-default: (
 //Pixel and Percentage Initialisation
 $widthPercentage: (
     0: 0,
+    30: 30%,
+    40: 40%,
+    60: 60%,
     80: 80%,
     100: 100%,
+    auto: auto,
 ) !default;
 
 $widthNumber: (
     0: 0px,
+    40: 40px,
     50: 50px,
+    88: 88px,
     100: 100px,
+    150: 150px,
+    auto: auto, 
 ) !default;
 
 
@@ -97,6 +109,7 @@ $fontInPixel: (
     32: 32px,
     36: 36px,
     20: 20px,
+    22: 22px,
     26: 26px,
     25: 25px,
     40: 40px,
@@ -113,6 +126,7 @@ $fontInPixel: (
 
 // css for custom border radius
 $radiusInPixel: (
+    3: 3px,
     30: 30px,
 ) !default;
 

@@ -11,7 +11,7 @@
             <input type="text" class="form-control" id="stu_list_daterange" />
         </div>
     </div>
-    <div class="student-list bg-white p-3 mt-4">
+    <div class="student-list bg-white mt-4">
         <table id="student_list" class="table table-striped" style="width:100%">
             <thead>
                 <tr>

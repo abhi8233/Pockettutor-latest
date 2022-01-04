@@ -1,0 +1,505 @@
+@charset "UTF-8";
+.pt-box-primary {
+  box-shadow: #0077B6 !important;
+}
+
+.pt-color-primary {
+  color: #0077B6 !important;
+}
+
+.pt-bg-primary {
+  background-color: #0077B6 !important;
+}
+
+.pt-fill-primary {
+  fill: #0077B6 !important;
+}
+
+.pt-border-color-primary {
+  border-color: #0077B6 !important;
+}
+
+.pt-box-white {
+  box-shadow: #ffffff !important;
+}
+
+.pt-color-white {
+  color: #ffffff !important;
+}
+
+.pt-bg-white {
+  background-color: #ffffff !important;
+}
+
+.pt-fill-white {
+  fill: #ffffff !important;
+}
+
+.pt-border-color-white {
+  border-color: #ffffff !important;
+}
+
+.pt-box-red {
+  box-shadow: #F0140B !important;
+}
+
+.pt-color-red {
+  color: #F0140B !important;
+}
+
+.pt-bg-red {
+  background-color: #F0140B !important;
+}
+
+.pt-fill-red {
+  fill: #F0140B !important;
+}
+
+.pt-border-color-red {
+  border-color: #F0140B !important;
+}
+
+.pt-box-black {
+  box-shadow: #252a32 !important;
+}
+
+.pt-color-black {
+  color: #252a32 !important;
+}
+
+.pt-bg-black {
+  background-color: #252a32 !important;
+}
+
+.pt-fill-black {
+  fill: #252a32 !important;
+}
+
+.pt-border-color-black {
+  border-color: #252a32 !important;
+}
+
+.pt-box-grey {
+  box-shadow: #707070 !important;
+}
+
+.pt-color-grey {
+  color: #707070 !important;
+}
+
+.pt-bg-grey {
+  background-color: #707070 !important;
+}
+
+.pt-fill-grey {
+  fill: #707070 !important;
+}
+
+.pt-border-color-grey {
+  border-color: #707070 !important;
+}
+
+.pt-width-p-0 {
+  width: 0 !important;
+}
+
+.pt-min-width-p-0 {
+  min-width: 0 !important;
+}
+
+.pt-width-p-30 {
+  width: 30% !important;
+}
+
+.pt-min-width-p-30 {
+  min-width: 30% !important;
+}
+
+.pt-width-p-40 {
+  width: 40% !important;
+}
+
+.pt-min-width-p-40 {
+  min-width: 40% !important;
+}
+
+.pt-width-p-60 {
+  width: 60% !important;
+}
+
+.pt-min-width-p-60 {
+  min-width: 60% !important;
+}
+
+.pt-width-p-80 {
+  width: 80% !important;
+}
+
+.pt-min-width-p-80 {
+  min-width: 80% !important;
+}
+
+.pt-width-p-100 {
+  width: 100% !important;
+}
+
+.pt-min-width-p-100 {
+  min-width: 100% !important;
+}
+
+.pt-width-p-auto {
+  width: auto !important;
+}
+
+.pt-min-width-p-auto {
+  min-width: auto !important;
+}
+
+.pt-width-px-0 {
+  width: 0px !important;
+}
+
+.pt-flex-basis-px-0 {
+  flex-basis: 0px !important;
+}
+
+.pt-min-width-px-0 {
+  min-width: 0px !important;
+}
+
+.pt-width-px-40 {
+  width: 40px !important;
+}
+
+.pt-flex-basis-px-40 {
+  flex-basis: 40px !important;
+}
+
+.pt-min-width-px-40 {
+  min-width: 40px !important;
+}
+
+.pt-width-px-50 {
+  width: 50px !important;
+}
+
+.pt-flex-basis-px-50 {
+  flex-basis: 50px !important;
+}
+
+.pt-min-width-px-50 {
+  min-width: 50px !important;
+}
+
+.pt-width-px-88 {
+  width: 88px !important;
+}
+
+.pt-flex-basis-px-88 {
+  flex-basis: 88px !important;
+}
+
+.pt-min-width-px-88 {
+  min-width: 88px !important;
+}
+
+.pt-width-px-100 {
+  width: 100px !important;
+}
+
+.pt-flex-basis-px-100 {
+  flex-basis: 100px !important;
+}
+
+.pt-min-width-px-100 {
+  min-width: 100px !important;
+}
+
+.pt-width-px-150 {
+  width: 150px !important;
+}
+
+.pt-flex-basis-px-150 {
+  flex-basis: 150px !important;
+}
+
+.pt-min-width-px-150 {
+  min-width: 150px !important;
+}
+
+.pt-width-px-auto {
+  width: auto !important;
+}
+
+.pt-flex-basis-px-auto {
+  flex-basis: auto !important;
+}
+
+.pt-min-width-px-auto {
+  min-width: auto !important;
+}
+
+.pt-height-p-0 {
+  height: 0 !important;
+}
+
+.pt-height-p-30 {
+  height: 30% !important;
+}
+
+.pt-height-p-40 {
+  height: 40% !important;
+}
+
+.pt-height-p-60 {
+  height: 60% !important;
+}
+
+.pt-height-p-80 {
+  height: 80% !important;
+}
+
+.pt-height-p-100 {
+  height: 100% !important;
+}
+
+.pt-height-p-auto {
+  height: auto !important;
+}
+
+.pt-height-px-0 {
+  height: 0px !important;
+}
+
+.pt-max-height-px-0 {
+  max-height: 0px !important;
+}
+
+.pt-height-px-40 {
+  height: 40px !important;
+}
+
+.pt-max-height-px-40 {
+  max-height: 40px !important;
+}
+
+.pt-height-px-50 {
+  height: 50px !important;
+}
+
+.pt-max-height-px-50 {
+  max-height: 50px !important;
+}
+
+.pt-height-px-88 {
+  height: 88px !important;
+}
+
+.pt-max-height-px-88 {
+  max-height: 88px !important;
+}
+
+.pt-height-px-100 {
+  height: 100px !important;
+}
+
+.pt-max-height-px-100 {
+  max-height: 100px !important;
+}
+
+.pt-height-px-150 {
+  height: 150px !important;
+}
+
+.pt-max-height-px-150 {
+  max-height: 150px !important;
+}
+
+.pt-height-px-auto {
+  height: auto !important;
+}
+
+.pt-max-height-px-auto {
+  max-height: auto !important;
+}
+
+.pt-font-size-px-1em {
+  font-size: 1em !important;
+}
+
+.pt-font-size-px-14 {
+  font-size: 14px !important;
+}
+
+.pt-font-size-px-16 {
+  font-size: 16px !important;
+}
+
+.pt-font-size-px-12 {
+  font-size: 12px !important;
+}
+
+.pt-font-size-px-18 {
+  font-size: 18px !important;
+}
+
+.pt-font-size-px-24 {
+  font-size: 24px !important;
+}
+
+.pt-font-size-px-17 {
+  font-size: 17px !important;
+}
+
+.pt-font-size-px-30 {
+  font-size: 30px !important;
+}
+
+.pt-font-size-px-32 {
+  font-size: 32px !important;
+}
+
+.pt-font-size-px-36 {
+  font-size: 36px !important;
+}
+
+.pt-font-size-px-20 {
+  font-size: 20px !important;
+}
+
+.pt-font-size-px-22 {
+  font-size: 22px !important;
+}
+
+.pt-font-size-px-26 {
+  font-size: 26px !important;
+}
+
+.pt-font-size-px-25 {
+  font-size: 25px !important;
+}
+
+.pt-font-size-px-40 {
+  font-size: 40px !important;
+}
+
+.pt-font-size-px-48 {
+  font-size: 48px !important;
+}
+
+.pt-font-size-px-50 {
+  font-size: 50px !important;
+}
+
+.pt-border-radius-px-3 {
+  border-radius: 3px !important;
+}
+
+.pt-border-radius-px-30 {
+  border-radius: 30px !important;
+}
+
+.email-template {
+  padding-bottom: 15px !important;
+}
+.email-template .nav-tabs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 15px;
+  border: unset;
+}
+.email-template .nav-tabs .nav-item {
+  width: 130px;
+  text-align: center;
+}
+.email-template .nav-tabs .nav-item .nav-link {
+  color: #0077B6;
+  width: 100%;
+}
+.email-template .nav-tabs .nav-item .nav-link.active {
+  background-color: #0077B6;
+  color: #ffffff;
+  border-radius: 0;
+}
+.email-template .tab-content {
+  padding: 0px 15px;
+}
+
+.tab-main-common.tab-content .accordion-item {
+  border-color: #0077B6;
+}
+.tab-main-common.tab-content .accordion-item .accordion-header .accordion-button {
+  background-color: #0077B6;
+  color: #ffffff;
+}
+.tab-main-common.tab-content .accordion-item .accordion-header .accordion-button.collapsed:after {
+  content: "";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  background-image: unset;
+  font-size: 24px;
+  height: unset;
+  width: unset;
+  transform: rotate(-90deg);
+}
+.tab-main-common.tab-content .accordion-item .accordion-header .accordion-button:after {
+  content: "";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  background-image: unset;
+  font-size: 24px;
+  height: unset;
+  width: unset;
+  transform: rotate(0deg);
+}
+.tab-main-common.tab-content .accordion-item .accordion-header .form-check-input:checked {
+  background-color: #c1c1c1;
+  border-color: #c1c1c1;
+}
+.tab-main-common.tab-content .accordion-item .accordion-body textarea {
+  border: unset !important;
+}
+
+.availability-main .tab-content ul li {
+  margin: 8px 0px;
+}
+.availability-main .tab-content ul li .radio .form-check .form-check-input {
+  height: 25px;
+  width: 50px !important;
+}
+.availability-main .tab-content ul li .time .select2-container:nth-child(2) {
+  margin-right: 10px;
+}
+.availability-main .tab-content .week-selection ul {
+  list-style: none;
+}
+.availability-main .tab-content .week-selection ul li {
+  font-size: 20px;
+  font-weight: 200;
+  cursor: pointer;
+}
+.availability-main .tab-content .week-selection ul li .active {
+  color: #0077B6;
+  font-weight: 400;
+}
+.availability-main .tab-content .weekdays .text {
+  width: 80px;
+}
+
+.profile-main .profile-tabs .nav {
+  border: unset;
+}
+.profile-main .profile-tabs .nav .nav-item {
+  width: 100%;
+}
+.profile-main .profile-tabs .nav .nav-item .nav-link {
+  width: 100%;
+  text-align: left;
+  border: unset;
+  color: #868C95;
+}
+.profile-main .profile-tabs .nav .nav-item .nav-link.active {
+  color: #0077B6;
+  background-color: transparent;
+}/*# sourceMappingURL=super-admin.css.map */
