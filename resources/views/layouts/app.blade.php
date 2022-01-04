@@ -20,7 +20,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ URL::asset('assets/css/login.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('assets/scss/login.css') }}">
     
 
     @yield('css-hooks')
