@@ -15,29 +15,38 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('auth/login');
-});
-
+}); 
 Auth::routes();
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+/*---------------------------------- ADMIN ---------------------------------------*/
+// Route::group(['middleware' => ['auth', 'verified','admin']], function () { 
+Route::group(['middleware' => []], function () { 
 
-
-Route::group(['middleware' => ['auth', 'verified','admin']], function () { 
-
+	Route::get('admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin_dashboard');
 });
 
-Route::group(['middleware' => ['auth', 'verified','student']], function () { 
 
+/*---------------------------------- STUDENT ---------------------------------------*/
+// Route::group(['middleware' => ['auth', 'verified','student']], function () { 
+Route::group(['middleware' => []], function () { 
+	Route::get('student/dashboard', [App\Http\Controllers\Student\DashboardController::class, 'index'])->name('student_dashboard');
 });
 
-Route::group(['middleware' => ['auth', 'verified','tutor']], function () { 
 
+/*------------------------------------ TUTOR ---------------------------------------*/
+// Route::group(['middleware' => ['auth', 'verified','tutor']], function () { 
+Route::group(['middleware' => []], function () { 
+	Route::get('tutor/dashboard', [App\Http\Controllers\Tutor\DashboardController::class, 'index'])->name('tutor_dashboard');
 });
 
+
+/*------------------------------------ BOOKING -------------------------------------*/
 // Route::group(['middleware' => ['auth', 'verified','booking']], function () { 
 
 // });
 
+/*------------------------------------ FRONT ---------------------------------------*/
 // Route::group(['middleware' => ['auth', 'verified','front']], function () { 
 
 // });
