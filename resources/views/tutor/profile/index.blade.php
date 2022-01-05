@@ -92,10 +92,15 @@
 
                         <div class="row mb-4">
                             <div class="col-12">
-                                <div>Edit Profile</div>
+                                <div class="pt-font-size-px-18">Edit Profile</div>
 
                                 <div class="mt-5 d-flex flex-column align-items-center">
-                                    <img src="../assets/images/profile.png" class="pt-width-px-150 pt-height-px-150">
+                                    <div class="profile-img tutor">
+                                        <img src="../assets/images/profile.png" class="pt-width-px-150 pt-height-px-150">
+                                        <i class="mdi mdi-pencil edit" aria-hidden="true"></i>
+                                        <!-- <img src="../assets/images/flag.png"  /> -->
+                                    </div>
+
                                     <span class="mt-2 fw-500 pt-font-size-px-18">John Marteen</span>
                                 </div>
                             </div>
@@ -133,7 +138,9 @@
 
                                     <div class="mb-3">
                                         <label for="email" class="col-form-label p-0 mb-1">Passport <span class="pt-color-red pt-fs-16">*</span> </label>
-                                        <input type="text" placeholder="Enter monthly cost" class="form-control" name="plan-name">
+                                        <div class="file-upload-wrapper" data-text="Select your file!">
+                                            <input name="file-upload-field" type="file" class="file-upload-field" value="">
+                                        </div>
                                     </div>
                                 </div>
 
@@ -167,13 +174,58 @@
                             </div>
 
                             <div class="row d-flex justify-content-center">
-                                <button class="btn p-0 text-decoration-none common-btn pt-width-p-40" data-bs-toggle="modal" data-bs-target="#newplan">
+                                <button class="btn text-decoration-none common-btn pt-width-p-40" data-bs-toggle="modal" data-bs-target="#newplan">
                                     Profile Update
                                 </button>
                             </div>
                         </form>
                     </div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">..sdfsdf sfs dsf ds sd s.</div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="pt-font-size-px-18">Change Password</div>
+                            </div>
+                        </div>
+
+                        <form method="" action="" class="">
+                            <div class="row mb-3">
+                                <div class="col-12 col-md-6">
+                                    <div class="mb-3">
+                                        <label for="email" class="col-form-label p-0 mb-1">New Password <span class="pt-color-red pt-fs-16">*</span> </label>
+                                        <div class="position-relative">
+                                            <input id="password-field" type="password" class="form-control" name="password" value="secret">
+                                            <span toggle="#password-field" class="mdi mdi-eye-outline field-icon toggle-password"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="email" class="col-form-label p-0 mb-1">Confirm Password <span class="pt-color-red pt-fs-16">*</span> </label>
+                                        <div class="position-relative">
+                                            <input id="password-field" type="password" class="form-control" name="password" value="secret">
+                                            <span toggle="#password-field" class="mdi mdi-eye-outline field-icon toggle-password"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="">
+                                        <button class="btn text-decoration-none common-btn" data-bs-toggle="modal" data-bs-target="#newplan">
+                                            Change Password
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-12 col-md-6">
+
+
+
+                                </div>
+                            </div>
+
+
+                        </form>
+
+                    </div>
                 </div>
             </div>
         </div>
