@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .pt-box-primary {
   box-shadow: #0077B6 !important;
 }
@@ -59,23 +60,23 @@
 }
 
 .pt-box-black {
-  box-shadow: #000000 !important;
+  box-shadow: #252a32 !important;
 }
 
 .pt-color-black {
-  color: #000000 !important;
+  color: #252a32 !important;
 }
 
 .pt-bg-black {
-  background-color: #000000 !important;
+  background-color: #252a32 !important;
 }
 
 .pt-fill-black {
-  fill: #000000 !important;
+  fill: #252a32 !important;
 }
 
 .pt-border-color-black {
-  border-color: #000000 !important;
+  border-color: #252a32 !important;
 }
 
 .pt-box-grey {
@@ -106,6 +107,30 @@
   min-width: 0 !important;
 }
 
+.pt-width-p-30 {
+  width: 30% !important;
+}
+
+.pt-min-width-p-30 {
+  min-width: 30% !important;
+}
+
+.pt-width-p-40 {
+  width: 40% !important;
+}
+
+.pt-min-width-p-40 {
+  min-width: 40% !important;
+}
+
+.pt-width-p-60 {
+  width: 60% !important;
+}
+
+.pt-min-width-p-60 {
+  min-width: 60% !important;
+}
+
 .pt-width-p-80 {
   width: 80% !important;
 }
@@ -122,6 +147,14 @@
   min-width: 100% !important;
 }
 
+.pt-width-p-auto {
+  width: auto !important;
+}
+
+.pt-min-width-p-auto {
+  min-width: auto !important;
+}
+
 .pt-width-px-0 {
   width: 0px !important;
 }
@@ -132,6 +165,18 @@
 
 .pt-min-width-px-0 {
   min-width: 0px !important;
+}
+
+.pt-width-px-40 {
+  width: 40px !important;
+}
+
+.pt-flex-basis-px-40 {
+  flex-basis: 40px !important;
+}
+
+.pt-min-width-px-40 {
+  min-width: 40px !important;
 }
 
 .pt-width-px-50 {
@@ -146,6 +191,18 @@
   min-width: 50px !important;
 }
 
+.pt-width-px-88 {
+  width: 88px !important;
+}
+
+.pt-flex-basis-px-88 {
+  flex-basis: 88px !important;
+}
+
+.pt-min-width-px-88 {
+  min-width: 88px !important;
+}
+
 .pt-width-px-100 {
   width: 100px !important;
 }
@@ -158,8 +215,44 @@
   min-width: 100px !important;
 }
 
+.pt-width-px-150 {
+  width: 150px !important;
+}
+
+.pt-flex-basis-px-150 {
+  flex-basis: 150px !important;
+}
+
+.pt-min-width-px-150 {
+  min-width: 150px !important;
+}
+
+.pt-width-px-auto {
+  width: auto !important;
+}
+
+.pt-flex-basis-px-auto {
+  flex-basis: auto !important;
+}
+
+.pt-min-width-px-auto {
+  min-width: auto !important;
+}
+
 .pt-height-p-0 {
   height: 0 !important;
+}
+
+.pt-height-p-30 {
+  height: 30% !important;
+}
+
+.pt-height-p-40 {
+  height: 40% !important;
+}
+
+.pt-height-p-60 {
+  height: 60% !important;
 }
 
 .pt-height-p-80 {
@@ -170,12 +263,24 @@
   height: 100% !important;
 }
 
+.pt-height-p-auto {
+  height: auto !important;
+}
+
 .pt-height-px-0 {
   height: 0px !important;
 }
 
 .pt-max-height-px-0 {
   max-height: 0px !important;
+}
+
+.pt-height-px-40 {
+  height: 40px !important;
+}
+
+.pt-max-height-px-40 {
+  max-height: 40px !important;
 }
 
 .pt-height-px-50 {
@@ -186,12 +291,36 @@
   max-height: 50px !important;
 }
 
+.pt-height-px-88 {
+  height: 88px !important;
+}
+
+.pt-max-height-px-88 {
+  max-height: 88px !important;
+}
+
 .pt-height-px-100 {
   height: 100px !important;
 }
 
 .pt-max-height-px-100 {
   max-height: 100px !important;
+}
+
+.pt-height-px-150 {
+  height: 150px !important;
+}
+
+.pt-max-height-px-150 {
+  max-height: 150px !important;
+}
+
+.pt-height-px-auto {
+  height: auto !important;
+}
+
+.pt-max-height-px-auto {
+  max-height: auto !important;
 }
 
 .pt-font-size-px-1em {
@@ -238,6 +367,10 @@
   font-size: 20px !important;
 }
 
+.pt-font-size-px-22 {
+  font-size: 22px !important;
+}
+
 .pt-font-size-px-26 {
   font-size: 26px !important;
 }
@@ -258,16 +391,174 @@
   font-size: 50px !important;
 }
 
+.pt-border-radius-px-3 {
+  border-radius: 3px !important;
+}
+
 .pt-border-radius-px-30 {
   border-radius: 30px !important;
 }
 
-#app {
-  background-color: #ffffff;
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat/Montserrat-BlackItalic.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-BlackItalic.woff") format("woff");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat/Montserrat-BoldItalic.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-BoldItalic.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat/Montserrat-Bold.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat/Montserrat-Black.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat/Montserrat-ExtraBoldItalic.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-ExtraBoldItalic.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat/Montserrat-ExtraBold.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-ExtraBold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat/Montserrat-MediumItalic.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-MediumItalic.woff") format("woff");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat/Montserrat-Medium.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat/Montserrat-ExtraLightItalic.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-ExtraLightItalic.woff") format("woff");
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat/Montserrat-Italic.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-Italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat/Montserrat-ExtraLight.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-ExtraLight.woff") format("woff");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat/Montserrat-SemiBold.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-SemiBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat/Montserrat-LightItalic.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-LightItalic.woff") format("woff");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat/Montserrat-Light.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat/Montserrat-Regular.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat/Montserrat-ThinItalic.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-ThinItalic.woff") format("woff");
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat/Montserrat-SemiBoldItalic.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-SemiBoldItalic.woff") format("woff");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat/Montserrat-Thin.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-Thin.woff") format("woff");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-a:focus {
-  box-shadow: unset;
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat";
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #0077B6;
+  /* color of the scroll thumb */
+  border-radius: 20px;
+  /* roundness of the scroll thumb */
+}
+
+.fw-500 {
+  font-weight: 500;
+}
+
+.fw-200 {
+  font-weight: 200;
+}
+
+.box-shadow {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 4px 1px !important;
 }
 
 .common-btn {
@@ -275,35 +566,346 @@ a:focus {
   color: #ffffff !important;
   width: 100%;
   border-radius: 25px !important;
-  font-size: 20px !important;
+  font-size: 16px !important;
+  padding: 5px !important;
 }
 .common-btn:focus {
   box-shadow: unset !important;
 }
 
-input[type=text], input[type=email], input[type=password] {
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=date],
+input[type=time] {
   background-color: #ffffff !important;
   border-radius: 6px !important;
   border: 1px solid #d7d7d76e !important;
+  font-size: 14px;
 }
-input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
+input[type=text]:focus,
+input[type=email]:focus,
+input[type=password]:focus,
+input[type=date]:focus,
+input[type=time]:focus {
   box-shadow: unset !important;
+}
+input[type=text]::-moz-placeholder, input[type=email]::-moz-placeholder, input[type=password]::-moz-placeholder, input[type=date]::-moz-placeholder, input[type=time]::-moz-placeholder {
+  font-weight: 300;
+}
+input[type=text]:-ms-input-placeholder, input[type=email]:-ms-input-placeholder, input[type=password]:-ms-input-placeholder, input[type=date]:-ms-input-placeholder, input[type=time]:-ms-input-placeholder {
+  font-weight: 300;
+}
+input[type=text]::placeholder,
+input[type=email]::placeholder,
+input[type=password]::placeholder,
+input[type=date]::placeholder,
+input[type=time]::placeholder {
+  font-weight: 300;
+}
+
+input[type=date],
+input[type=time] {
+  width: 100%;
+  padding: 8px;
 }
 
 .select2 {
-  height: 37px;
+  height: 38px !important;
+  width: 100% !important;
 }
 .select2 .select2-selection {
-  height: 37px;
+  height: 38px !important;
   background-color: #ffffff;
   border-radius: 6px;
   border: 1px solid #d7d7d76e !important;
 }
 .select2 .select2-selection .select2-selection__rendered {
-  line-height: 37px;
+  line-height: 38px !important;
 }
-.select2 .select2-selection .select2-selection__arrow {
-  height: 37px;
+.select2 .select2-selection .select2-selection__arrow,
+.select2 .select2-selection .select2-selection__clear {
+  height: 38px !important;
+}
+
+.modal .modal-dialog .modal-content {
+  border-radius: 8px;
+}
+.modal .modal-dialog .modal-header,
+.modal .modal-dialog .modal-footer {
+  border: unset;
+}
+.modal .modal-dialog .modal-header button {
+  padding: 0;
+  border: unset;
+  background: transparent;
+}
+.modal .modal-dialog .modal-footer {
+  padding-top: 0;
+}
+
+#pt .user-main {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+}
+#pt .user-main #sidebar {
+  width: 250px;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  transition: all 0.5s;
+}
+#pt .user-main #sidebar.toggled {
+  left: -250px;
+  overflow: hidden;
+}
+#pt .user-main #sidebar .logo {
+  display: flex;
+  justify-content: center;
+  height: 60px;
+  align-items: center;
+}
+#pt .user-main #sidebar .logo img {
+  width: 200px;
+}
+#pt .user-main #sidebar ul.menus {
+  list-style: none;
+  padding: 20px 10px;
+  height: calc(100vh - 60px);
+  overflow-y: scroll;
+}
+#pt .user-main #sidebar ul.menus li.menu-item a {
+  display: block;
+  padding: 8px 20px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: #868C95;
+}
+#pt .user-main #sidebar ul.menus li.menu-item a i {
+  font-size: 24px;
+  line-height: 1;
+}
+#pt .user-main #sidebar ul.menus li.menu-item a span {
+  padding-left: 10px;
+  font-size: 20px;
+}
+#pt .user-main #sidebar ul.menus li.menu-item.active > .menu-link {
+  background-color: #0077B6;
+  color: #ffffff;
+  border-radius: 50px;
+}
+#pt .user-main #sidebar ul.menus li.menu-item.active .child-active > .menu-link {
+  color: #0077B6;
+}
+#pt .user-main #sidebar ul.menus ul.child-menu {
+  padding: 10px 0px 10px 15px;
+  list-style: none;
+}
+#pt .user-main #sidebar ul.menus ul.child-menu .menu-item .menu-link span {
+  font-size: 16px !important;
+}
+#pt .user-main .right-content {
+  background-color: #E8EDF3;
+  width: calc(100% - 250px);
+  height: 100vh;
+  margin-left: 250px;
+  transition: all 0.5s;
+}
+#pt .user-main .right-content.toggled {
+  width: 100%;
+  margin-left: 0;
+}
+#pt .header-main {
+  height: 60px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+}
+#pt .header-main .left-side #toggle_menu {
+  font-size: 28px;
+  color: #868C95;
+  padding: 5px;
+  cursor: pointer;
+}
+#pt .header-main .left-side .user-label {
+  padding-left: 5px;
+  font-size: 20px;
+  line-height: 1;
+  color: #000000;
+}
+#pt .header-main .right-side .notification-icon {
+  font-size: 22px;
+  color: #808080;
+  padding: 5px;
+  margin-right: 8px;
+}
+#pt .header-main .right-side .user-info span {
+  padding: 8px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #0077B6;
+  border: 2px solid rgba(0, 119, 182, 0.1);
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#pt .header-main .right-side .user-info label {
+  color: #0077B6;
+  font-weight: 600;
+  padding-left: 10px;
+}
+#pt .header-main .right-side .user-info i {
+  color: #0077B6;
+  font-size: 22px;
+}
+#pt .pt-btn-blue {
+  background-color: #0077B6;
+  color: #ffffff;
+}
+#pt .pt-btn-blue i {
+  font-size: 24px;
+}
+#pt .page-head {
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+#pt .page-head .page-title {
+  font-size: 20px;
+  color: #000000;
+}
+#pt .page-head .page-title i {
+  color: #0077B6;
+  font-size: 24px;
+}
+#pt .student-list-page {
+  padding: 15px;
+}
+#pt .student-list-page .student-list,
+#pt .student-list-page .box-main {
+  border-radius: 8px;
+}
+#pt .main-top .date-filter {
+  position: relative;
+}
+#pt .main-top .date-filter:before {
+  content: "";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: black;
+  position: absolute;
+  left: -35px;
+  top: 0px;
+  padding: 5px 12px;
+  background-color: #f8f9fa;
+  border: 1px solid #d7d7d76e !important;
+  height: 35px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+#pt .main-top .date-filter input {
+  color: #707070;
+}
+
+.student-list {
+  padding: 0 !important;
+}
+
+.dataTables_wrapper {
+  font-weight: 300;
+  padding-bottom: 10px;
+  font-size: 14px;
+}
+.dataTables_wrapper .row:nth-child(2) .table {
+  margin: 0 !important;
+}
+.dataTables_wrapper .row:nth-child(2) .table thead tr {
+  text-align: center;
+}
+.dataTables_wrapper .row:nth-child(2) .table thead tr th {
+  font-weight: 300;
+  border-right: 1px solid;
+  border-color: #666c7224;
+  padding-right: 0.5rem !important;
+  border-bottom: unset;
+  padding-top: 15px !important;
+  padding-bottom: 17px !important;
+}
+.dataTables_wrapper .row:nth-child(2) .table thead tr th:last-child {
+  border-right: unset;
+}
+.dataTables_wrapper .row:nth-child(2) .table thead tr th:before, .dataTables_wrapper .row:nth-child(2) .table thead tr th:after {
+  content: "";
+}
+.dataTables_wrapper .row:nth-child(2) .table tbody {
+  border-top: unset;
+}
+.dataTables_wrapper .row:nth-child(2) .table tbody .odd {
+  --bs-table-accent-bg: unset;
+  --bs-table-striped-bg: $colrWhite;
+}
+.dataTables_wrapper .row:nth-child(2) .table tbody tr,
+.dataTables_wrapper .row:nth-child(2) .table tbody td {
+  border-color: #666c7224;
+  text-align: center;
+}
+.dataTables_wrapper .row:nth-child(2) .table tbody td {
+  border-right: 1px solid;
+  border-color: #666c7224;
+  vertical-align: middle;
+}
+.dataTables_wrapper .row:nth-child(2) .table tbody td:last-child {
+  border-right: unset;
+}
+.dataTables_wrapper .row:nth-child(2) .table tbody td .form-check {
+  display: flex;
+  justify-content: center;
+}
+.dataTables_wrapper .row:last-child {
+  margin-top: 10px;
+  align-items: center !important;
+}
+.dataTables_wrapper .row:last-child .dataTables_paginate .pagination {
+  justify-content: center !important;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.dataTables_wrapper .row:last-child .dataTables_paginate .pagination li {
+  margin: 0px 5px;
+}
+.dataTables_wrapper .row:last-child .dataTables_paginate .pagination li a {
+  border-radius: 6px;
+  border: unset;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 4px 1px !important;
+  color: #1377b6;
+}
+.dataTables_wrapper .row:last-child .dataTables_paginate .pagination li.active a {
+  background-color: #1377b6;
+  color: white;
+}
+.dataTables_wrapper .row:last-child .dataTables_length {
+  display: flex;
+  justify-content: center;
+}
+.dataTables_wrapper .row:last-child .dataTables_length label {
+  display: flex;
+  align-items: center;
+  width: 40%;
+}
+.dataTables_wrapper .row:last-child .dataTables_length label select.form-select {
+  height: 40px;
+  padding-right: 25px;
+  width: 38%;
+  margin-right: 10px;
 }
 
 .login-main {
@@ -314,7 +916,7 @@ input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
 }
 .login-main .navbar .collapse .navbar-nav li .nav-link {
   font-size: 16px;
-  color: #000000;
+  color: #252a32;
 }
 .login-main .navbar .collapse .navbar-nav li .nav-link.active {
   color: #0077B6;
