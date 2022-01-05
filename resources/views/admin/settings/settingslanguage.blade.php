@@ -17,7 +17,7 @@
                     <div class="row mb-3">
                         <label for="email" class="col-md-4 col-form-label">All language <span class="pt-color-red pt-fs-16">*</span> </label>
                         <div class="col-md-7 p-0">
-                            <select class="select2 select2-hidden-accessible" name="state">
+                            <select class="select2 all_language select2-hidden-accessible" name="state">
                                 <option value="AL">Alabama</option>
                                 <option value="WY">Wyoming</option>
                             </select>

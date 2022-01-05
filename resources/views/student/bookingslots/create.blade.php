@@ -29,11 +29,22 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-10">
+                                        <label for="tutor_id">Language</label>
+                                        <select class="form-control select2 language_id" name="language_id">
+                                            <option value=""> Select Language</option>
+                                            @foreach($languages as $language)
+                                                <option value="{{$language->id}}">{{$language->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-10">
                                         <label for="tutor_id"> Tutor</label>
                                         <select class="form-control select2 tutor_id" name="tutor_id">
                                             <option value=""> Select Tutor</option>
                                         </select>
                                     </div>
+                                    
                                     <div class="form-group col-10">
                                         <label for="date_time"> Date & Time</label>
                                         <input type="datetime-local" class="form-control" name="date_time">
@@ -58,7 +69,8 @@
                         url: "{{route('tutor.select')}}",
                         data: {
                             '_token': $('input[name="_token"]').val(),
-                            'specialization_id': $(this).val()
+                            'specialization_id': $(this).val(),
+                            'language_id': $('.language_id').val()
                         },
                         success: function (data) {
                             $(".tutor_id").html("");
@@ -67,7 +79,27 @@
                         }
                     });
                 }
-            })
+            });
+
+            $(document).on('change', '.language_id', function () {
+                if ($(this).val() != null) {
+                    $.ajax({
+                        type: "GET",
+                        url: "{{route('tutor.select')}}",
+                        data: {
+                            '_token': $('input[name="_token"]').val(),
+                            'language_id': $(this).val(),
+                            'specialization_id': $('.specialization_id').val()
+                        },
+                        success: function (data) {
+                            $(".tutor_id").html("");
+
+                            $(".tutor_id").html(data);
+                        }
+                    });
+                }
+            });
+
             $(".bookingslotFrm").validate({
                 rules: {
                     tutor_id: {
@@ -76,11 +108,17 @@
                     specialization_id: {
                         required: true
                     },
+                    language_id: {
+                        required: true
+                    },
                     date_time: {
                         required: true
                     },
                 },
                 messages: {
+                    language_id: {
+                        required: "Language is required"
+                    },
                     tutor_id: {
                         required: "Tutor is required"
                     },

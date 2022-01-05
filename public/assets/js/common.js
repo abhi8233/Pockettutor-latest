@@ -30,8 +30,20 @@ $(document).ready(function () {
     }
   });
 
-  $(".select2").select2({
-    placeholder: "Select language",
+  $(".select2.specialization_id").select2({
+    placeholder: "Select Specialization",
+    allowClear: true
+  });
+  $(".select2.language_id").select2({
+    placeholder: "Select Language",
+    allowClear: true
+  });
+  $(".select2.tutor_id").select2({
+    placeholder: "Select Tutor",
+    allowClear: true
+  });
+  $(".select2.all_language").select2({
+    placeholder: "Select Language",
     allowClear: true
   });
 
