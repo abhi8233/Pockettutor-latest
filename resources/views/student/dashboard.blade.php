@@ -11,69 +11,32 @@
             <input type="text" class="form-control" id="stu_list_daterange" />
         </div>
     </div>
+    <div class="card-tools">
+        <a class="btn btn-success" href="{{route('book-slot.create')}}"><i class="fas fa-plus"></i> &nbsp; Booking Slot</a>
+    </div>
     <div class="student-list bg-white mt-4">
         <table id="student_list" class="table table-striped" style="width:100%">
             <thead>
-                <tr>
-                    <th>Sr. No</th>
-                    <th>Tutor Name</th>
-                    <th>Booking Date & Time</th>
-                    <th>Meeting Link</th>
-                    <th>Meeting minutes</th>
-                    <th>Status</th>
-                </tr>
+            <tr>
+                <th>Tutor Name</th>
+                <th>Date Time</th>
+                <th>Specialization</th>
+                <th>Google Meet Link</th>
+
+            </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>15-12-2021 11:30 AM</td>
-                    <td>www.abcmeeting.com/Lorem</td>
-                    <td>20min</td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>15-12-2021 11:30 AM</td>
-                    <td>www.abcmeeting.com/Lorem</td>
-                    <td>20min</td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>15-12-2021 11:30 AM</td>
-                    <td>www.abcmeeting.com/Lorem</td>
-                    <td>20min</td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>15-12-2021 11:30 AM</td>
-                    <td>www.abcmeeting.com/Lorem</td>
-                    <td>20min</td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>15-12-2021 11:30 AM</td>
-                    <td>www.abcmeeting.com/Lorem</td>
-                    <td>20min</td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>15-12-2021 11:30 AM</td>
-                    <td>www.abcmeeting.com/Lorem</td>
-                    <td>20min</td>
-                    <td>Pending</td>    
-                </tr>
+            @foreach($bookingslots as $bookingslot)
+            <tr>
+                <td>{{$bookingslot->tutor->first_name}}</td>
+                <td>{{$bookingslot->date_time}}</td>
+                <td>{{$bookingslot->specialization_id}}</td>
+                <td>{{$bookingslot->google_meet_link}}</td>
 
+            </tr>
+            @endforeach
             </tbody>
+            
         </table>
     </div>
 </div>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.studentApp')
 
 @section('content')
     <br/>
@@ -11,8 +11,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Booking slot</h3>
                             <div class="card-tools">
-                                <a class="btn btn-success" href="{{route('bookingslot.index')}}"><i
-                                        class="fas fa-eye"></i> &nbsp; View Booking Slot</a>
+                                <a class="btn btn-success" href="{{route('home')}}"><i class="fas fa-eye"></i> &nbsp; View Booking Slot</a>
                             </div>
                         </div>
                         <form class="bookingslotFrm">
@@ -29,7 +28,6 @@
                                             @endforeach
                                         </select>
                                     </div>
-
                                     <div class="form-group col-10">
                                         <label for="tutor_id"> Tutor</label>
                                         <select class="form-control select2 tutor_id" name="tutor_id">
@@ -40,21 +38,16 @@
                                         <label for="date_time"> Date & Time</label>
                                         <input type="datetime-local" class="form-control" name="date_time">
                                     </div>
-
                                     <div class="form-group col-10">
                                         <button type="submit" class="btn btn-primary submit">Submit</button>
                                     </div>
                                 </div>
-
                             </div>
                         </form>
                     </div>
-                    <!-- /.card-body -->
                 </div>
             </div>
         </div>
-
-
     </section>
     <script>
         $(document).ready(function () {
@@ -68,47 +61,36 @@
                             'specialization_id': $(this).val()
                         },
                         success: function (data) {
-                            // console.log(data);
                             $(".tutor_id").html("");
 
                             $(".tutor_id").html(data);
-
                         }
                     });
                 }
             })
             $(".bookingslotFrm").validate({
-                rules:
-                    {
-                        tutor_id:
-                            {
-                                required: true
-                            },
-                        specialization_id:
-                            {
-                                required: true
-                            },
-                        date_time:
-                            {
-                                required: true
-                            },
+                rules: {
+                    tutor_id: {
+                        required: true
                     },
-                messages:
-                    {
-                        tutor_id:
-                            {
-                                required: "Tutor is required"
-                            },
-                        specialization_id:
-                            {
-                                required: "Taluka is required"
-                            },
-                        date_time:
-                            {
-                                required: "Date Time is required"
-                            },
-
+                    specialization_id: {
+                        required: true
                     },
+                    date_time: {
+                        required: true
+                    },
+                },
+                messages: {
+                    tutor_id: {
+                        required: "Tutor is required"
+                    },
+                    specialization_id: {
+                        required: "Taluka is required"
+                    },
+                    date_time: {
+                        required: "Date Time is required"
+                    },
+                },
                 highlight: function (element) {
                     $(element).closest('.form-group').addClass('has-error');
                     $('.help-block').css('color', 'red');
@@ -128,44 +110,39 @@
             });
 
             $(".submit").click(function (event) {
-                // alert('he');
                 event.preventDefault();
                 if ($(".bookingslotFrm").valid()) {
                     $.ajax({
                         type: "POST",
-                        url: "{{route('bookingslot.store')}}",
+                        url: "{{route('book-slot.store')}}",
                         data: new FormData($('.bookingslotFrm')[0]),
                         processData: false,
                         contentType: false,
 
                         success: function (data) {
                             if (data.status === 'success') {
-                                swal({
+                                /*swal({
                                     title: "Success",
                                     text: "Booking Slot Successfully",
                                     type: "success"
                                 }, function () {
-                                    window.location ="{{route('bookingslot.index')}}"
-                                });
-
+                                    window.location ="{{route('book-slot.index')}}"
+                                });*/
+                                window.location ="{{route('home')}}"
                             } else if (data.status === 'error') {
-                                swal({
+                                /*swal({
                                     title: "Error",
                                     text: "Opps..! Something Went to Wrong.",
                                     type: "error"
-                                });
-
+                                });*/
+                                alert("Opps..! Something Went to Wrong.")
                             }
-
-
                         }
                     });
                 } else {
                     event.preventDefault();
                 }
             });
-
         });
-
     </script>
 @endsection

@@ -58,7 +58,7 @@ Route::group(['middleware' => []], function () {
 });
 
 Route::resource('book-slot', 'App\Http\Controllers\Booking\BookingController');
-Route::get('tutor/select', 'App\Http\Controllers\Booking\BookingSlotController@select')->name('tutor.select');
+Route::get('tutor/select', 'App\Http\Controllers\Booking\BookingController@select')->name('tutor.select');
 /*------------------------------------ BOOKING -------------------------------------*/
 /*Route::group(['middleware' => ['auth', 'verified','booking']], function () { 
 	

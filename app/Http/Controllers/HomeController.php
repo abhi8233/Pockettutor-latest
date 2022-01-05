@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use \App\Models\User;
+use App\Models\User;
+use App\Models\Bookings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,7 +29,8 @@ class HomeController extends Controller
         $user=Auth::user();
 
         if ($user->role == 'Student') {
-            return view('student.dashboard');
+            $bookingslots= Bookings::orderBy('id','desc')->get();
+            return view('student.dashboard',compact('bookingslots'));
         }else{
             return view('home');
         }
