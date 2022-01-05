@@ -108,11 +108,17 @@
                     specialization_id: {
                         required: true
                     },
+                    language_id: {
+                        required: true
+                    },
                     date_time: {
                         required: true
                     },
                 },
                 messages: {
+                    language_id: {
+                        required: "Language is required"
+                    },
                     tutor_id: {
                         required: "Tutor is required"
                     },

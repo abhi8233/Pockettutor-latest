@@ -46,6 +46,7 @@ class BookingController extends Controller
         $bookingslot=new Bookings;
         $bookingslot->tutor_id= $request->tutor_id;
         $bookingslot->specialization_id= $request->specialization_id;
+        $bookingslot->language_id= $request->language_id;
         $bookingslot->date_time= $request->date_time;
         $bookingslot->user_id= Auth::user()->id;
         $bookingslot->save();
