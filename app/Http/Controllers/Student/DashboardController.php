@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 
+use App\Models\State;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -25,5 +26,12 @@ class DashboardController extends Controller
     public function index()
     {
         return view('student/dashboard');
+    }
+
+    public function getState(Request $request)
+    {
+        $data['states'] = State::where("country_id",$request->country_id)
+                    ->get(["name","id"]);
+        return response()->json($data);
     }
 }
