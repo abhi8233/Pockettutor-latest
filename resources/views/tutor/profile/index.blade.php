@@ -4,7 +4,7 @@
 <div class="student-list-page main-top">
     <div class="page-head px-3 py-2 d-flex justify-content-between align-items-center">
         <label class="page-title d-flex align-items-center">
-            <i class="mdi mdi-account-multiple-outline" aria-hidden="true"></i>
+            <i class="mdi mdi-account-outline" aria-hidden="true"></i>
             <span class="ps-1">Profile</span>
         </label>
         <!-- <div class="date-filter">
@@ -14,23 +14,23 @@
 
     <div class="row no-gutters mt-4 profile-main">
         <div class="col-12 col-md-3">
-            <div class="box-main bg-white p-3 pt-height-p-100 profile-tabs">
+            <div class="box-main bg-white p-3 pt-height-p-100 profile-tabs pe-0 ps-0">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
-                            <i class="mdi mdi-view-dashboard-outline" aria-hidden="true"></i>
+                            <i class="mdi mdi-account-outline" aria-hidden="true"></i>
                             <span>Profile</span>
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
-                            <i class="mdi mdi-account-group-outline" aria-hidden="true"></i>
+                            <i class="mdi mdi-account-edit-outline" aria-hidden="true"></i>
                             <span>Edit Profile</span>
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">
-                            <i class="mdi mdi-account-group-outline" aria-hidden="true"></i>
+                            <i class="mdi mdi-lock-outline" aria-hidden="true"></i>
                             <span>Change Password</span>
                         </button>
                     </li>
@@ -46,11 +46,11 @@
 
                         <div class="row mb-4">
                             <div class="col-12">
-                                <div>View Profile</div>
+                                <div class="pt-font-size-px-18">View Profile</div>
 
                                 <div class="mt-5 d-flex flex-column align-items-center">
                                     <img src="../assets/images/profile.png" class="pt-width-px-150 pt-height-px-150">
-                                    <span class="mt-2 fw-500">John Marteen</span>
+                                    <span class="mt-2 fw-500 pt-font-size-px-18">John Marteen</span>
                                 </div>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
 
                                 <div class="mt-5 d-flex flex-column align-items-center">
                                     <img src="../assets/images/profile.png" class="pt-width-px-150 pt-height-px-150">
-                                    <span class="mt-2 fw-500">John Marteen</span>
+                                    <span class="mt-2 fw-500 pt-font-size-px-18">John Marteen</span>
                                 </div>
                             </div>
                         </div>
