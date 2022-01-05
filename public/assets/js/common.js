@@ -15,19 +15,19 @@ $(document).ready(function () {
   });
   $('#student_list').DataTable({
     "dom": "<'row'<'col-sm-12 col-md-6'><'col-sm-12 col-md-6'>>" +
-    "<'row'<'col-sm-12'tr>>" +
-    "<'row'<'col-sm-12 col-md-6'p><'col-sm-12 col-md-6 float-right'l>>",
-//     pagingType: 'input',
-//  pageLength: 5,
- language: {
- oPaginate: {
-   sNext: '<i class="fa fa-chevron-right"></i>',
-   sPrevious: '<i class="fa fa-chevron-left"></i>',
-   sFirst: '<i class="fa fa-step-backward"></i>',
-   sLast: '<i class="fa fa-step-forward"></i>'
-   },
-   "lengthMenu":     "_MENU_ Items per page",
-   }  
+      "<'row'<'col-sm-12'tr>>" +
+      "<'row'<'col-sm-12 col-md-6'p><'col-sm-12 col-md-6 float-right'l>>",
+    //     pagingType: 'input',
+    //  pageLength: 5,
+    language: {
+      oPaginate: {
+        sNext: '<i class="fa fa-chevron-right"></i>',
+        sPrevious: '<i class="fa fa-chevron-left"></i>',
+        sFirst: '<i class="fa fa-step-backward"></i>',
+        sLast: '<i class="fa fa-step-forward"></i>'
+      },
+      "lengthMenu": "_MENU_ Items per page",
+    }
   });
 
   $(".select2").select2({
@@ -46,21 +46,36 @@ $(document).ready(function () {
   // setDefaultActive()
 });
 
-$(document).ready(function(){
-  var fullpath =window.location.pathname;
-  var filename=fullpath.replace(/^.*[\\\/]/, '');
-  var subfilename=fullpath.replace(/^.*[\\\/]/, '');
-  
+$(document).ready(function () {
+  var fullpath = window.location.pathname;
+  var filename = fullpath.replace(/^.*[\\\/]/, '');
+  var subfilename = fullpath.replace(/^.*[\\\/]/, '');
+
   //alert(filename);
 
-  
-  var submenuLink=$('.child-menu .menu-item a[href="' + subfilename + '"]'); 
+
+  var submenuLink = $('.child-menu .menu-item a[href="' + subfilename + '"]');
   submenuLink.parent().addClass("child-active");
   submenuLink.parent().parent().parent().addClass("active");
 
   // var currentLink=$('.perent-menu.menu-item.parent a[href="' + filename + '"]'); 
   // currentLink.parent().addClass("active");
-  
+
+  $("form").on("change", ".file-upload-field", function () {
+    $(this).parent(".file-upload-wrapper").attr("data-text",
+      $(this).val().replace(/.*(\/|\\)/, ''));
+  });
+
+  $(".toggle-password").click(function () {
+
+    $(this).toggleClass("mdi-eye-remove-outline");
+    var input = $($(this).attr("toggle"));
+    if (input.attr("type") == "password") {
+      input.attr("type", "text");
+    } else {
+      input.attr("type", "password");
+    }
+  });
 })
 
 // Booking
@@ -74,3 +89,4 @@ $(".language").select2({
   placeholder: "Select Language",
   allowClear: true
 });
+

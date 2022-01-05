@@ -1,0 +1,26 @@
+@import "variable";
+
+.profile-main {
+    .profile-contents {
+        .profile-img {
+            &.tutor {
+                position: relative;
+                .edit {
+                    position: absolute;
+                    bottom: 25px;
+                    right: -8px;
+                    font-size: 20px;
+                    background-color: $colorPrimary;
+                    border-radius: 50%;
+                    height: 30px;
+                    width: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: $colorWhite;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
