@@ -10,7 +10,7 @@
                         <div class="card-header">
                             <h3 class="card-title"> Booking Slots</h3>
                             <div class="card-tools">
-                                <a class="btn btn-success" href="{{route('bookingslot.create')}}"><i class="fas fa-plus"></i> &nbsp; Booking Slot</a>
+                                <a class="btn btn-success" href="{{route('book-slot.create')}}"><i class="fas fa-plus"></i> &nbsp; Booking Slot</a>
                             </div>
                         </div>
                         <!-- /.card-header -->

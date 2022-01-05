@@ -88,8 +88,10 @@
                             <label for="language_id" class="col-form-label p-0 mb-1">{{ __('Language') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
                             <select class="form-control language_id" name="language_id">
-                                <option> Select Language</option>
-                                
+                                <option value=""> Select Language</option>
+                                @foreach(\App\Models\Languages::all() as $language)
+                                <option value="{{$language->id}}">{{$language->name}}</option>
+                                @endforeach
                             </select>
                            
                         </div>
@@ -100,7 +102,10 @@
                             <label for="field_of_interest" class="col-form-label p-0 mb-1">{{ __('Field of Interest') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
                             <select class="form-control field_of_interest" name="field_of_interest">
-                                <option> Select Field of Interest</option>
+                                <option value=""> Select Field of Interest</option>
+                                @foreach(\App\Models\FieldInterest::All() as $field)
+                                <option value="{{$field->id}}">{{$field->name}}</option>
+                                @endforeach
                                 
                             </select>
                             
@@ -108,9 +113,11 @@
                         <div class="col-md-6">
                             <label for="country_id" class="col-form-label p-0 mb-1">{{ __('Country') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
-                            <select class="form-control country_id" name="country_id">
-                                <option> Select Country</option>
-                                
+                            <select class="form-control country_id" name="country_id" id="country_id">
+                                <option value=""> Select Country</option>
+                                @foreach(\App\Models\Country::all() as $country)
+                                    <option value="{{$country->id}}">{{$country->name}}</option>
+                                @endforeach
                             </select>
                             
                         </div>
@@ -122,8 +129,8 @@
                             <label for="state_id" class="col-form-label p-0 mb-1">{{ __('State') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
 
-                            <select class="form-control state_id" name="state_id">
-                                <option> Select State</option>
+                            <select class="form-control state_id" name="state_id" id="state_id">
+                                <option value=""> Select State</option>
 
                             </select>
                             
@@ -131,53 +138,25 @@
                     </div>
 
                     
-<div class="mb-3 subscription" style="display: block;">
+                        <div class="mb-3 subscription" style="display: block;">
                         <div class="d-flex wrapper justify-content-between">
-                                                        
-                                <input type="radio" id="option-Basic" name="subscription_id" value="1">
-                                <label for="option-Basic" class="option">
-                                    <div class="k-width-p-100">
-                                        <div class="pt-font-size-px-16">Basic</div>
-                                        <div class="pt-font-size-px-16">$44.99</div>
-                                        <div class="pt-font-size-px-14">Minutes :90</div>
-                                    </div>
-                                </label>
+                             @foreach(\App\Models\Subscription::All() as $sub)
+                             <input type="radio" id="option-Basic" name="subscription_id" value="{{$sub->id}}">
+                            <label for="option-Basic" class="option">
+                                <div class="k-width-p-100">
+                                    <div class="pt-font-size-px-16">{{$sub->plan}}</div>
+                                    <div class="pt-font-size-px-16">${{$sub->price}}</div>
+                                    <div class="pt-font-size-px-14">Minutes :{{$sub->minutes}}</div>
+                                </div>
+                            </label>
+                             @endforeach               
+                                
 
-                                                        
-                                <input type="radio" id="option-Plus" name="subscription_id" value="2">
-                                <label for="option-Plus" class="option">
-                                    <div class="k-width-p-100">
-                                        <div class="pt-font-size-px-16">Plus</div>
-                                        <div class="pt-font-size-px-16">$74.99</div>
-                                        <div class="pt-font-size-px-14">Minutes :180</div>
-                                    </div>
-                                </label>
-
-                                                        
-                                <input type="radio" id="option-Premium" name="subscription_id" value="3">
-                                <label for="option-Premium" class="option">
-                                    <div class="k-width-p-100">
-                                        <div class="pt-font-size-px-16">Premium</div>
-                                        <div class="pt-font-size-px-16">$114.99</div>
-                                        <div class="pt-font-size-px-14">Minutes :300</div>
-                                    </div>
-                                </label>
-
-                                                        
-                                <input type="radio" id="option-Mentor" name="subscription_id" value="4">
-                                <label for="option-Mentor" class="option">
-                                    <div class="k-width-p-100">
-                                        <div class="pt-font-size-px-16">Mentor</div>
-                                        <div class="pt-font-size-px-16">$299.99</div>
-                                        <div class="pt-font-size-px-14">Minutes :900</div>
-                                    </div>
-                                </label>
-
-                                                    </div>
+                        </div>
                     </div>
 
                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                         <label class="form-check-label" for="flexCheckDefault">
                             Accept <span class="pt-color-primary">Terms & Conditions</span> and <span class="pt-color-primary">Privacy Policy</span>
                         </label>
@@ -229,4 +208,26 @@
         });
     })
 </script>
+<script>
+$(document).ready(function() {
+    $('#country_id').on('change', function() {
+    var country_id = this.value;
+    $.ajax({
+        url:"{{url('get-states')}}",
+        type: "POST",
+        data: {
+        country_id: country_id,
+        _token: '{{csrf_token()}}' 
+    },
+    dataType : 'json',
+    success: function(result){
+        $.each(result.states,function(key,value){
+        $("#state_id").append('<option value="'+value.id+'">'+value.name+'</option>');
+        });
+        }
+    });
+    });
+});
+</script>
+
 @endpush
