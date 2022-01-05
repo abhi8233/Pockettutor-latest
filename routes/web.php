@@ -25,7 +25,7 @@ Route::post('get-states',[App\Http\Controllers\CommonController::class, 'getStat
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 /*---------------------------------- ADMIN ---------------------------------------*/
 // Route::group(['middleware' => ['auth', 'verified','admin']], function () { 
-Route::group(['middleware' => []], function () { 
+Route::group(['middleware' => ['auth', 'verified']], function () { 
 
 	Route::get('admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin_dashboard');
 
@@ -44,19 +44,23 @@ Route::group(['middleware' => []], function () {
 
 /*---------------------------------- STUDENT ---------------------------------------*/
 // Route::group(['middleware' => ['auth', 'verified','student']], function () { 
-Route::group(['middleware' => []], function () { 
+Route::group(['middleware' => ['auth', 'verified']], function () { 
 
 	Route::get('student/dashboard', [App\Http\Controllers\Student\DashboardController::class, 'index'])->name('student_dashboard');
 
 	Route::get('student/feedback', [App\Http\Controllers\Student\FeedbackController::class, 'index'])->name('student_feedback');
 
 	Route::get('student/plan', [App\Http\Controllers\Student\PlanController::class, 'index'])->name('student_plan');
+
+	Route::resource('book-slot', 'App\Http\Controllers\Booking\BookingController');
+	Route::get('tutor/select', 'App\Http\Controllers\Booking\BookingController@selectedSpecializationTutor')->name('tutor.select');
+	
 });
 
 
 /*------------------------------------ TUTOR ---------------------------------------*/
 // Route::group(['middleware' => ['auth', 'verified','tutor']], function () { 
-Route::group(['middleware' => []], function () { 
+Route::group(['middleware' => ['auth', 'verified']], function () { 
 
 	Route::get('tutor/dashboard', [App\Http\Controllers\Tutor\DashboardController::class, 'index'])->name('tutor_dashboard');
 
@@ -65,8 +69,7 @@ Route::group(['middleware' => []], function () {
 	Route::get('tutor/profile', [App\Http\Controllers\Tutor\ProfileController::class, 'index'])->name('tutor_profile');
 });
 
-Route::resource('book-slot', 'App\Http\Controllers\Booking\BookingController');
-Route::get('tutor/select', 'App\Http\Controllers\Booking\BookingController@selectedSpecializationTutor')->name('tutor.select');
+
 /*------------------------------------ BOOKING -------------------------------------*/
 /*Route::group(['middleware' => ['auth', 'verified','booking']], function () { 
 	
