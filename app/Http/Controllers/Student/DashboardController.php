@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 
+use App\Models\Bookings;
 use App\Models\State;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class DashboardController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
     }
 
     /**
@@ -25,7 +26,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('student/dashboard');
+        $bookingslots= Bookings::orderBy('id','desc')->get();
+        return view('student/dashboard',compact('bookingslots'));
     }
 
     public function getState(Request $request)

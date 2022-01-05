@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -28,8 +31,8 @@ class RegisterController extends Controller
      * Where to redirect users after registration.
      *
      * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
+     */ 
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -39,6 +42,20 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    //create a new method that overrides default register 
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        // $this->guard()->login($user);
+        //this commented to avoid register user being auto logged in
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
     }
 
     /**
@@ -57,6 +74,7 @@ class RegisterController extends Controller
         ]);
     }
 
+    //we will maintain the default create method but you can tweak it to suit you needs
     /**
      * Create a new user instance after a valid registration.
      *
@@ -78,5 +96,13 @@ class RegisterController extends Controller
             'state_id' => $data['state_id'],
             'subscription_id'=>isset($data['subscription_id']) ? $data['subscription_id'] :null,
         ]);
+    }
+
+    //we can also play with the registered user object thrown after registration using the registered method because you returned that method or redirectPath method in register method.
+
+    protected function registered(Request $request, $user)
+    {
+        //we can send users account formation email here or anything we want with users even fire that Registered event created earlier
+
     }
 }

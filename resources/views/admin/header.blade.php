@@ -8,8 +8,26 @@
             <span class="notification-icon"><i class="mdi mdi-bell"></i></span>
             <div class="user-info d-flex align-items-center flex-wrap">
                 <span>JM</span>
-                <label>John Marteen</label>
-                <i class="mdi mdi-chevron-down"></i>
+                <label>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                 John Marteen 
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </label>
             </div>
         </div>
     </header>
