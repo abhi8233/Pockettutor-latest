@@ -26,7 +26,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $bookingslots= Bookings::with(['tutor'])->orderBy('id','desc')->get();
+        $bookingslots= Bookings::with(['tutor'])->where('user_id',auth()->user()->id)->orderBy('id','desc')->get();
         // dd($bookingslots);
         return view('student/dashboard',compact('bookingslots'));
     }
