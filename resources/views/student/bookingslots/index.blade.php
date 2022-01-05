@@ -17,26 +17,24 @@
                         <div class="card-body">
                             <table id="example" class="table table-bordered table-striped userFrm">
                                 <thead>
-                                <tr>
-                                    <th>Tutor Name</th>
-                                    <th>Date Time</th>
-                                    <th>Specialization</th>
-                                    <th>Google Meet Link</th>
-
-                                </tr>
+                                    <tr>
+                                        <th>Tutor Name</th>
+                                        <th>Date Time</th>
+                                        <th>Specialization</th>
+                                        <th>Google Meet Link</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($bookingslots as $bookingslot)
-                                <tr>
-                                    <td>{{$bookingslot->tutor->first_name}}</td>
-                                    <td>{{$bookingslot->date_time}}</td>
-                                    <td>{{$bookingslot->specialization_id}}</td>
-                                    <td>{{$bookingslot->google_meet_link}}</td>
+                                    @foreach($bookingslots as $bookingslot)
+                                    <tr>
+                                        <td>{{ $bookingslot->tutor->first_name }}</td>
+                                        <td>{{$bookingslot->date_time}}</td>
+                                        <td>{{$bookingslot->specialization_id}}</td>
+                                        <td>{{$bookingslot->google_meet_link}}</td>
 
-                                </tr>
-                                @endforeach
+                                    </tr>
+                                    @endforeach
                                 </tbody>
-
                             </table>
                         </div>
                         <!-- /.card-body -->

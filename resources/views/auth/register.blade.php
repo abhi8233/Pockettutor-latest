@@ -214,7 +214,7 @@ $(document).ready(function() {
     var country_id = this.value;
     $.ajax({
         url:"{{url('get-states')}}",
-        type: "POST",
+        type: "POST", 
         data: {
         country_id: country_id,
         _token: '{{csrf_token()}}' 

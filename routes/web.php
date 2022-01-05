@@ -14,20 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-	/*if (Auth::check()) {
-		return view('student.dashboard');
-	}else{
-		return view('auth.login');
-	}*/
 	return view('auth.login');
 }); 
 
 Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('country/select', 'App\Http\Controllers\Students\CountryController@select')->name('country.select');
-Route::post('get-states',[App\Http\Controllers\Student\DashboardController::class, 'getState']);
+Route::post('get-states',[App\Http\Controllers\CommonController::class, 'getState']);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 /*---------------------------------- ADMIN ---------------------------------------*/
 // Route::group(['middleware' => ['auth', 'verified','admin']], function () { 
 Route::group(['middleware' => []], function () { 
@@ -71,7 +66,7 @@ Route::group(['middleware' => []], function () {
 });
 
 Route::resource('book-slot', 'App\Http\Controllers\Booking\BookingController');
-Route::get('tutor/select', 'App\Http\Controllers\Booking\BookingController@select')->name('tutor.select');
+Route::get('tutor/select', 'App\Http\Controllers\Booking\BookingController@selectedSpecializationTutor')->name('tutor.select');
 /*------------------------------------ BOOKING -------------------------------------*/
 /*Route::group(['middleware' => ['auth', 'verified','booking']], function () { 
 	

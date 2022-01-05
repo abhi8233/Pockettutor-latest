@@ -7,6 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class RedirectIfAuthenticated
 {
     /**
@@ -22,8 +23,26 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
+            // if (Auth::guard($guard)->check()) {
+            //     return redirect(RouteServiceProvider::HOME);
+            // }
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                $role = Auth::user()->role; 
+
+                switch ($role) {
+                    case 'SuperAdmin':
+                        return redirect('/admin/dashboard');
+                        break;
+                    case 'Tutor':
+                        return redirect('/tutor/dashboard');
+                        break; 
+                    case 'Student':
+                        return redirect('/student/dashboard');
+                        break; 
+                    default:
+                        return redirect('/home'); 
+                        break;
+                }
             }
         }
 
