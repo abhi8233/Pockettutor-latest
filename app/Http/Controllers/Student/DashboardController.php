@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 
 use App\Models\Bookings;
-use App\Models\State;
+
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -26,14 +26,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $bookingslots= Bookings::orderBy('id','desc')->get();
+        $bookingslots= Bookings::with(['tutor'])->orderBy('id','desc')->get();
+        // dd($bookingslots);
         return view('student/dashboard',compact('bookingslots'));
     }
 
-    public function getState(Request $request)
-    {
-        $data['states'] = State::where("country_id",$request->country_id)
-                    ->get(["name","id"]);
-        return response()->json($data);
-    }
+    
 }

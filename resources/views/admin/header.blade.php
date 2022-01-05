@@ -7,12 +7,12 @@
         <div class="right-side d-flex align-items-center flex-wrap">
             <span class="notification-icon"><i class="mdi mdi-bell"></i></span>
             <div class="user-info d-flex align-items-center flex-wrap">
-                <span>JM</span>
+                <span>{{ substr(Auth::user()->first_name, 0, 1) }}{{ substr(Auth::user()->last_name, 0, 1)}}</span>
                 <label>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                 John Marteen 
+                                {{ Auth::user()->first_name }}  {{ Auth::user()->last_name }}
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

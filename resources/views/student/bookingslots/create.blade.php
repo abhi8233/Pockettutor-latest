@@ -11,7 +11,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Booking slot</h3>
                             <div class="card-tools">
-                                <a class="btn btn-success" href="{{route('home')}}"><i class="fas fa-eye"></i> &nbsp; View Booking Slot</a>
+                                <a class="btn btn-success" href="{{route('student_dashboard')}}"><i class="fas fa-eye"></i> &nbsp; View Booking Slot</a>
                             </div>
                         </div>
                         <form class="bookingslotFrm">
@@ -128,7 +128,7 @@
                                 }, function () {
                                     window.location ="{{route('book-slot.index')}}"
                                 });*/
-                                window.location ="{{route('home')}}"
+                                window.location ="{{route('student_dashboard')}}"
                             } else if (data.status === 'error') {
                                 /*swal({
                                     title: "Error",

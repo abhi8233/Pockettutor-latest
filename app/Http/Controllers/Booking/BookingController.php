@@ -17,7 +17,8 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $bookingslots= Bookings::orderBy('id','desc')->get();
+        $bookingslots= Bookings::with(['tutor'])->orderBy('id','desc')->get();
+        // dd($bookingslots);
         return view('student.bookingslots.index',compact('bookingslots'));
     }
 
@@ -29,6 +30,7 @@ class BookingController extends Controller
     public function create()
     {
         $specializations= \App\Models\Specialization::orderBy('id','desc')->get();
+
         return view('student.bookingslots.create',compact('specializations'));
     }
 
@@ -97,8 +99,10 @@ class BookingController extends Controller
     {
         //
     }
-    public function select(Request $request)
+
+    public function selectedSpecializationTutor(Request $request)
     {
+        // dd($request->specialization_id);
         $tutors = User::where(['specialization_id'=>$request->specialization_id,'role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
         $html = '<option value="">Select Tutor</option>';
         foreach ($tutors as $tutor) {

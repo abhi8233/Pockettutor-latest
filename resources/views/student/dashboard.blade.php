@@ -27,13 +27,13 @@
             </thead>
             <tbody>
             @foreach($bookingslots as $bookingslot)
-            <tr>
-                <td>{{$bookingslot->tutor->first_name}}</td>
-                <td>{{$bookingslot->date_time}}</td>
-                <td>{{$bookingslot->specialization_id}}</td>
-                <td>{{$bookingslot->google_meet_link}}</td>
+                <tr>
+                    <td>{{$bookingslot->tutor->first_name}}</td>
+                    <td>{{$bookingslot->date_time}}</td>
+                    <td>{{$bookingslot->specialization_id}}</td>
+                    <td>{{$bookingslot->google_meet_link}}</td>
 
-            </tr>
+                </tr>
             @endforeach
             </tbody>
             

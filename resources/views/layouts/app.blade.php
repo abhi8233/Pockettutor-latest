@@ -51,7 +51,7 @@
                             <!-- Right Side Of Navbar -->
                             <ul class="navbar-nav ms-auto">
                                 <!-- Authentication Links -->
-                                @guest
+                                <!-- @guest -->
                                 @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link pt-0 pb-0" href="{{ route('register') }}">{{ __('Register') }}</a>
@@ -63,7 +63,7 @@
                                     <a class="nav-link pt-0 pb-0 active" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                                 @endif
-                                @else
+                                <!-- @else
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }}
@@ -80,7 +80,7 @@
                                         </form>
                                     </div>
                                 </li>
-                                @endguest
+                                @endguest -->
                             </ul>
                         </div>
                     </div>

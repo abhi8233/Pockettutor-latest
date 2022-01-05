@@ -9,13 +9,13 @@
 
             <div class="user-info d-flex align-items-center flex-wrap">
                 <a href="profile">
-                    <span>JM</span>
+                    <span>{{ substr(Auth::user()->first_name, 0, 1) }}{{ substr(Auth::user()->last_name, 0, 1)}}</span>
                 </a>
                 <label>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                 John Marteen 
+                                {{ Auth::user()->first_name }}  {{ Auth::user()->last_name }}
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
