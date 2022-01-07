@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Subscription;
+use App\Models\Country;
+use App\Models\State;
+use App\Models\Languages;
+use App\Models\FieldInterest;
 
 class User extends Authenticatable
 {
@@ -51,4 +56,25 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function subscription()
+    {
+        return $this->belongsTo(Subscription::class);
+    }
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
+    public function languages()
+    {
+        return $this->belongsTo(Languages::class);
+    }
+    public function fieldInterest()
+    {
+        return $this->belongsTo(FieldInterest::class);
+    }
+
 }

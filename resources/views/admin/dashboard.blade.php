@@ -7,6 +7,9 @@
             <i class="mdi mdi-account-outline" aria-hidden="true"></i>
             <span class="ps-1">Student List</span>    
         </label>
+        <div>
+            <a class="p-0 text-decoration-none  btn btn-primary pr-5" href="{{ route('register') }}"><span class="m-3">Add</span></a>
+        </div>
         <div class="date-filter">
             <input type="text" class="form-control" id="stu_list_daterange" />
         </div>
@@ -28,67 +31,20 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($users as $user)
                 <tr>
-                    <td>1</td>
-                    <td>Marteen</td>
-                    <td>demo@gmail.com</td>
-                    <td>Basic</td>
-                    <td>$44.99</td>
-                    <td>90</td>
-                    <td>6</td>
-                    <td>15-12-2021</td>
-                    <td>15-12-2021</td>
-                    <td><button class="btn pt-btn-blue px-2 py-0"><i class="mdi mdi-email-send-outline"></i></button></td>
+                    <td>{{$user->id}}</td>
+                    <td>{{$user->first_name}} {{$user->last_name}}</td>
+                    <td>{{$user->email}}</td>
+                    <td>{{isset($user->subscription->plan) ? $user->subscription->plan:''}}</td>
+                    <td>${{isset($user->subscription->price) ? $user->subscription->price:''}}</td>
+                    <td>{{isset($user->subscription->minutes) ? $user->subscription->minutes:''}}</td>
+                    <td>{{isset($user->subscription->slots) ? $user->subscription->slots:''}}</td>
+                    <td>{{$user->created_at}}</td>
+                    <td>{{$user->updated_date}}</td>
+                    <td><a class="btn btn-danger" href="{{ route('user_delete',$user->id) }}">Delete</a></td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Marteen</td>
-                    <td>demo@gmail.com</td>
-                    <td>Basic</td>
-                    <td>$44.99</td>
-                    <td>90</td>
-                    <td>6</td>
-                    <td>15-12-2021</td>
-                    <td>15-12-2021</td>
-                    <td><button class="btn pt-btn-blue px-2 py-0"><i class="mdi mdi-email-send-outline"></i></button></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Marteen</td>
-                    <td>demo@gmail.com</td>
-                    <td>Basic</td>
-                    <td>$44.99</td>
-                    <td>90</td>
-                    <td>6</td>
-                    <td>15-12-2021</td>
-                    <td>15-12-2021</td>
-                    <td><button class="btn pt-btn-blue px-2 py-0"><i class="mdi mdi-email-send-outline"></i></button></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Marteen</td>
-                    <td>demo@gmail.com</td>
-                    <td>Basic</td>
-                    <td>$44.99</td>
-                    <td>90</td>
-                    <td>6</td>
-                    <td>15-12-2021</td>
-                    <td>15-12-2021</td>
-                    <td><button class="btn pt-btn-blue px-2 py-0"><i class="mdi mdi-email-send-outline"></i></button></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Marteen</td>
-                    <td>demo@gmail.com</td>
-                    <td>Basic</td>
-                    <td>$44.99</td>
-                    <td>90</td>
-                    <td>6</td>
-                    <td>15-12-2021</td>
-                    <td>15-12-2021</td>
-                    <td><button class="btn pt-btn-blue px-2 py-0"><i class="mdi mdi-email-send-outline"></i></td>
-                </tr>
-                
+                @endforeach
             </tbody>
         </table>
     </div>

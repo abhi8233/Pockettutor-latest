@@ -28,6 +28,8 @@ Route::post('get-states',[App\Http\Controllers\CommonController::class, 'getStat
 Route::group(['middleware' => ['auth', 'verified']], function () { 
 
 	Route::get('admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin_dashboard');
+	Route::get('user/delete/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'delete'])->name('user_delete');
+	
 
 	Route::get('admin/tutor', [App\Http\Controllers\Admin\TutorController::class, 'index'])->name('admin_tutor');
 
@@ -39,6 +41,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 	Route::get('admin/template', [App\Http\Controllers\Admin\SettingsController::class, 'settingstemplate'])->name('admin_template');
 	Route::get('admin/notification', [App\Http\Controllers\Admin\SettingsController::class, 'settingsnotification'])->name('admin_notification');
 	Route::get('admin/language', [App\Http\Controllers\Admin\SettingsController::class, 'settingslanguage'])->name('admin_language');
+	Route::post('admin/stripe', [App\Http\Controllers\Admin\SettingsController::class, 'stripesetting'])->name('stripe_setting');
+	
 });
 
 
