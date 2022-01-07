@@ -1,0 +1,67 @@
+@import "./common";
+.subscription{
+    // display: inline-flex;
+    background: #fff;
+    // width: 400px;
+    // align-items: center;
+    // justify-content: space-evenly;
+    border-radius: 5px;
+    // padding: 20px 15px;
+    .plan-main{
+        .price-time-main{
+            
+        }
+        .option{
+            background: #fff;
+            height: 200px;
+            // width: 24%;  
+            // margin: 0 10px;  
+            border-radius: 5px; 
+            padding: 8px; 
+            // border: 2px solid lightgrey;
+            transition: all 0.3s ease;
+            text-align: center; 
+            box-shadow: rgb(0 0 0 / 10%) 0px 2px 5px 0px !important;
+            color: $colorGrey;
+            width: 100%;
+            .price-time-main{
+                .minute{
+                    color: #464646;
+                }
+            }
+        }
+        input[type="radio"]{
+            display: none;
+            &:checked + label{
+                border-color: $colorPrimary;
+                background: $colorPrimary;
+                color: $colorWhite;
+            }
+        }
+    }
+}
+
+.profile-main {
+    .profile-contents {
+        .profile-img {
+            &.student {
+                position: relative;
+                .edit {
+                    position: absolute;
+                    bottom: 25px;
+                    right: -8px;
+                    font-size: 20px;
+                    background-color: $colorPrimary;
+                    border-radius: 50%;
+                    height: 30px;
+                    width: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: $colorWhite;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

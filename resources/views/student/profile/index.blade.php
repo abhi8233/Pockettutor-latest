@@ -1,4 +1,4 @@
-@extends('layouts.tutorApp')
+@extends('layouts.studentApp')
 
 @section('content')
 <div class="student-list-page main-top">
@@ -58,30 +58,20 @@
                         <div class="row pt-width-p-80 pb-5" style="margin: 0 auto">
                             <div class="col-12 col-md-6">
                                 <div class="d-flex flex-column mb-2">
+                                    <span class="fw-200">First Name</span>
+                                    <span class="fw-500">John</span>
+                                </div>
+
+                                <div class="d-flex flex-column mb-2">
                                     <span class="fw-200">Email id</span>
                                     <span class="fw-500">johnmarteen@gmail.com</span>
-                                </div>
-
-                                <div class="d-flex flex-column mb-2">
-                                    <span class="fw-200">Country</span>
-                                    <span class="fw-500">USA</span>
-                                </div>
-
-                                <div class="d-flex flex-column mb-2">
-                                    <span class="fw-200">State</span>
-                                    <span class="fw-500">Texas</span>
                                 </div>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <div class="d-flex flex-column mb-2">
-                                    <span class="fw-200">Language</span>
-                                    <span class="fw-500">English</span>
-                                </div>
-
-                                <div class="d-flex flex-column mb-2">
-                                    <span class="fw-200">Field of interest</span>
-                                    <span class="fw-500">Accounts maths tax</span>
+                                    <span class="fw-200">Last Name</span>
+                                    <span class="fw-500">Marteen</span>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +85,7 @@
                                 <div class="pt-font-size-px-18">Edit Profile</div>
 
                                 <div class="mt-5 d-flex flex-column align-items-center">
-                                    <div class="profile-img tutor">
+                                    <div class="profile-img student">
                                         <img src="../assets/images/profile.png" class="pt-width-px-150 pt-height-px-150">
                                         <i class="mdi mdi-pencil edit" aria-hidden="true"></i>
                                         <!-- <img src="../assets/images/flag.png"  /> -->
@@ -115,61 +105,13 @@
                                         <label for="email" class="col-form-label p-0 mb-1">First Name <span class="pt-color-red pt-fs-16">*</span> </label>
                                         <input type="text" placeholder="Enter plan name" class="form-control" name="plan-name">
                                     </div>
-
-                                    <div class="mb-3">
-                                        <label for="email" class="col-form-label p-0 mb-1">Country <span class="pt-color-red pt-fs-16">*</span> </label>
-                                        <select class="select2 country select2-hidden-accessible" name="country">
-                                            <option value="IND">India</option>
-                                            <option value="IND">India</option>
-                                            <option value="IND">India</option>
-                                            <option value="IND">India</option>
-                                            <option value="IND">India</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="email" class="col-form-label p-0 mb-1">Language <span class="pt-color-red pt-fs-16">*</span> </label>
-                                        <select class="select2 language select2-hidden-accessible" name="language">
-                                            <option value="IND">English</option>
-                                            <option value="IND">Spanish</option>
-                                            <option value="IND">French</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="email" class="col-form-label p-0 mb-1">Passport <span class="pt-color-red pt-fs-16">*</span> </label>
-                                        <div class="file-upload-wrapper" data-text="Select your file!">
-                                            <input name="file-upload-field" type="file" class="file-upload-field" value="">
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="col-12 col-md-6">
-
                                     <div class="mb-3">
                                         <label for="email" class="col-form-label p-0 mb-1">Last Name <span class="pt-color-red pt-fs-16">*</span> </label>
                                         <input type="text" placeholder="Enter minutes" class="form-control" name="plan-name">
                                     </div>
-
-                                    <div class="mb-3">
-                                        <label for="email" class="col-form-label p-0 mb-1">Field of interest <span class="pt-color-red pt-fs-16">*</span> </label>
-                                        <select class="select2 intrest select2-hidden-accessible" name="intrest">
-                                            <option value="IND">1</option>
-                                            <option value="IND">2</option>
-                                            <option value="IND">3</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="email" class="col-form-label p-0 mb-1">Hourly Cost <span class="pt-color-red pt-fs-16">*</span> </label>
-                                        <input type="text" placeholder="Enter minutes" class="form-control" name="plan-name">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="email" class="col-form-label p-0 mb-1">Passport Number <span class="pt-color-red pt-fs-16">*</span> </label>
-                                        <input type="text" placeholder="Enter minutes" class="form-control" name="plan-name">
-                                    </div>
-
                                 </div>
                             </div>
 

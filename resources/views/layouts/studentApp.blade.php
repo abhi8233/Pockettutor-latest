@@ -14,6 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets/scss/common.css')}}" />
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets/scss/super-admin.css')}}" />
+	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets/scss/student.css')}}" />
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets/fonts/font-awesome/all.min.css')}}" />
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets/fonts/md-icons/materialdesignicons.min.css')}}" />
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />

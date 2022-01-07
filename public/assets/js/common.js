@@ -47,6 +47,29 @@ $(document).ready(function () {
     allowClear: true
   });
 
+  $(".select2.country").select2({
+    placeholder: "Select Country",
+    allowClear: true
+  });
+
+  $(".select2.intrest").select2({
+    placeholder: "Select Field of Intrest",
+    allowClear: true
+  });
+  
+
+  // Booking
+
+  $(".specialization").select2({
+    placeholder: "Select Specialization",
+    allowClear: true
+  });
+
+  $(".language").select2({
+    placeholder: "Select Language",
+    allowClear: true
+  });
+
   // var setDefaultActive = function () {
   //   var path = window.location.pathname;
 
@@ -65,10 +88,22 @@ $(document).ready(function () {
 
   //alert(filename);
 
-
+  //  Sidemenu
   var submenuLink = $('.child-menu .menu-item a[href="' + subfilename + '"]');
   submenuLink.parent().addClass("child-active");
   submenuLink.parent().parent().parent().addClass("active");
+
+  // Student sidemenu
+  var submenuLink = $('.student .perent-menu.menu-item a[href="' + subfilename + '"]');
+  // submenuLink.parent().addClass("child-active");
+  submenuLink.parent().addClass("active");
+
+  // Tutor sidemenu
+  var submenuLink = $('.tutor .perent-menu.menu-item a[href="' + subfilename + '"]');
+  // submenuLink.parent().addClass("child-active");
+  submenuLink.parent().addClass("active");
+
+
 
   // var currentLink=$('.perent-menu.menu-item.parent a[href="' + filename + '"]'); 
   // currentLink.parent().addClass("active");
@@ -79,7 +114,6 @@ $(document).ready(function () {
   });
 
   $(".toggle-password").click(function () {
-
     $(this).toggleClass("mdi-eye-remove-outline");
     var input = $($(this).attr("toggle"));
     if (input.attr("type") == "password") {
@@ -90,15 +124,6 @@ $(document).ready(function () {
   });
 })
 
-// Booking
 
-$(".specialization").select2({
-  placeholder: "Select Specialization",
-  allowClear: true
-});
 
-$(".language").select2({
-  placeholder: "Select Language",
-  allowClear: true
-});
 
