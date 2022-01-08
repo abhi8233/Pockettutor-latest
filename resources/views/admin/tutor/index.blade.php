@@ -40,7 +40,10 @@
                     <td>{{isset($user->State->name) ? $user->State->name:''}}</td>
                     <td>{{isset($user->fieldInterest->name) ? $user->fieldInterest->name:''}}</td>
                     <td><img src="../assets/images/icons/pdf-icon.svg"></td>
-                    <td><a class="btn btn-danger" href="{{ route('user_delete',$user->id) }}">Delete</a></td>
+                    <td>
+                         <a class="btn btn-primary" href="{{ route('user_edit',$user->id) }}">Edit</a>
+                         <a class="btn btn-danger" href="{{ route('tutor_delete',$user->id) }}">Delete</a>
+                     </td>
                 </tr>
                 @endforeach
             </tbody>

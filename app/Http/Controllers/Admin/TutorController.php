@@ -28,4 +28,10 @@ class TutorController extends Controller
         $users=User::where('role','Tutor')->get();
         return view('admin/tutor/index',compact('users'));
     }
+    public function delete($id)
+    {
+        $user=User::find($id);
+        $user->delete();
+        return redirect()->route('admin_tutor');
+    }
 }

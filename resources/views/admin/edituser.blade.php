@@ -7,25 +7,26 @@
         <div class="col-md-12">
             <div class="">
 
-                <div class="fs-4 fw-bold mb-3">{{ __('Register') }}</div>
+                <div class="fs-4 fw-bold mb-3">{{ __('Edit ') }}</div>
 
-                <form method="POST" action="{{ route('register') }}">
+                <form method="POST" action="{{ route('update_user') }}">
                     @csrf
+                    <input type="hidden" id="user_id" name="id" value="{{$user->id}}">
                     <div class="mb-3">
                         <label for="name" class="col-form-label p-0 mb-1">{{ __('Select an Option') }} <span class="pt-color-red pt-fs-16">*</span></label>
                         <div class="d-flex">
                             <div class="me-5">
-                                <input type="radio" name="role" value="Tutor" checked> {{ __('Tutor') }}
+                                <input type="radio" name="role" value="Tutor" {{($user->role == 'Tutor')? "checked":""}}> {{ __('Tutor') }}
                             </div>
                             <div class="">
-                                <input type="radio" name="role" value="Student"> {{ __('Student') }}
+                                <input type="radio" name="role" value="Student" {{($user->role == 'Student')? "checked":""}}> {{ __('Student') }}
                             </div>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="first_name" class="col-form-label p-0 mb-1">{{ __('First Name') }} <span class="pt-color-red pt-fs-16">*</span></label>
-                            <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" autocomplete="name" autofocus>
+                            <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ $user->first_name }}" autocomplete="name" autofocus>
                             @error('first_name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -36,7 +37,7 @@
                         <div class="col-md-6">
                             <label for="last_name" class="col-form-label p-0 mb-1">{{ __('Last Name') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
-                            <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" autocomplete="name" autofocus>
+                            <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ $user->last_name }}" autocomplete="name" autofocus>
 
                             @error('last_name')
                             <span class="invalid-feedback" role="alert">
@@ -52,7 +53,7 @@
                             <label for="email" class="col-form-label p-0 mb-1">{{ __('E-Mail Address') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
 
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email">
+                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" autocomplete="email">
 
                             @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -62,33 +63,12 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="password" class="col-form-label p-0 mb-1">{{ __('Password') }} <span class="pt-color-red pt-fs-16">*</span></label>
-
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
-
-                            @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="password-confirm" class="col-form-label p-0 mb-1">{{ __('Confirm Password') }} <span class="pt-color-red pt-fs-16">*</span></label>
-
-
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
-                        </div>
-
-                        <div class="col-md-6">
                             <label for="language_id" class="col-form-label p-0 mb-1">{{ __('Language') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
                             <select class="form-control language_id" name="language_id">
                                 <option value=""> Select Language</option>
                                 @foreach(\App\Models\Languages::all() as $language)
-                                    <option value="{{$language->id}}">{{$language->name}}</option>
+                                    <option value="{{$language->id}}" {{$language->id == $user->language_id ?'selected':''}}>{{$language->name}}</option>
                                 @endforeach
                             </select>
                            
@@ -102,19 +82,20 @@
                             <select class="form-control field_of_interest" name="field_of_interest">
                                 <option value=""> Select Field of Interest</option>
                                 @foreach(\App\Models\FieldInterest::All() as $field)
-                                <option value="{{$field->id}}">{{$field->name}}</option>
+                                <option value="{{$field->id}}" {{$field->id == $user->field_of_interest ?'selected':''}}>{{$field->name}}</option>
                                 @endforeach
                                 
                             </select>
                             
                         </div>
                         <div class="col-md-6">
-                            <label for="country_id" class="col-form-label p-0 mb-1">{{ __('Country') }} <span class="pt-color-red pt-fs-16">*</span></label>
+                            <label for="country_id" class="col-form-label p-0 mb-1">{{ __('Country') }} 
+                                <span class="pt-color-red pt-fs-16">*</span></label>
 
                             <select class="form-control country_id" name="country_id" id="country_id">
                                 <option value=""> Select Country</option>
                                 @foreach(\App\Models\Country::all() as $country)
-                                    <option value="{{$country->id}}">{{$country->name}}</option>
+                                    <option value="{{$country->id}}" {{$country->id == $user->country_id ?'selected':''}}>{{$country->name}}</option>
                                 @endforeach
                             </select>
                             
@@ -129,17 +110,19 @@
 
                             <select class="form-control state_id" name="state_id" id="state_id">
                                 <option value=""> Select State</option>
-
+                                 @foreach(\App\Models\State::all() as $state)
+                                    <option value="{{$state->id}}" {{$state->id == $user->state_id ?'selected':''}}>{{$state->name}}</option>
+                                @endforeach
                             </select>
                             
                         </div>
                     </div>
 
                     
-                        <div class="mb-3 subscription" style="display: none;">
+                        <div class="mb-3 subscription " style="display: none;">
                         <div class="d-flex wrapper justify-content-between">
                              @foreach(\App\Models\Subscription::All() as $sub)
-                             <input type="radio" id="option-Basic" name="subscription_id" value="{{$sub->id}}">
+                             <input type="radio" id="option-Basic" name="subscription_id" value="{{$sub->id}}"{{($user->subscriptions_id == $sub->id)? "checked":""}}>
                             <label for="option-Basic" class="option">
                                 <div class="k-width-p-100">
                                     <div class="pt-font-size-px-16">{{$sub->plan}}</div>
@@ -163,7 +146,7 @@
                     <div class="mb-3">
                         <div class="d-flex justify-content-center pt-width-p-80 my-0 mx-auto">
                             <button type="submit" class="btn common-btn">
-                                {{ __('Create Account') }}
+                                {{ __('Edit Account') }}
                             </button>
                         </div>
                     </div>
@@ -187,6 +170,20 @@
 <script>
     $(document).ready(function() {
         
+        var value =$('input:radio[name=role]:checked').val();
+            if (value == 'Tutor') {
+               
+                $('.tutor_field').addClass('d-flex');
+                $('.subscription').addClass('d-none');
+                $('.tutor_field').removeClass('d-none');
+                // $('.subscription').removeClass('d-flex');
+            }
+            if (value == 'Student') {
+                $('.tutor_field').addClass('d-none');
+                $('.subscription').css('display', 'block');
+                $('.tutor_field').removeClass('d-flex');
+                $('.subscription').removeClass('d-none');
+            }
 
         $('input:radio[name=role]').change(function() {
             if (this.value == 'Tutor') {
@@ -208,9 +205,8 @@
 </script>
 <script>
 $(document).ready(function() {
-    $('#country_id').change(function() {
+    $('#country_id').on('change', function() {
     var country_id = this.value;
-    $('#state_id').html('');
     $.ajax({
         url:"{{url('get-states')}}",
         type: "POST", 
@@ -220,7 +216,6 @@ $(document).ready(function() {
     },
     dataType : 'json',
     success: function(result){
-        $('#state_id').html('<option value="">Select State</option>');
         $.each(result.states,function(key,value){
         $("#state_id").append('<option value="'+value.id+'">'+value.name+'</option>');
         });

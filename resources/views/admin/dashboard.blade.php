@@ -7,7 +7,7 @@
             <i class="mdi mdi-account-outline" aria-hidden="true"></i>
             <span class="ps-1">Student List</span>    
         </label>
-        <div>
+        <div class="pr-5">
             <a class="p-0 text-decoration-none  btn btn-primary pr-5" href="{{ route('register') }}"><span class="m-3">Add</span></a>
         </div>
         <div class="date-filter">
@@ -36,13 +36,15 @@
                     <td>{{$user->id}}</td>
                     <td>{{$user->first_name}} {{$user->last_name}}</td>
                     <td>{{$user->email}}</td>
-                    <td>{{isset($user->subscription->plan) ? $user->subscription->plan:''}}</td>
-                    <td>${{isset($user->subscription->price) ? $user->subscription->price:''}}</td>
-                    <td>{{isset($user->subscription->minutes) ? $user->subscription->minutes:''}}</td>
-                    <td>{{isset($user->subscription->slots) ? $user->subscription->slots:''}}</td>
+                    <td>{{isset($user->subscriptions->plan) ? $user->subscriptions->plan:''}}</td>
+                    <td>${{isset($user->subscriptions->price) ? $user->subscriptions->price:''}}</td>
+                    <td>{{isset($user->subscriptions->minutes) ? $user->subscriptions->minutes:''}}</td>
+                    <td>{{isset($user->subscriptions->slots) ? $user->subscriptions->slots:''}}</td>
                     <td>{{$user->created_at}}</td>
                     <td>{{$user->updated_date}}</td>
-                    <td><a class="btn btn-danger" href="{{ route('user_delete',$user->id) }}">Delete</a></td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ route('user_edit',$user->id) }}">Edit</a>
+                        <a class="btn btn-danger" href="{{ route('user_delete',$user->id) }}">Delete</a></td>
                 </tr>
                 @endforeach
             </tbody>
