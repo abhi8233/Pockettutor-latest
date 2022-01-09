@@ -51,7 +51,7 @@ class SettingsController extends Controller
 
         $setting->status=$request->status=='on'?'Active':'Inactive';
         $setting->save();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Email Notification successfullay added.'); 
     }
 
     public function addnotification(Request $request)

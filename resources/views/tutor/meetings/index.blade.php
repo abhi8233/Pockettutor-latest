@@ -23,51 +23,23 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($bookings as $booking)
                 <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>15-12-2021 11:30 AM</td>
-                    <td>www.abcmeeting.com/Lorem</td>
-                    <td>Pending</td>
+                    <td>{{$booking->id}}</td>
+                    <td>{{$booking->user->first_name}} {{$booking->user->last_name}}</td>
+                    <td>{{$booking->date_time}}</td>
+                    <td>{{$booking->date_google_link}}</td>
+                    <td>@if($booking->date_time >= Carbon\Carbon::now())
+                        Pending
+                        @else
+                        Expired
+                        @endif</td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>15-12-2021 11:30 AM</td>
-                    <td>www.abcmeeting.com/Lorem</td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>15-12-2021 11:30 AM</td>
-                    <td>www.abcmeeting.com/Lorem</td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>15-12-2021 11:30 AM</td>
-                    <td>www.abcmeeting.com/Lorem</td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>15-12-2021 11:30 AM</td>
-                    <td>www.abcmeeting.com/Lorem</td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>15-12-2021 11:30 AM</td>
-                    <td>www.abcmeeting.com/Lorem</td>
-                    <td>Pending</td>
-                </tr>
-
+                @endforeach
             </tbody>
         </table>
     </div>
 </div>
 @endsection
+
+\

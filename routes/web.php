@@ -28,11 +28,11 @@ Route::post('get-states',[App\Http\Controllers\CommonController::class, 'getStat
 Route::group(['middleware' => ['auth', 'verified']], function () { 
 
 	Route::get('admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin_dashboard');
-	Route::get('user/delete/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'delete'])->name('user_delete');
-Route::get('tutor/delete/{id}', [App\Http\Controllers\Admin\TutorController::class, 'delete'])->name('tutor_delete');
+	Route::get('admin/user/delete/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'delete'])->name('user_delete');
+Route::get('admin/tutor/delete/{id}', [App\Http\Controllers\Admin\TutorController::class, 'delete'])->name('tutor_delete');
 
-	Route::get('user/edit/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'edit'])->name('user_edit');
-	Route::post('user/update', [App\Http\Controllers\Admin\DashboardController::class, 'update'])->name('update_user');
+	Route::get('admin/user/edit/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'edit'])->name('user_edit');
+	Route::post('admin/user/update', [App\Http\Controllers\Admin\DashboardController::class, 'update'])->name('update_user');
 
 	Route::get('admin/tutor', [App\Http\Controllers\Admin\TutorController::class, 'index'])->name('admin_tutor');
 
@@ -46,7 +46,7 @@ Route::get('tutor/delete/{id}', [App\Http\Controllers\Admin\TutorController::cla
 	Route::get('admin/language', [App\Http\Controllers\Admin\SettingsController::class, 'settingslanguage'])->name('admin_language');
 	Route::post('admin/stripe', [App\Http\Controllers\Admin\SettingsController::class, 'stripesetting'])->name('stripe_setting');
 	Route::post('admin/add/notification', [App\Http\Controllers\Admin\SettingsController::class, 'addnotification'])->name('add_notification');
-	
+	Route::post('admin/add/subscription', [App\Http\Controllers\Admin\SubscriptionController::class, 'store'])->name('add_subscription');
 });
 
 

@@ -25,56 +25,15 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($user_plans as $plan)
                 <tr>
-                    <td>1</td>
-                    <td>Basic</td>
-                    <td>$44.99</td>
-                    <td>90 Min</td>
-                    <td>60 Min</td>
+                    <td>{{$plan->id}}</td>
+                    <td>{{$plan->subscription->plan}}</td>
+                    <td>${{$plan->price}}</td>
+                    <td>{{$plan->minutes}} Min</td>
+                    <td>{{$plan->remaining_minutes}} Min</td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Basic</td>
-                    <td>$44.99</td>
-                    <td>90 Min</td>
-                    <td>60 Min</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Basic</td>
-                    <td>$44.99</td>
-                    <td>90 Min</td>
-                    <td>60 Min</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Basic</td>
-                    <td>$44.99</td>
-                    <td>90 Min</td>
-                    <td>60 Min</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Basic</td>
-                    <td>$44.99</td>
-                    <td>90 Min</td>
-                    <td>60 Min</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Basic</td>
-                    <td>$44.99</td>
-                    <td>90 Min</td>
-                    <td>60 Min</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Basic</td>
-                    <td>$44.99</td>
-                    <td>90 Min</td>
-                    <td>60 Min</td>
-                </tr>
-
+                @Endforeach
             </tbody>
         </table>
     </div>

@@ -15,5 +15,4 @@ class Subscription extends Model
     {
         return $this->hasMany(User::class);
     }
-
 }

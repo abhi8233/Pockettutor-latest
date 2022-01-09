@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Tutor;
 use App\Http\Controllers\Controller;
+use App\Models\Bookings;
 
 use Illuminate\Http\Request;
 
@@ -24,6 +25,7 @@ class MeetingsController extends Controller
      */
     public function index()
     {
-        return view('tutor/meetings/index');
+        $bookings=Bookings::where('tutor_id',auth()->user()->id)->get();
+        return view('tutor/meetings/index',compact('bookings'));
     }
 }

@@ -12,6 +12,7 @@ use App\Models\Country;
 use App\Models\State;
 use App\Models\Languages;
 use App\Models\FieldInterest;
+use App\Models\Bookings;
 
 class User extends Authenticatable
 {
@@ -76,5 +77,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(FieldInterest::class);
     }
-
+public function booking()
+    {
+        return $this->belongsTo(Bookings::class);
+    }
 }

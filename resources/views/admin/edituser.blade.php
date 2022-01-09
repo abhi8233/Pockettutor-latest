@@ -1,14 +1,43 @@
-@extends('layouts.app')
-
+@extends('layouts.adminApp')
+@section('css-hooks')
+<style>
+.option{
+    background: #fff;
+    height: 100%;
+    width: 24%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 8px;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: rgb(0 0 0 / 10%) 0px 2px 5px 0px !important;
+    color: #707070;
+}
+#option-Basic{
+    display: none;
+}
+#option-Basic:checked .option{
+        border-color: #0077B6;
+    background: #0077B6;
+    color: #ffffff;
+}
+</style>
+@endsection
 @section('content')
+<div class="student-list-page">
+    <div class="page-head px-3 py-2 d-flex justify-content-between align-items-center">
+        <label class="page-title d-flex align-items-center">
+            <i class="mdi mdi-email-outline" aria-hidden="true"></i>
+            <span class="ps-1">User Edit</span>
+        </label>
+    </div>
+    <div class="box-main bg-white p-3 px-4 mt-4 pb-2">
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="">
-
-                <div class="fs-4 fw-bold mb-3">{{ __('Edit ') }}</div>
-
+        <div class="row">
+            <div class="col-lg-12 col-md-6">
                 <form method="POST" action="{{ route('update_user') }}">
                     @csrf
                     <input type="hidden" id="user_id" name="id" value="{{$user->id}}">
@@ -136,12 +165,6 @@
                         </div>
                     </div>
 
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Accept <span class="pt-color-primary">Terms & Conditions</span> and <span class="pt-color-primary">Privacy Policy</span>
-                        </label>
-                    </div>
 
                     <div class="mb-3">
                         <div class="d-flex justify-content-center pt-width-p-80 my-0 mx-auto">
@@ -151,22 +174,16 @@
                         </div>
                     </div>
 
-                    <div class="mb-3 d-flex justify-content-center">
-                        <div class="pt-color-black">
-                            Already have an account? <a class="p-0 text-decoration-none pt-color-primary" href="{{ route('login') }}">
-                                {{ __('Sign in') }}
-                            </a>
-                        </div>
-
-                    </div>
-
                 </form>
+            </div>
+            <div class="col-12 col-md-6">
+                
             </div>
         </div>
     </div>
 </div>
 @endsection
-@push('js-hooks')
+@section('js-hooks')
 <script>
     $(document).ready(function() {
         
@@ -225,4 +242,4 @@ $(document).ready(function() {
 });
 </script>
 
-@endpush
+@endsection

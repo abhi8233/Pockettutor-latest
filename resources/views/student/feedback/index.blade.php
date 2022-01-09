@@ -26,36 +26,6 @@
                     <td>Lorem</td>
                     <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</td>
-                </tr>
 
             </tbody>
         </table>

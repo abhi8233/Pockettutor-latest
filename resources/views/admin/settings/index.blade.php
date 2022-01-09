@@ -8,6 +8,13 @@
             <span class="ps-1">Stripe Payment</span>
         </label>
     </div>
+    @if (\Session::has('success'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+        @endif
     <div class="box-main bg-white p-3 px-4 mt-4 pb-5">
          <form  method="post" action="{{ route('stripe_setting') }}" >
             @csrf
