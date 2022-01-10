@@ -72,13 +72,14 @@ input[type="time"] {
     padding: 8px;
 }
 
-select{
+select {
     width: 100%;
     line-height: 38px !important;
     height: 38px;
     padding-left: 8px;
     padding-right: 20px;
     font-weight: 300;
+    color: #999;
 }
 
 .select2 {
@@ -528,7 +529,6 @@ select{
     }
 }
 
-
 // Password
 .field-icon {
     position: absolute;
@@ -536,4 +536,9 @@ select{
     font-size: 22px;
     right: 10px;
     color: #707070;
-  }
+}
+
+// label red
+label.error {
+    color: red;
+}

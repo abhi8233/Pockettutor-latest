@@ -38,7 +38,7 @@
                     color: #6E7070;
                     font-weight: 300;
                 }
-                &:hover{
+                &:hover, &.active{
                     cursor: pointer;
                     .tutor-img{
                         border: 4px solid #0077B6;

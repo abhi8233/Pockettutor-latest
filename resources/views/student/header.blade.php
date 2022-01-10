@@ -5,6 +5,9 @@
             <label class="user-label">Student</label>
         </div>
         <div class="right-side d-flex align-items-center flex-wrap">
+            <div class="card-tools me-3">
+                <a class="btn pt-bg-primary pt-color-white" href="{{route('booking')}}">Book Your Slot</a>
+            </div>
             <span class="notification-icon"><i class="mdi mdi-bell"></i></span>
             <div class="user-info d-flex align-items-center flex-wrap">
                 <a href="{{ route('sprofile') }}">
@@ -18,7 +21,7 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item"  href="{{ route('sprofile') }}">
+                                <a class="dropdown-item" href="{{ route('sprofile') }}">
                                     Profile
                                 </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
