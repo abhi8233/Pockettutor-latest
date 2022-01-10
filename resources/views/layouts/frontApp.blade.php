@@ -17,11 +17,18 @@
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets/fonts/font-awesome/all.min.css')}}" />
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets/fonts/md-icons/materialdesignicons.min.css')}}" />
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+
 
 	<!-- scripts -->
 	<script type="text/javascript" src="{{URL::asset('assets/js/jquery.min.js')}}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 	<script type="text/javascript" src="{{URL::asset('assets/js/bootstrap.min.js')}}"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.js"></script>
+	<script type="text/javascript" src="{{URL::asset('assets/js/front.js')}}"></script>
+
 
 
 	<!-- Common script files -->

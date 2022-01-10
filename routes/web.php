@@ -103,5 +103,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 	// Route::group(['middleware' => ['auth', 'verified']], function () { 
 
 		Route::get('front', [App\Http\Controllers\Front\FrontController::class, 'index'])->name('front');
+		Route::get('front/about', [App\Http\Controllers\Front\AboutController::class, 'index'])->name('front_about');
 	// });
 // });

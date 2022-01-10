@@ -206,7 +206,38 @@
         }
 
         // sixth section
-        .sixth-section {
+        .sixth-sec {
+            .owl-carousel {
+                margin: 0 !important;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                .owl-item {
+                    display: flex;
+                    justify-content: end;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 50%;
+                    text-align: center;
+                    img {
+                        width: 120px;
+                        height: 120px;
+                        border-radius: 50%;
+                        border: 5px solid $colorPrimary;
+                    }
+                    .desc{
+                        margin: 20px 0px;
+                        font-size: 16px;
+                        color: #AFAFAF;
+                    }
+                    .name{
+                        margin-bottom: 10px;
+                        font-size: 16px;
+                        color: #464646;
+                        text-transform: capitalize;
+                    }
+                }
+            }
         }
     }
 }
@@ -261,10 +292,10 @@ footer {
             display: flex;
             margin: 0;
             align-items: center;
-            font-size: 20px;  
-            li{
+            font-size: 20px;
+            li {
                 margin-left: 15px;
-                i{
+                i {
                     color: $colorWhite;
                 }
             }
@@ -289,86 +320,4 @@ footer li {
     .copyright {
         font-size: 13px;
     }
-}
-
-
-.carousel {
-	width: 650px;
-	margin: 0 auto;
-	padding-bottom: 50px;
-}
-.carousel .carousel-item {
-	color: #999;
-	font-size: 14px;
-	text-align: center;
-	overflow: hidden;
-	min-height: 340px;
-}
-.carousel .carousel-item a {
-	color: #eb7245;
-}
-.carousel .img-box {
-	width: 145px;
-	height: 145px;
-	margin: 0 auto;
-	border-radius: 50%;
-}
-.carousel .img-box img {
-	width: 100%;
-	height: 100%;
-	display: block;
-	border-radius: 50%;
-}
-.carousel .testimonial {	
-	padding: 30px 0 10px;
-}
-.carousel .overview {	
-	text-align: center;
-	padding-bottom: 5px;
-}
-.carousel .overview b {
-	color: #333;
-	font-size: 15px;
-	text-transform: uppercase;
-	display: block;	
-	padding-bottom: 5px;
-}
-.carousel .star-rating i {
-	font-size: 18px;
-	color: #ffdc12;
-}
-.carousel-control-prev, .carousel-control-next {
-	width: 30px;
-	height: 30px;
-	border-radius: 50%;
-	background: #999;
-	text-shadow: none;
-	top: 4px;
-}
-.carousel-control-prev i, .carousel-control-next i {
-	font-size: 20px;
-	margin-right: 2px;
-}
-.carousel-control-prev {
-	left: auto;
-	right: 40px;
-}
-.carousel-control-next i {
-	margin-right: -2px;
-}
-.carousel .carousel-indicators {
-	bottom: 15px;
-}
-.carousel-indicators li, .carousel-indicators li.active {
-	width: 11px;
-	height: 11px;
-	margin: 1px 5px;
-	border-radius: 50%;
-}
-.carousel-indicators li {	
-	background: #e2e2e2;
-	border: none;
-}
-.carousel-indicators li.active {		
-	background: #888;		
 }

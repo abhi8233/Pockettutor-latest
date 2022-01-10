@@ -601,7 +601,8 @@ input[type=text],
 input[type=email],
 input[type=password],
 input[type=date],
-input[type=time] {
+input[type=time],
+select {
   background-color: #ffffff !important;
   border-radius: 6px !important;
   border: 1px solid #d7d7d76e !important;
@@ -611,20 +612,22 @@ input[type=text]:focus,
 input[type=email]:focus,
 input[type=password]:focus,
 input[type=date]:focus,
-input[type=time]:focus {
+input[type=time]:focus,
+select:focus {
   box-shadow: unset !important;
 }
-input[type=text]::-moz-placeholder, input[type=email]::-moz-placeholder, input[type=password]::-moz-placeholder, input[type=date]::-moz-placeholder, input[type=time]::-moz-placeholder {
+input[type=text]::-moz-placeholder, input[type=email]::-moz-placeholder, input[type=password]::-moz-placeholder, input[type=date]::-moz-placeholder, input[type=time]::-moz-placeholder, select::-moz-placeholder {
   font-weight: 300;
 }
-input[type=text]:-ms-input-placeholder, input[type=email]:-ms-input-placeholder, input[type=password]:-ms-input-placeholder, input[type=date]:-ms-input-placeholder, input[type=time]:-ms-input-placeholder {
+input[type=text]:-ms-input-placeholder, input[type=email]:-ms-input-placeholder, input[type=password]:-ms-input-placeholder, input[type=date]:-ms-input-placeholder, input[type=time]:-ms-input-placeholder, select:-ms-input-placeholder {
   font-weight: 300;
 }
 input[type=text]::placeholder,
 input[type=email]::placeholder,
 input[type=password]::placeholder,
 input[type=date]::placeholder,
-input[type=time]::placeholder {
+input[type=time]::placeholder,
+select::placeholder {
   font-weight: 300;
 }
 
@@ -632,6 +635,15 @@ input[type=date],
 input[type=time] {
   width: 100%;
   padding: 8px;
+}
+
+select {
+  width: 100%;
+  line-height: 38px !important;
+  height: 38px;
+  padding-left: 8px;
+  padding-right: 20px;
+  font-weight: 300;
 }
 
 .select2 {
@@ -1184,6 +1196,38 @@ input[type=time] {
 #pt .front-main .fifth-sec .view-more-btn button {
   width: 30%;
 }
+#pt .front-main .sixth-sec .owl-carousel {
+  margin: 0 !important;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+#pt .front-main .sixth-sec .owl-carousel .owl-item {
+  display: flex;
+  justify-content: end;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  text-align: center;
+}
+#pt .front-main .sixth-sec .owl-carousel .owl-item img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 5px solid #0077B6;
+}
+#pt .front-main .sixth-sec .owl-carousel .owl-item .desc {
+  margin: 20px 0px;
+  font-size: 16px;
+  color: #AFAFAF;
+}
+#pt .front-main .sixth-sec .owl-carousel .owl-item .name {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #464646;
+  text-transform: capitalize;
+}
+
 footer {
   background: #0077B6;
 }
@@ -1259,100 +1303,4 @@ footer li {
   .copyright {
     font-size: 13px;
   }
-}
-.carousel {
-  width: 650px;
-  margin: 0 auto;
-  padding-bottom: 50px;
-}
-
-.carousel .carousel-item {
-  color: #999;
-  font-size: 14px;
-  text-align: center;
-  overflow: hidden;
-  min-height: 340px;
-}
-
-.carousel .carousel-item a {
-  color: #eb7245;
-}
-
-.carousel .img-box {
-  width: 145px;
-  height: 145px;
-  margin: 0 auto;
-  border-radius: 50%;
-}
-
-.carousel .img-box img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  border-radius: 50%;
-}
-
-.carousel .testimonial {
-  padding: 30px 0 10px;
-}
-
-.carousel .overview {
-  text-align: center;
-  padding-bottom: 5px;
-}
-
-.carousel .overview b {
-  color: #333;
-  font-size: 15px;
-  text-transform: uppercase;
-  display: block;
-  padding-bottom: 5px;
-}
-
-.carousel .star-rating i {
-  font-size: 18px;
-  color: #ffdc12;
-}
-
-.carousel-control-prev, .carousel-control-next {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: #999;
-  text-shadow: none;
-  top: 4px;
-}
-
-.carousel-control-prev i, .carousel-control-next i {
-  font-size: 20px;
-  margin-right: 2px;
-}
-
-.carousel-control-prev {
-  left: auto;
-  right: 40px;
-}
-
-.carousel-control-next i {
-  margin-right: -2px;
-}
-
-.carousel .carousel-indicators {
-  bottom: 15px;
-}
-
-.carousel-indicators li, .carousel-indicators li.active {
-  width: 11px;
-  height: 11px;
-  margin: 1px 5px;
-  border-radius: 50%;
-}
-
-.carousel-indicators li {
-  background: #e2e2e2;
-  border: none;
-}
-
-.carousel-indicators li.active {
-  background: #888;
 }/*# sourceMappingURL=front.css.map */
