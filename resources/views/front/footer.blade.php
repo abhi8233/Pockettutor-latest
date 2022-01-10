@@ -36,7 +36,7 @@
 
         <div class="copyright">
             <div class="container d-flex justify-content-between p-0">
-                <div class="copyright">pocket tutor © 2021. All rights reserved.</div>
+                <div class="copyright"><i>pocket tutor © 2021. All rights reserved.</i></div>
                 <ul class="footer-social-media">
                     <li><a href="#"><i class="mdi mdi-facebook" aria-hidden="true"></i></a></li>
                     <li><a href="#"><i class="mdi mdi-twitter" aria-hidden="true"></i></a></li>
