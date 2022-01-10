@@ -130,12 +130,28 @@
   min-width: 60% !important;
 }
 
+.pt-width-p-70 {
+  width: 70% !important;
+}
+
+.pt-min-width-p-70 {
+  min-width: 70% !important;
+}
+
 .pt-width-p-80 {
   width: 80% !important;
 }
 
 .pt-min-width-p-80 {
   min-width: 80% !important;
+}
+
+.pt-width-p-90 {
+  width: 90% !important;
+}
+
+.pt-min-width-p-90 {
+  min-width: 90% !important;
 }
 
 .pt-width-p-100 {
@@ -254,8 +270,16 @@
   height: 60% !important;
 }
 
+.pt-height-p-70 {
+  height: 70% !important;
+}
+
 .pt-height-p-80 {
   height: 80% !important;
+}
+
+.pt-height-p-90 {
+  height: 90% !important;
 }
 
 .pt-height-p-100 {

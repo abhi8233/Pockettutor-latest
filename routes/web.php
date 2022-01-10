@@ -79,5 +79,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 /*------------------------------------ FRONT ---------------------------------------*/
 // Route::group(['middleware' => ['auth', 'verified','front']], function () { 
+	// Route::group(['middleware' => ['auth', 'verified']], function () { 
 
+		Route::get('front', [App\Http\Controllers\Front\FrontController::class, 'index'])->name('front');
+	// });
 // });
