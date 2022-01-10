@@ -17,9 +17,10 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $bookingslots= Bookings::with(['tutor'])->where('user_id',auth()->user()->id)->orderBy('id','desc')->get();
-        // dd($bookingslots);
-        return view('student.bookingslots.index',compact('bookingslots'));
+        // $bookingslots= Bookings::with(['tutor'])->where('user_id',auth()->user()->id)->orderBy('id','desc')->get();
+        // // dd($bookingslots);
+        // return view('student.bookingslots.index',compact('bookingslots'));
+        return view('booking/index');
     }
  
     /**

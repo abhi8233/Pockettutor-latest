@@ -34,6 +34,7 @@ $(document).ready(function () {
     placeholder: "Select Specialization",
     allowClear: true
   });
+ 
   $(".select2.language_id").select2({
     placeholder: "Select Language",
     allowClear: true
@@ -127,3 +128,8 @@ $(document).ready(function () {
 
 
 
+
+$(".select2.front-specialization").select2({
+  placeholder: "Select Specialization",
+  allowClear: true
+});

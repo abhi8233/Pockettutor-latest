@@ -92,8 +92,13 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 /*Route::group(['middleware' => ['auth', 'verified','booking']], function () { 
 	
 });*/
+Route::get('booking', [App\Http\Controllers\Booking\BookingController::class, 'index'])->name('booking');
+
 
 /*------------------------------------ FRONT ---------------------------------------*/
 // Route::group(['middleware' => ['auth', 'verified','front']], function () { 
+	// Route::group(['middleware' => ['auth', 'verified']], function () { 
 
+		Route::get('front', [App\Http\Controllers\Front\FrontController::class, 'index'])->name('front');
+	// });
 // });
