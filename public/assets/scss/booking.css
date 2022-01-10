@@ -604,13 +604,13 @@
   color: #6E7070;
   font-weight: 300;
 }
-#pt .booking .tutor-main .tutor-inner:hover {
+#pt .booking .tutor-main .tutor-inner:hover, #pt .booking .tutor-main .tutor-inner.active {
   cursor: pointer;
 }
-#pt .booking .tutor-main .tutor-inner:hover .tutor-img {
+#pt .booking .tutor-main .tutor-inner:hover .tutor-img, #pt .booking .tutor-main .tutor-inner.active .tutor-img {
   border: 4px solid #0077B6;
 }
-#pt .booking .tutor-main .tutor-inner:hover .tutor-name {
+#pt .booking .tutor-main .tutor-inner:hover .tutor-name, #pt .booking .tutor-main .tutor-inner.active .tutor-name {
   color: #0077B6;
   font-weight: 400;
 }

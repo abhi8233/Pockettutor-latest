@@ -664,6 +664,7 @@ select {
   padding-left: 8px;
   padding-right: 20px;
   font-weight: 300;
+  color: #999;
 }
 
 .select2 {
@@ -1036,4 +1037,8 @@ select {
   font-size: 22px;
   right: 10px;
   color: #707070;
+}
+
+label.error {
+  color: red;
 }/*# sourceMappingURL=common.css.map */

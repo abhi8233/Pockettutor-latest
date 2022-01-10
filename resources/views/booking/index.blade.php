@@ -1,8 +1,8 @@
 @extends('layouts.bookingApp')
 @section('css-hooks')
 <style type="text/css">
-    label.error{
-        color:red;
+    label.error {
+        color: red;
     }
 </style>
 @endsection
@@ -17,11 +17,13 @@
                     <div class="logo mb-3">
                         <img src="{{URL::asset('assets/images/logo.png')}}" class="pt-height-px-40" />
                     </div>
-                    <h1 class="pt-font-size-px-22">Book your slot</h1>
-                    <a  href="{{ route('sbooking.index') }}">My dashboard</a>
+                    <div class="d-flex mb-3 pt-width-p-100 justify-content-between align-items-center">
+                        <h1 class="pt-font-size-px-22 mb-0">Book your slot</h1>
+                        <a href="{{ route('sbooking.index') }}" class="text-decoration-none pt-color-primary fw-normal" >My dashboard</a>
+                    </div>
                 </div>
             </div>
-            
+
             <form id="frm-BookingSlot" name="frm-BookingSlot" class="bookingSlotFrm" enctype="multipart/form-data">
                 @method('POST')
                 @csrf
@@ -32,7 +34,7 @@
                             <select class="select2 front-specialization select2-hidden-accessible" name="specialization" id="specialization">
                                 <option value=""> Select Specialization</option>
                                 @foreach($specializations as $specialization)
-                                    <option value="{{$specialization->id}}">{{$specialization->name}}</option>
+                                <option value="{{$specialization->id}}">{{$specialization->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -44,7 +46,7 @@
                             <select class="" name="language" id="language">
                                 <option value=""> Select Language</option>
                                 @foreach($languages as $language)
-                                    <option value="{{$language->id}}">{{$language->name}}</option>
+                                <option value="{{$language->id}}">{{$language->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -66,7 +68,7 @@
                                 <input type="time" id="time" name="time" placeholder="Select Time" class="">
                             </div>
                         </div>
-                        <button type="submit" class="btn text-decoration-none common-btn"  id="btn-booking">
+                        <button type="submit" class="btn text-decoration-none common-btn" id="btn-booking">
                             Complete Booking
                         </button>
                     </div>
@@ -83,16 +85,16 @@
 
 @section('js-hooks')
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         $.ajax({
             type: "GET",
             url: "{{route('getTutor')}}",
-            success: function (data) {
+            success: function(data) {
                 $("#tutor_html_id").html(data);
             }
         });
 
-        $(document).on('change', '#specialization', function () {
+        $(document).on('change', '#specialization', function() {
             if ($(this).val() != null) {
                 $.ajax({
                     type: "GET",
@@ -104,14 +106,14 @@
                     // beforeSend: function(){
                     //     $('#frm-BookingSlot').html('<div class="mb-5 text-center"><i class="fa fa-spinner fa-spin"></i>  Please Wait...</div>');
                     // },
-                    success: function (data) {
+                    success: function(data) {
                         $("#tutor_html_id").html(data);
                     }
                 });
             }
         });
 
-        $(document).on('change', '#language', function () {
+        $(document).on('change', '#language', function() {
             if ($(this).val() != null) {
                 $.ajax({
                     type: "GET",
@@ -123,7 +125,7 @@
                     // beforeSend: function(){
                     //     $('#frm-BookingSlot').html('<div class="mb-5 text-center"><i class="fa fa-spinner fa-spin"></i>  Please Wait...</div>');
                     // },
-                    success: function (data) {
+                    success: function(data) {
                         $("#tutor_html_id").html(data);
                     }
                 });
@@ -131,7 +133,7 @@
         });
 
         /* selected tutor identify and fill in tutor_id */
-        $(document).on('click','.tutor-inner',function(){
+        $(document).on('click', '.tutor-inner', function() {
             var tutor_id = $(this).attr('id');
             $("#tutor_id").val();
             $('.tutor-inner').removeClass('active');
@@ -174,7 +176,7 @@
                     required: "Time is required"
                 },
             },
-            submitHandler: function (form) { 
+            submitHandler: function(form) {
                 // alert('valid form submitted'); 
                 $.ajax({
                     type: "POST",
@@ -195,10 +197,10 @@
                         }
                     }
                 });
-                return false; 
+                return false;
             }
         });
-        
+
         // $('body').on('click','#btn-booking',function(e){
         //     e.preventDefault();
         //     if ($(".bookingslotFrm").valid()) {

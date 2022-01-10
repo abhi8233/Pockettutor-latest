@@ -138,7 +138,7 @@ class BookingController extends Controller
         $html = '';
         if(count($tutors)){
             foreach ($tutors as $tutor) {
-                $html .= '<div class="col-12 col-md-3">
+                $html .= '<div class="col-12 col-md-3 mb-4">
                     <div class="d-flex flex-column justify-content-center align-items-center tutor-inner" id="'.$tutor->id.'">
                         <div class="profile-img">
                             <img src="../assets/images/profile.png" class="pt-width-px-88 pt-height-p-auto mb-1 tutor-img" />

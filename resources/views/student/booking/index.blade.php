@@ -11,9 +11,9 @@
             <input type="text" class="form-control" id="stu_list_daterange" />
         </div>
     </div>
-    <div class="card-tools">
+    <!-- <div class="card-tools">
         <a class="btn btn-success" href="{{route('booking')}}"><i class="fas fa-plus"></i> &nbsp; Booking Slot</a>
-    </div>
+    </div> -->
     <div class="student-list bg-white mt-4">
         <table id="student_list" class="table table-striped" style="width:100%">
             <thead>
