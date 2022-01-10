@@ -35,18 +35,16 @@
 
 <body id="pt">
 	
-		<!-- start top bar -->
-		@include('booking.sidebar')
-		@include('booking.header')
-		<!-- end top bar -->
-		<!-- start side bar -->
+	<!-- start top bar -->
+	@include('booking.header')
+	<!-- end top bar -->
+	
+	@yield('content')
 
-		<!-- end side bar -->
-
-		@yield('content')
-		<!-- start bottom bar -->
-		@include('booking.footer')
-		<!-- end bottom bar -->
+	<!-- start bottom bar -->
+	@include('booking.footer')
+	<!-- end bottom bar -->
+	
 	@yield('js-hooks')
 </body>
 

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Booking;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\Bookings;
-use App\Models\User;
+use App\Models\Specialization;
+use App\Models\languages;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,10 +20,10 @@ class BookingController extends Controller
      */
     public function index()
     {
-        // $bookingslots= Bookings::with(['tutor'])->where('user_id',auth()->user()->id)->orderBy('id','desc')->get();
-        // // dd($bookingslots);
-        // return view('student.bookingslots.index',compact('bookingslots'));
-        return view('booking/index');
+        $specializations= Specialization::orderBy('id','desc')->get();
+        $languages= languages::orderBy('id','desc')->get();
+
+        return view('booking.index',compact('specializations','languages'));
     }
  
     /**
@@ -30,10 +33,7 @@ class BookingController extends Controller
      */
     public function create()
     {
-        $specializations= \App\Models\Specialization::orderBy('id','desc')->get();
-        $languages= \App\Models\languages::orderBy('id','desc')->get();
-
-        return view('student.bookingslots.create',compact('specializations','languages'));
+        
     }
 
     /**
@@ -103,32 +103,4 @@ class BookingController extends Controller
         //
     }
 
-    public function selectedSpecializationTutor(Request $request)
-    {
-        // dd($request->specialization_id);
-        if(isset($request->specialization_id)){
-            $tutors = User::where(['specialization_id'=>$request->specialization_id,'role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
-            $html = '<option value="">Select Tutor</option>';
-            foreach ($tutors as $tutor) {
-                $html .= "<option value='" . $tutor->id . "'>" . $tutor->first_name .'' .$tutor->last_name . "</option>";
-            }
-            echo $html;
-        }else if(isset($request->language_id)){
-            $tutors = User::where(['language_id'=>$request->language_id,'role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
-            $html = '<option value="">Select Tutor</option>';
-            foreach ($tutors as $tutor) {
-                $html .= "<option value='" . $tutor->id . "'>" . $tutor->first_name .'' .$tutor->last_name . "</option>";
-            }
-            echo $html;
-        }else if(isset($request->specialization_id) && isset($request->language_id)){
-            $tutors = User::where(['specialization_id'=>$request->specialization_id,'language_id'=>$request->language_id,'role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
-            $html = '<option value="">Select Tutor</option>';
-            foreach ($tutors as $tutor) {
-                $html .= "<option value='" . $tutor->id . "'>" . $tutor->first_name .'' .$tutor->last_name . "</option>";
-            }
-            echo $html;
-        }
-        
-    }
-    
 }

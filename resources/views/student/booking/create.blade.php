@@ -11,7 +11,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Booking slot</h3>
                             <div class="card-tools">
-                                <a class="btn btn-success" href="{{route('student_dashboard')}}"><i class="fas fa-eye"></i> &nbsp; View Booking Slot</a>
+                                <a class="btn btn-success" href="{{  route('sbooking.index') }}"><i class="fas fa-eye"></i> &nbsp; View Booking Slot</a>
                             </div>
                         </div>
                         <form class="bookingslotFrm">
@@ -66,7 +66,7 @@
                 if ($(this).val() != null) {
                     $.ajax({
                         type: "GET",
-                        url: "{{route('tutor.select')}}",
+                        url: "{{route('getTutor')}}",
                         data: {
                             '_token': $('input[name="_token"]').val(),
                             'specialization_id': $(this).val(),
@@ -85,7 +85,7 @@
                 if ($(this).val() != null) {
                     $.ajax({
                         type: "GET",
-                        url: "{{route('tutor.select')}}",
+                        url: "{{route('getTutor')}}",
                         data: {
                             '_token': $('input[name="_token"]').val(),
                             'language_id': $(this).val(),
@@ -152,7 +152,7 @@
                 if ($(".bookingslotFrm").valid()) {
                     $.ajax({
                         type: "POST",
-                        url: "{{route('book-slot.store')}}",
+                        url: "{{route('sbooking.store')}}",
                         data: new FormData($('.bookingslotFrm')[0]),
                         processData: false,
                         contentType: false,
@@ -164,9 +164,9 @@
                                     text: "Booking Slot Successfully",
                                     type: "success"
                                 }, function () {
-                                    window.location ="{{route('book-slot.index')}}"
+                                    window.location ="{{ route('sbooking.index') }}";
                                 });*/
-                                window.location ="{{route('student_dashboard')}}"
+                                window.location ="{{ route('sbooking.index') }}";
                             } else if (data.status === 'error') {
                                 /*swal({
                                     title: "Error",

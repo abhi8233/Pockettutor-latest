@@ -10,9 +10,10 @@
             <div class="row mx-0 mt-3 mb-3">
                 <div class="d-flex flex-column align-items-center">
                     <div class="logo mb-3">
-                        <img src="../assets/images/logo.png" class="pt-height-px-40" />
+                        <img src="{{URL::asset('assets/images/logo.png')}}" class="pt-height-px-40" />
                     </div>
                     <h1 class="pt-font-size-px-22">Book your slot</h1>
+                    <a  href="{{ route('sbooking.index') }}">My dashboard</a>
                 </div>
             </div>
 
@@ -20,11 +21,11 @@
                 <div class="col-12 mb-2">
                     <label class="col-md-4 col-form-label">Select Specialization</label>
                     <div class="">
-                        <select class="select2 front-specialization select2-hidden-accessible" name="specialization">
-                            <option value="sp1">Specialization 1</option>
-                            <option value="sp2">Specialization 2</option>
-                            <option value="sp3">Specialization 3</option>
-                            <option value="sp4">Specialization 4</option>
+                        <select class="select2 front-specialization select2-hidden-accessible" name="specialization" id="specialization">
+                            <option value=""> Select Specialization</option>
+                            @foreach($specializations as $specialization)
+                                <option value="{{$specialization->id}}">{{$specialization->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -32,11 +33,11 @@
                 <div class="col-12 mb-2">
                     <label class="col-md-4 col-form-label">Select Language</label>
                     <div class="">
-                        <select class="language" name="language">
-                            <option value="l1">Language 1</option>
-                            <option value="l2">Language 2</option>
-                            <option value="l3">Language 3</option>
-                            <option value="l4">Language 4</option>
+                        <select class="language" name="language" id="language">
+                            <option value=""> Select Language</option>
+                            @foreach($languages as $language)
+                                <option value="{{$language->id}}">{{$language->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
