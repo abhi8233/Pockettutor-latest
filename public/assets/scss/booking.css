@@ -99,6 +99,26 @@
   border-color: #707070 !important;
 }
 
+.pt-box-bgcolor {
+  box-shadow: #E8EDF3 !important;
+}
+
+.pt-color-bgcolor {
+  color: #E8EDF3 !important;
+}
+
+.pt-bg-bgcolor {
+  background-color: #E8EDF3 !important;
+}
+
+.pt-fill-bgcolor {
+  fill: #E8EDF3 !important;
+}
+
+.pt-border-color-bgcolor {
+  border-color: #E8EDF3 !important;
+}
+
 .pt-width-p-0 {
   width: 0 !important;
 }

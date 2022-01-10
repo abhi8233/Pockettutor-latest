@@ -16,6 +16,16 @@
                         color: $colorBlack;
                         &.active {
                             color: $colorPrimary;
+                            position: relative;
+                            &:after {
+                                content: "";
+                                position: absolute;
+                                height: 2px;
+                                width: 20px;
+                                background-color: $colorPrimary;
+                                bottom: 3px;
+                                left: 35%;
+                            }
                         }
                     }
                     button {
@@ -225,18 +235,47 @@
                         border-radius: 50%;
                         border: 5px solid $colorPrimary;
                     }
-                    .desc{
+                    .desc {
                         margin: 20px 0px;
                         font-size: 16px;
-                        color: #AFAFAF;
+                        color: #afafaf;
                     }
-                    .name{
+                    .name {
                         margin-bottom: 10px;
                         font-size: 16px;
                         color: #464646;
                         text-transform: capitalize;
                     }
                 }
+            }
+        }
+
+        // about
+        .top-heading{
+            background-image: linear-gradient(to right, #0076b6, #00679e, #005887, #004971, #003b5b);
+            color: $colorWhite;
+            text-align: center;
+            padding: 30px 0px;
+            h1{
+                position: relative;
+                &:after {
+                    content: "";
+                    position: absolute;
+                    height: 2px;
+                    width: 50px;
+                    background-color: $colorWhite;
+                    bottom: -10px;
+                    left: 48%;
+                }
+            }
+        }
+        .about-third{
+            button{
+                background-image: linear-gradient(to right, #0076b6, #00679e, #005887, #004971, #003b5b);
+                padding: 13px 30px !important;
+                width: 40% !important;
+                text-transform: uppercase;
+                font-weight: 500;
             }
         }
     }

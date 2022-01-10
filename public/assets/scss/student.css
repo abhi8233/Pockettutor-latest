@@ -99,6 +99,26 @@
   border-color: #707070 !important;
 }
 
+.pt-box-bgcolor {
+  box-shadow: #E8EDF3 !important;
+}
+
+.pt-color-bgcolor {
+  color: #E8EDF3 !important;
+}
+
+.pt-bg-bgcolor {
+  background-color: #E8EDF3 !important;
+}
+
+.pt-fill-bgcolor {
+  fill: #E8EDF3 !important;
+}
+
+.pt-border-color-bgcolor {
+  border-color: #E8EDF3 !important;
+}
+
 .pt-width-p-0 {
   width: 0 !important;
 }
@@ -601,7 +621,8 @@ input[type=text],
 input[type=email],
 input[type=password],
 input[type=date],
-input[type=time] {
+input[type=time],
+select {
   background-color: #ffffff !important;
   border-radius: 6px !important;
   border: 1px solid #d7d7d76e !important;
@@ -611,20 +632,22 @@ input[type=text]:focus,
 input[type=email]:focus,
 input[type=password]:focus,
 input[type=date]:focus,
-input[type=time]:focus {
+input[type=time]:focus,
+select:focus {
   box-shadow: unset !important;
 }
-input[type=text]::-moz-placeholder, input[type=email]::-moz-placeholder, input[type=password]::-moz-placeholder, input[type=date]::-moz-placeholder, input[type=time]::-moz-placeholder {
+input[type=text]::-moz-placeholder, input[type=email]::-moz-placeholder, input[type=password]::-moz-placeholder, input[type=date]::-moz-placeholder, input[type=time]::-moz-placeholder, select::-moz-placeholder {
   font-weight: 300;
 }
-input[type=text]:-ms-input-placeholder, input[type=email]:-ms-input-placeholder, input[type=password]:-ms-input-placeholder, input[type=date]:-ms-input-placeholder, input[type=time]:-ms-input-placeholder {
+input[type=text]:-ms-input-placeholder, input[type=email]:-ms-input-placeholder, input[type=password]:-ms-input-placeholder, input[type=date]:-ms-input-placeholder, input[type=time]:-ms-input-placeholder, select:-ms-input-placeholder {
   font-weight: 300;
 }
 input[type=text]::placeholder,
 input[type=email]::placeholder,
 input[type=password]::placeholder,
 input[type=date]::placeholder,
-input[type=time]::placeholder {
+input[type=time]::placeholder,
+select::placeholder {
   font-weight: 300;
 }
 
@@ -632,6 +655,15 @@ input[type=date],
 input[type=time] {
   width: 100%;
   padding: 8px;
+}
+
+select {
+  width: 100%;
+  line-height: 38px !important;
+  height: 38px;
+  padding-left: 8px;
+  padding-right: 20px;
+  font-weight: 300;
 }
 
 .select2 {
