@@ -17,7 +17,7 @@
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a class="menu-link" href="{{ route('admin_dashboard') }}">
+                        <a class="menu-link" href="{{ route('admin_tutor.index') }}">
                             <i class="mdi mdi-account-outline" aria-hidden="true"></i>
                             <span>Tutor List</span>
                         </a>

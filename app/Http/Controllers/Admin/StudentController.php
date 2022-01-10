@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 
-class TutorController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,7 @@ class TutorController extends Controller
      */
     public function index()
     {
-        $users=User::where('role','Tutor')->get();
-        return view('admin/tutor/index',compact('users'));
+        //
     }
 
     /**
@@ -59,8 +58,8 @@ class TutorController extends Controller
      */
     public function edit($id)
     {
-         $user=User::find($id);
-        return view('admin/tutor/edit',compact('user'));
+        $user=User::find($id);
+        return view('admin/student/edit',compact('user'));
     }
 
     /**
@@ -72,7 +71,7 @@ class TutorController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $users=User::find($id);
+            $users=User::find($id);
             $users->first_name = $request->first_name;
             $users->last_name = $request->last_name;
             $users->email = $request->email;
@@ -83,7 +82,7 @@ class TutorController extends Controller
             $users->state_id = $request->state_id== null ? 0 : $request->state_id;
             $users->subscriptions_id=$request->subscription_id;
             $users->save();
-            return redirect()->route('admin_tutor.index')->with('success', 'Tutor Update successfullay added.');
+            return redirect()->route('admin_dashboard')->with('success', 'Student Update successfullay added.');
     }
 
     /**
@@ -94,10 +93,8 @@ class TutorController extends Controller
      */
     public function destroy($id)
     {
-         $user=User::find($id);
+        $user=User::find($id);
         $user->delete();
-        // dd('dcsf');
-        return redirect()->route('admin_tutor.index')->with('success', 'Tutor Delete successfullay added.');
+        return redirect()->route('admin_dashboard')->with('success', 'Student delete successfullay added.');
     }
-
 }

@@ -16,7 +16,8 @@
     </div>
         @endif
     <div class="box-main bg-white p-3 px-4 mt-4 pb-5">
-         <form  method="post" action="{{ route('stripe_setting') }}" >
+         <form id="stripe-setting"  >
+            @method('POST')
             @csrf
         <div class="page-head  py-2 d-flex justify-content-between align-items-center mb-3">
             <label class="d-flex align-items-center">
@@ -53,7 +54,7 @@
                         @enderror
                     </div>
 
-                    <div>
+                    <div class="save">
                         <button type="submit" class="btn text-decoration-none common-btn "  >
                             Save Settings
                         </button>
@@ -68,4 +69,50 @@
         </form>
     </div>
 </div>
+@endsection
+@section('js-hooks')
+<script type="text/javascript">
+     $(document).ready(function() {
+        $("#stripe-setting").validate({
+            rules: {
+                setting_key: {
+                    required: true
+                },
+                setting_value: {
+                    required: true
+                },
+            },
+            messages: {
+                admin_email: {
+                    required: "Stripe secret key is required"
+                },
+                name: {
+                    required: "Stripe public key is required"
+                },
+            },
+            submitHandler: function(form) {
+                // alert('valid form submitted'); 
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('stripe_setting') }}",
+                    data: new FormData($('#stripe-setting')[0]),
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        if (data.status == 200) {
+                            $(".save").after('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Stripe Setting Added successfully.</div>');
+                            setTimeout(function(){
+                                window.location ="{{ route('admin_settings') }}";
+                            },1000);
+                        } else {
+                            alert("Opps..! Something Went to Wrong.")
+                        }
+                    }
+                });
+                return false;
+            }
+        });
+
+     });
+</script>
 @endsection

@@ -15,6 +15,13 @@
         </div>
     </div>
     <div class="student-list bg-white mt-4">
+         @if (\Session::has('success'))
+            <div class="alert alert-success">
+                <ul>
+                    <li>{!! \Session::get('success') !!}</li>
+                </ul>
+             </div>
+        @endif
         <table id="student_list" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
@@ -43,8 +50,14 @@
                     <td>{{$user->created_at}}</td>
                     <td>{{$user->updated_date}}</td>
                     <td>
-                        <a class="btn btn-primary" href="{{ route('user_edit',$user->id) }}">Edit</a>
-                        <a class="btn btn-danger" href="{{ route('user_delete',$user->id) }}">Delete</a></td>
+                        <form action="{{ route('student.destroy',$user->id) }}" method="POST">
+    
+                        <a class="btn btn-primary" href="{{ route('student.edit',$user->id) }}">Edit</a>
+                            @csrf
+                            @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                       </td>
                 </tr>
                 @endforeach
             </tbody>

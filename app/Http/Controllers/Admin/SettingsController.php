@@ -40,6 +40,7 @@ class SettingsController extends Controller
     {
         return view('admin/settings/settingslanguage');
     }
+    
     public function stripesetting(Request $request)
     {
         $this->validate($request,['setting_key'=>'required',
@@ -51,16 +52,25 @@ class SettingsController extends Controller
 
         $setting->status=$request->status=='on'?'Active':'Inactive';
         $setting->save();
-        return redirect()->back()->with('success', 'Email Notification successfullay added.'); 
+        if($email_notification){
+            return response()->Json(['status' => '200','msg'=>'Stripe Setting added successfully.']);
+        }else{
+            return response()->Json(['status' => '400','msg' => 'Something want wrong.']);
+        }
     }
 
     public function addnotification(Request $request)
-    {
+    {  
         $request->validate([  
-        'admin_email' => ['required', 'string', 'max:255'],
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-        ]);  
+            'admin_email' => 'required',
+            'name'       => 'required',
+            'email'          => 'required',
+        ],
+        [
+            'admin_email.required' => 'Super Admin Email is required',
+            'name.required' => 'Sender Name is required',
+            'email.required' => 'Sender Email is required',
+        ]);
 
         $email_notification=new EmailNotification();
         $email_notification->admin_email=$request->admin_email;
@@ -68,7 +78,11 @@ class SettingsController extends Controller
 
         $email_notification->email=$request->email;
         $email_notification->save();
-        return redirect()->back()->with('success', 'Email Notification successfullay added.');   
+        if($email_notification){
+            return response()->Json(['status' => '200','msg'=>'Email Notification added successfully.']);
+        }else{
+            return response()->Json(['status' => '400','msg' => 'Something want wrong.']);
+        }
     }
     
 }
