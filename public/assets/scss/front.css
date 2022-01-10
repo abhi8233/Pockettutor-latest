@@ -665,6 +665,15 @@ select {
   padding-right: 20px;
   font-weight: 300;
 }
+select::-moz-placeholder {
+  color: #999;
+}
+select:-ms-input-placeholder {
+  color: #999;
+}
+select::placeholder {
+  color: #999;
+}
 
 .select2 {
   height: 38px !important;
@@ -1038,6 +1047,10 @@ select {
   color: #707070;
 }
 
+label.error {
+  color: red;
+}
+
 #pt .front-main {
   background-color: #ffffff;
 }
@@ -1346,6 +1359,14 @@ footer li {
 }
 
 @media (max-width: 768px) {
+  #pt .front-main .banner img {
+    height: 300px;
+  }
+
+  .banner .row .col-md-5 {
+    justify-content: center;
+  }
+
   .footer-wrap h3 {
     margin-top: 27px;
   }

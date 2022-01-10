@@ -347,6 +347,12 @@ footer li {
 }
 
 @media (max-width: 768px) {
+    #pt .front-main .banner img{
+        height: 300px;
+    }
+    .banner .row .col-md-5{
+        justify-content: center;
+    }
     .footer-wrap h3 {
         margin-top: 27px;
     }

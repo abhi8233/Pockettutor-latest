@@ -664,6 +664,14 @@ select {
   padding-left: 8px;
   padding-right: 20px;
   font-weight: 300;
+}
+select::-moz-placeholder {
+  color: #999;
+}
+select:-ms-input-placeholder {
+  color: #999;
+}
+select::placeholder {
   color: #999;
 }
 
