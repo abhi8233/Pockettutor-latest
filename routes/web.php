@@ -58,6 +58,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 	Route::get('student/profile', [App\Http\Controllers\Student\DashboardController::class, 'profile'])->name('sprofile');
 
 	Route::resource('student/booking', App\Http\Controllers\Student\BookingController::class)->names('sbooking');
+	Route::get('getTutor', [App\Http\Controllers\Student\BookingController::class,'getTutor'])->name('getTutor');
+	/* booking page for student */
+	Route::get('booking', [App\Http\Controllers\Booking\BookingController::class, 'index'])->name('booking');
 
 	Route::resource('student/feedback', App\Http\Controllers\Student\FeedbackController::class)->names('sfeedback');
 
@@ -90,9 +93,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 /*------------------------------------ BOOKING -------------------------------------*/
 /*Route::group(['middleware' => ['auth', 'verified','booking']], function () { 
-	
+	Route::get('booking', [App\Http\Controllers\Booking\BookingController::class, 'index'])->name('booking');
 });*/
-Route::get('booking', [App\Http\Controllers\Booking\BookingController::class, 'index'])->name('booking');
+
 
 
 /*------------------------------------ FRONT ---------------------------------------*/

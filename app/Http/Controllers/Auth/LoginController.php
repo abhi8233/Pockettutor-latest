@@ -28,11 +28,12 @@ class LoginController extends Controller
      *
      * @var string
      */
-    // protected $redirectTo = RouteServiceProvider::HOME;
+    /* protected $redirectTo = RouteServiceProvider::HOME;*/
 
     public function redirectTo() {
+        /* if change redirection then change in middleware redirect */
         $role = Auth::user()->role; 
-        // dd($role);
+        
         switch ($role) {
             case 'SuperAdmin':
                 return '/admin/dashboard';
@@ -41,7 +42,8 @@ class LoginController extends Controller
                 return '/tutor/dashboard';
                 break; 
             case 'Student':
-                return '/student/dashboard';
+                /* return '/student/dashboard';*/
+                return '/student/booking';
                 break; 
             default:
                 return '/home';

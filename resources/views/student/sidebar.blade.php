@@ -4,12 +4,12 @@
             <img src="../assets/images/logo.png" />
         </div>
         <ul class="menus">
-            <li class="perent-menu menu-item">
+            <!-- <li class="perent-menu menu-item">
                 <a class="menu-link" href="{{ route('sdashboard.index') }}">
                     <i class="mdi mdi-view-dashboard-outline" aria-hidden="true"></i>
                     <span>Dashboard</span>
                 </a>
-            </li>
+            </li> -->
             <li class="perent-menu menu-item">
                 <a class="menu-link" href="{{ route('sbooking.index') }}">
                     <i class="mdi mdi-view-dashboard-outline" aria-hidden="true"></i>

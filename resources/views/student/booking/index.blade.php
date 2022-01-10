@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="card-tools">
-        <a class="btn btn-success" href="{{route('sbooking.create')}}"><i class="fas fa-plus"></i> &nbsp; Booking Slot</a>
+        <a class="btn btn-success" href="{{route('booking')}}"><i class="fas fa-plus"></i> &nbsp; Booking Slot</a>
     </div>
     <div class="student-list bg-white mt-4">
         <table id="student_list" class="table table-striped" style="width:100%">
@@ -22,7 +22,7 @@
                     <th>Date Time</th>
                     <th>Specialization</th>
                     <th>Google Meet Link</th>
-                    <th>Action</th>
+                    <!-- <th>Action</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -32,10 +32,10 @@
                         <td>{{$bookingslot->date_time}}</td>
                         <td>{{$bookingslot->specialization->name}}</td>
                         <td>{{$bookingslot->google_meet_link}}</td>
-                        <td>
+                        <!-- <td>
                             <a href="{{ route('sbooking.edit',$bookingslot->id) }}" title="edit" ><i class="fas fa-pen"></i></a>
                             <a href="{{ route('sbooking.destroy',$bookingslot->id) }}" ><i class="fas fa-trash"></i></a>
-                        </td>
+                        </td> -->
 
                     </tr>
                 @endforeach
