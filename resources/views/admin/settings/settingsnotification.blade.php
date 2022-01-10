@@ -8,7 +8,14 @@
             <span class="ps-1">Email Notification</span>
         </label>
     </div>
-    <div class="box-main bg-white p-3 px-4 mt-4 pb-5">
+    <div class="box-main bg-white p-3 px-4 mt-4 pb-2">
+        @if (\Session::has('success'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+@endif
         <!-- <div class="page-head  py-2 d-flex justify-content-between align-items-center mb-3">
             <label class="d-flex align-items-center">
                 <span class="">Stripe Payment Form</span>
@@ -22,25 +29,34 @@
 
         <div class="row">
             <div class="col-12 col-md-6">
-                <form method="" action="" class="">
-
+                <form  method="post" action="{{ route('add_notification') }}" >
+                    @csrf
                     <div class="mb-3">
                         <label for="email" class="col-form-label p-0 mb-1">Super Admin Email Id <span class="pt-color-red pt-fs-16">*</span> </label>
-                        <input type="text" placeholder="Enter super admin email id " class="form-control">
+                        <input type="text" placeholder="Enter super admin email id " class="form-control" id="admin_email" name="admin_email" value="{{auth()->user()->email}}">
+                        @error('admin_email'))
+                            <div class="pt-color-red">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label for="email" class="col-form-label p-0 mb-1">Sender Name <span class="pt-color-red pt-fs-16">*</span> </label>
-                        <input type="text" placeholder="Enter sender name" class="form-control" name="plan-name">
+                        <input type="text" placeholder="Enter sender name" class="form-control" id="name" name="name">
+                        @error('name')
+                            <div class="pt-color-red"> {{ $message }} </div>
+                        @enderror
                     </div>
 
                     <div class="mb-5">
                         <label for="email" class="col-form-label p-0 mb-1">Sender Email Id <span class="pt-color-red pt-fs-16">*</span> </label>
-                        <input type="text" placeholder="Enter sender email id" class="form-control" name="plan-name">
+                        <input type="text" placeholder="Enter sender email id" id="email" class="form-control" name="email">
+                        @error('email')
+                            <div class="pt-color-red">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div>
-                        <button class="btn text-decoration-none common-btn " data-bs-toggle="modal" data-bs-target="#newplan">
+                        <button class="btn text-decoration-none common-btn " type="submit">
                             Save Settings
                         </button>
                     </div>

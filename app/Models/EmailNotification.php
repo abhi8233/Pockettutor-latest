@@ -6,12 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
-class FieldInterest extends Model
+class EmailNotification extends Model
 {
+     protected $table='email_notification';
     use HasFactory;
     protected $guarded=['id'];
- public function users()
-    {
-        return $this->hasMany(User::class);
-    }
 }

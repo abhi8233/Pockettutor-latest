@@ -18,6 +18,13 @@
         </div>
     </div>
     <div class="student-list bg-white p-3 mt-4">
+         @if (\Session::has('success'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+        @endif
         <table id="student_list" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
@@ -30,79 +37,20 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($subscriptions as $subscription)
                 <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>$30</td>
-                    <td>30 min</td>
-                    <td>15-12-2021</td>
+                    <td>{{$subscription->id}}</td>
+                    <td>{{$subscription->plan}}</td>
+                    <td>${{$subscription->price}}</td>
+                    <td>{{$subscription->minutes}} min</td>
+                    <td>{{$subscription->created_at}}</td>
                     <td>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>$30</td>
-                    <td>30 min</td>
-                    <td>15-12-2021</td>
-                    <td>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>$30</td>
-                    <td>30 min</td>
-                    <td>15-12-2021</td>
-                    <td>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>$30</td>
-                    <td>30 min</td>
-                    <td>15-12-2021</td>
-                    <td>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>$30</td>
-                    <td>30 min</td>
-                    <td>15-12-2021</td>
-                    <td>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>$30</td>
-                    <td>30 min</td>
-                    <td>15-12-2021</td>
-                    <td>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                        </div>
-                    </td>
-                </tr>
-
+            @endforeach
             </tbody>
         </table>
     </div>
@@ -120,21 +68,26 @@
                 </button>
             </div>
             <div class="modal-body pb-5">
-                <form method="" action="" class="pt-width-p-80 my-0 mx-auto">
-
+                <form method="post" action="{{route('add_subscription')}}" class="pt-width-p-80 my-0 mx-auto">
+                         @csrf
                     <div class="mb-3">
                         <label for="email" class="col-form-label p-0 mb-1">Plan Name <span class="pt-color-red pt-fs-16">*</span> </label>
-                        <input type="text" placeholder="Enter plan name" class="form-control" name="plan-name">
+                        <input type="text" placeholder="Enter plan name" class="form-control" name="plan_name">
                     </div>
 
                     <div class="mb-3">
                         <label for="email" class="col-form-label p-0 mb-1">Monthly Cost <span class="pt-color-red pt-fs-16">*</span> </label>
-                        <input type="text" placeholder="Enter monthly cost" class="form-control" name="plan-name">
+                        <input type="text" placeholder="Enter monthly cost" class="form-control" name="cost">
                     </div>
 
                     <div class="mb-5">
                         <label for="email" class="col-form-label p-0 mb-1">Minutes <span class="pt-color-red pt-fs-16">*</span> </label>
-                        <input type="text" placeholder="Enter minutes" class="form-control" name="plan-name">
+                        <input type="text" placeholder="Enter minutes" class="form-control" name="minutes">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="slot" class="col-form-label p-0 mb-1">Slots <span class="pt-color-red pt-fs-16">*</span> </label>
+                        <input type="text" placeholder="Enter slot" class="form-control" name="slot">
                     </div>
 
                     <div>

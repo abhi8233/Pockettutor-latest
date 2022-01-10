@@ -7,6 +7,9 @@
             <i class="mdi mdi-account-outline" aria-hidden="true"></i>
             <span class="ps-1">Tutor List</span>    
         </label>
+        <div>
+            <a class="p-0 text-decoration-none  btn btn-primary pr-5" href="{{ route('register') }}"><span class="m-3">Add</span></a>
+        </div>
         <div class="date-filter">
             <input type="text" class="form-control" id="stu_list_daterange" />
         </div>
@@ -22,99 +25,27 @@
                     <th>Country</th>
                     <th>State</th>
                     <th>Field Of Interest</th>
-                    <th>Hourly Rate</th>
-                    <th>Spent Hours</th>
-                    <th>Month Name</th>
-                    <th>Passport Number</th>
                     <th>Document</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
+                 @foreach($users as $user)
                 <tr>
-                    <td>1</td>
-                    <td>Marteen</td>
-                    <td>demo@gmail.com</td>
-                    <td>English</td>
-                    <td>USA</td>
-                    <td>Texas</td>
-                    <td>Accounts maths tax</td>
-                    <td>$15</td>
-                    <td>4Hrs</td>
-                    <td>January</td>
-                    <td>123456789</td>
+                    <td>{{$user->id}}</td>
+                    <td>{{$user->first_name}} {{$user->last_name}}</td>
+                    <td>{{$user->id}}</td>
+                    <td>{{isset($user->languages->name) ? $user->languages->name:''}}</td>
+                    <td>{{isset($user->Country->name) ? $user->Country->name:''}}</td>
+                    <td>{{isset($user->State->name) ? $user->State->name:''}}</td>
+                    <td>{{isset($user->fieldInterest->name) ? $user->fieldInterest->name:''}}</td>
                     <td><img src="../assets/images/icons/pdf-icon.svg"></td>
+                    <td>
+                         <a class="btn btn-primary" href="{{ route('user_edit',$user->id) }}">Edit</a>
+                         <a class="btn btn-danger" href="{{ route('tutor_delete',$user->id) }}">Delete</a>
+                     </td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Marteen</td>
-                    <td>demo@gmail.com</td>
-                    <td>English</td>
-                    <td>USA</td>
-                    <td>Texas</td>
-                    <td>Accounts maths tax</td>
-                    <td>$15</td>
-                    <td>4Hrs</td>
-                    <td>January</td>
-                    <td>123456789</td>
-                    <td><img src="../assets/images/icons/pdf-icon.svg"></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Marteen</td>
-                    <td>demo@gmail.com</td>
-                    <td>English</td>
-                    <td>USA</td>
-                    <td>Texas</td>
-                    <td>Accounts maths tax</td>
-                    <td>$15</td>
-                    <td>4Hrs</td>
-                    <td>January</td>
-                    <td>123456789</td>
-                    <td><img src="../assets/images/icons/pdf-icon.svg"></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Marteen</td>
-                    <td>demo@gmail.com</td>
-                    <td>English</td>
-                    <td>USA</td>
-                    <td>Texas</td>
-                    <td>Accounts maths tax</td>
-                    <td>$15</td>
-                    <td>4Hrs</td>
-                    <td>January</td>
-                    <td>123456789</td>
-                    <td><img src="../assets/images/icons/pdf-icon.svg"></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Marteen</td>
-                    <td>demo@gmail.com</td>
-                    <td>English</td>
-                    <td>USA</td>
-                    <td>Texas</td>
-                    <td>Accounts maths tax</td>
-                    <td>$15</td>
-                    <td>4Hrs</td>
-                    <td>January</td>
-                    <td>123456789</td>
-                    <td><img src="../assets/images/icons/pdf-icon.svg"></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Marteen</td>
-                    <td>demo@gmail.com</td>
-                    <td>English</td>
-                    <td>USA</td>
-                    <td>Texas</td>
-                    <td>Accounts maths tax</td>
-                    <td>$15</td>
-                    <td>4Hrs</td>
-                    <td>January</td>
-                    <td>123456789</td>
-                    <td><img src="../assets/images/icons/pdf-icon.svg"></td>
-                </tr>
-                
+                @endforeach
             </tbody>
         </table>
     </div>

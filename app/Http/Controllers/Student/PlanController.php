@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
-
+use App\Models\UserPlan;
 use Illuminate\Http\Request;
 
 class PlanController extends Controller
@@ -24,6 +24,7 @@ class PlanController extends Controller
      */
     public function index()
     {
-        return view('student/plan/index');
+        $user_plans=UserPlan::where('id',auth()->user()->id)->orderBy('id','desc')->get();
+        return view('student/plan/index',compact('user_plans'));
     }
 }

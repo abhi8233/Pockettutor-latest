@@ -6,12 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
-class FieldInterest extends Model
+class Setting extends Model
 {
+    protected $table='setting';
     use HasFactory;
     protected $guarded=['id'];
- public function users()
-    {
-        return $this->hasMany(User::class);
-    }
+
 }
