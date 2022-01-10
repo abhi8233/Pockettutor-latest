@@ -125,11 +125,3 @@ $(document).ready(function () {
   });
 })
 
-
-
-
-
-$(".select2.front-specialization").select2({
-  placeholder: "Select Specialization",
-  allowClear: true
-});

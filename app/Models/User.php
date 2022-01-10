@@ -28,6 +28,7 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
+        'profile',
         'role',
         'institution_id',
         'field_of_interest',

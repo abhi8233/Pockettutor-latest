@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Booking;
 
 use App\Http\Controllers\Controller;
 
-use App\Models\Bookings;
+// use App\Models\Bookings;
 use App\Models\Specialization;
 use App\Models\languages;
 
@@ -44,18 +44,8 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        $bookingslot=new Bookings;
-        $bookingslot->tutor_id= $request->tutor_id;
-        $bookingslot->specialization_id= $request->specialization_id;
-        $bookingslot->language_id= $request->language_id;
-        $bookingslot->date_time= $request->date_time;
-        $bookingslot->user_id= Auth::user()->id;
-        $bookingslot->save();
-        if($bookingslot){
-            return response()->Json(['status' => 'success']);
-        }else{
-            return response()->Json(['status' => 'error']);
-        }
+
+        
     }
 
     /**
