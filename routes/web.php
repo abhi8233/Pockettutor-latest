@@ -29,6 +29,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 	Route::get('admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin_dashboard');
 
+	Route::get('admin/user/delete/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'delete'])->name('user_delete');
+	Route::get('admin/tutor/delete/{id}', [App\Http\Controllers\Admin\TutorController::class, 'delete'])->name('tutor_delete');
+
+
 	Route::resource('admin/student', App\Http\Controllers\Admin\StudentController::class)->names('student');
 
 	Route::resource('admin/tutor', App\Http\Controllers\Admin\TutorController::class)->names('admin_tutor');
@@ -44,6 +48,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 	Route::post('admin/stripe', [App\Http\Controllers\Admin\SettingsController::class, 'stripesetting'])->name('stripe_setting');
 	Route::post('admin/add/notification', [App\Http\Controllers\Admin\SettingsController::class, 'addnotification'])->name('add_notification');
 	Route::post('admin/add/subscription', [App\Http\Controllers\Admin\SubscriptionController::class, 'store'])->name('add_subscription');
+
 });
 
 
@@ -78,11 +83,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 	Route::resource('tutor/meetings', App\Http\Controllers\Tutor\MeetingsController::class)->names('tmeetings');
 
-	// Route::get('tutor/dashboard', [App\Http\Controllers\Tutor\DashboardController::class, 'index'])->name('tutor_dashboard');
-
-	// Route::get('tutor/meetings', [App\Http\Controllers\Tutor\MeetingsController::class, 'index'])->name('tutor_meetings');
-
-	// Route::get('tutor/profile', [App\Http\Controllers\Tutor\ProfileController::class, 'index'])->name('tutor_profile');
+	
 });
 
 
