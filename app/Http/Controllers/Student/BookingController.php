@@ -43,7 +43,37 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+       $request->validate([  
+            'specialization' => 'required',
+            'language'       => 'required',
+            'tutor_id'          => 'required',
+            'date'              => 'required',
+            'time'              => 'required'
+        ],
+        [
+            'specialization.required' => 'Specialization is required',
+            'language.required' => 'Language is required',
+            'tutor_id.required' => 'Tutor is required',
+            'date.required' => 'Date is required',
+            'time.required' => 'Time is required',
+        ]);
+
+        $date_time = date("Y-m-d H:i:s",strtotime("$request->date $request->time"));
+        
+
+        $bookingslot = new Bookings;
+        $bookingslot->tutor_id = $request->tutor_id;
+        $bookingslot->specialization_id = $request->specialization;
+        $bookingslot->language_id = $request->language;
+        $bookingslot->date_time = $date_time;
+        $bookingslot->user_id = auth()->user()->id;
+        $bookingslot->save();
+
+        if($bookingslot){
+            return response()->Json(['status' => '200','msg'=>'Booking booked successfully.']);
+        }else{
+            return response()->Json(['status' => '400','msg' => 'Something want wrong.']);
+        }
     }
 
     /**

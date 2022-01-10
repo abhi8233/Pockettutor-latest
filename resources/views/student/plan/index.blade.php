@@ -27,11 +27,11 @@
             <tbody>
                 @foreach($user_plans as $plan)
                 <tr>
-                    <td>{{$plan->id}}</td>
-                    <td>{{$plan->subscription->plan}}</td>
-                    <td>${{$plan->price}}</td>
-                    <td>{{$plan->minutes}} Min</td>
-                    <td>{{$plan->remaining_minutes}} Min</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $plan->subscription->plan }}</td>
+                    <td>$ {{ $plan->price }}</td>
+                    <td>{{ $plan->minutes }} Min</td>
+                    <td>{{ $plan->remaining_minutes }} Min</td>
                 </tr>
                 @Endforeach
             </tbody>

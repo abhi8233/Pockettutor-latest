@@ -56,6 +56,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 	Route::resource('student/dashboard', App\Http\Controllers\Student\DashboardController::class)->names('sdashboard');
 	Route::get('student/profile', [App\Http\Controllers\Student\DashboardController::class, 'profile'])->name('sprofile');
+	Route::post('student/update-profile', [App\Http\Controllers\Student\DashboardController::class, 'updateProfile'])->name('updateSProfile');
+	Route::post('student/update-pasword', [App\Http\Controllers\Student\DashboardController::class, 'updatePassword'])->name('updateSPassword');
 
 	Route::resource('student/booking', App\Http\Controllers\Student\BookingController::class)->names('sbooking');
 	Route::get('student/getTutor', [App\Http\Controllers\Student\BookingController::class,'getTutor'])->name('getTutor');
@@ -65,17 +67,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 	Route::resource('student/feedback', App\Http\Controllers\Student\FeedbackController::class)->names('sfeedback');
 
 	Route::resource('student/plan', App\Http\Controllers\Student\PlanController::class)->names('splan');
-
-	// Route::resource('book-slot', 'App\Http\Controllers\Booking\BookingController');
-
-	// Route::get('student/feedback', [App\Http\Controllers\Student\FeedbackController::class, 'index'])->name('student_feedback');
-
-	// Route::get('student/plan', [App\Http\Controllers\Student\PlanController::class, 'index'])->name('student_plan');
-
-	// Route::get('student/profile', [App\Http\Controllers\Student\ProfileController::class, 'index'])->name('student_profile');
-
-	// Route::get('tutor/select', 'App\Http\Controllers\Booking\BookingController@selectedSpecializationTutor')->name('tutor.select');
-	
 });
 
 
@@ -83,11 +74,18 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 // Route::group(['middleware' => ['auth', 'verified','tutor']], function () { 
 Route::group(['middleware' => ['auth', 'verified']], function () { 
 
-	Route::get('tutor/dashboard', [App\Http\Controllers\Tutor\DashboardController::class, 'index'])->name('tutor_dashboard');
+	Route::resource('tutor/dashboard', App\Http\Controllers\Tutor\DashboardController::class)->names('tdashboard');
+	Route::get('tutor/profile', [App\Http\Controllers\Tutor\DashboardController::class, 'profile'])->name('tprofile');
+	Route::post('tutor/update-profile', [App\Http\Controllers\Tutor\DashboardController::class, 'updateProfile'])->name('updateTProfile');
+	Route::post('tutor/update-pasword', [App\Http\Controllers\Tutor\DashboardController::class, 'updatePassword'])->name('updateTPassword');
 
-	Route::get('tutor/meetings', [App\Http\Controllers\Tutor\MeetingsController::class, 'index'])->name('tutor_meetings');
+	Route::resource('tutor/meetings', App\Http\Controllers\Tutor\MeetingsController::class)->names('tmeetings');
 
-	Route::get('tutor/profile', [App\Http\Controllers\Tutor\ProfileController::class, 'index'])->name('tutor_profile');
+	// Route::get('tutor/dashboard', [App\Http\Controllers\Tutor\DashboardController::class, 'index'])->name('tutor_dashboard');
+
+	// Route::get('tutor/meetings', [App\Http\Controllers\Tutor\MeetingsController::class, 'index'])->name('tutor_meetings');
+
+	// Route::get('tutor/profile', [App\Http\Controllers\Tutor\ProfileController::class, 'index'])->name('tutor_profile');
 });
 
 

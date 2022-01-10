@@ -11,7 +11,7 @@ use App\Models\Subscription;
 use App\Models\Country;
 use App\Models\State;
 use App\Models\Languages;
-use App\Models\FieldInterest;
+use App\Models\Specialization;
 use App\Models\Bookings;
 
 class User extends Authenticatable
@@ -23,21 +23,23 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table='users';
+    protected $guarded=['id'];
+
     protected $fillable = [
         'first_name',
         'last_name',
+        'role',
         'email',
+        'email_verified_at',
         'password',
         'profile',
-        'role',
-        'institution_id',
-        'field_of_interest',
         'specialization_id',
         'language_id',
+        'subscriptions_id',
         'country_id',
         'state_id',
-        'subscriptions_id',
-        'tutor_fee',
+        'remember_token'
     ];
 
     /**
@@ -58,27 +60,36 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function subscriptions()
-    {
-        return $this->belongsTo(Subscription::class);
-    }
-    public function country()
-    {
-        return $this->belongsTo(Country::class);
-    }
+    
+    
     public function state()
     {
         return $this->belongsTo(State::class);
     }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function subscriptions()
+    {
+        return $this->belongsTo(Subscription::class);
+    }
+
     public function languages()
     {
         return $this->belongsTo(Languages::class);
     }
+
     public function fieldInterest()
     {
-        return $this->belongsTo(FieldInterest::class);
+        return $this->belongsTo(Specialization::class);
     }
-public function booking()
+
+    
+
+    public function booking()
     {
         return $this->belongsTo(Bookings::class);
     }

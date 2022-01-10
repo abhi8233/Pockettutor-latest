@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     /**
      * Create a new controller instance.
-     *
+     * 
      * @return void
      */
     public function __construct()
@@ -24,6 +24,19 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('tutor/dashboard');
+        return view('tutor.dashboard');
+    }
+
+    public function profile(){
+        
+        return view('tutor.setting.profile');
+    }
+
+    public function updateProfile(){
+        //update save update fields
+    }
+
+    public function updatePassword(){
+        //update save update fields
     }
 }

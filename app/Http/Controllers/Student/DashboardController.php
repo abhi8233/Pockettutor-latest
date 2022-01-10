@@ -23,12 +23,20 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('student/dashboard');
+        return view('student.dashboard');
     }
 
     public function profile(){
         
-        return view('student/setting/profile');
+        return view('student.setting.profile');
+    }
+
+    public function updateProfile(){
+        //update save update fields
+    }
+
+    public function updatePassword(){
+        //update save update fields
     }
 
     

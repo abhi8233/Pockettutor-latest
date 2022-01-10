@@ -8,8 +8,13 @@ use App\Models\User;
 
 class Setting extends Model
 {
-    protected $table='setting';
     use HasFactory;
+    protected $table='setting';
     protected $guarded=['id'];
+
+    protected $fillable = [
+    	'setting_key',
+    	'setting_value'
+    ];
 
 }

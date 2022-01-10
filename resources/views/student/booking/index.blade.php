@@ -18,6 +18,7 @@
         <table id="student_list" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
+                    <th>Sr No.</th>
                     <th>Tutor Name</th>
                     <th>Date Time</th>
                     <th>Specialization</th>
@@ -28,6 +29,7 @@
             <tbody>
                 @foreach($bookingslots as $bookingslot)
                     <tr>
+                        <td>{{ $loop->iteration}}</td>
                         <td>{{$bookingslot->tutor->first_name}} {{$bookingslot->tutor->last_name}}</td>
                         <td>{{$bookingslot->date_time}}</td>
                         <td>{{$bookingslot->specialization->name}}</td>

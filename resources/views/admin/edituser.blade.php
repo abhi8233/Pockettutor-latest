@@ -106,12 +106,12 @@
 
                     <div class="row mb-3 tutor_field">
                         <div class="col-md-6">
-                            <label for="field_of_interest" class="col-form-label p-0 mb-1">{{ __('Field of Interest') }} <span class="pt-color-red pt-fs-16">*</span></label>
+                            <label for="specialization" class="col-form-label p-0 mb-1">{{ __('Specialization') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
-                            <select class="form-control field_of_interest" name="field_of_interest">
-                                <option value=""> Select Field of Interest</option>
-                                @foreach(\App\Models\FieldInterest::All() as $field)
-                                <option value="{{$field->id}}" {{$field->id == $user->field_of_interest ?'selected':''}}>{{$field->name}}</option>
+                            <select class="form-control specialization" name="specialization">
+                                <option value=""> Select Specialization</option>
+                                @foreach(\App\Models\Specialization::All() as $specialization)
+                                <option value="{{$specialization->id}}" {{$specialization->id == $user->specialization_id ?'selected':''}}>{{$specialization->name}}</option>
                                 @endforeach
                                 
                             </select>

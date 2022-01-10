@@ -87,14 +87,14 @@ class RegisterController extends Controller
         return User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
-            'email' => $data['email'],
             'role'=>$data['role'],
+            'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'field_of_interest' => $data['field_of_interest'],
-            'country_id' => $data['country_id'],
-             'language_id' => $data['language_id'],
-            'state_id' => $data['state_id'],
+            'specialization_id' => $data['specialization'],
+            'language_id' => $data['language_id'],
             'subscription_id'=>isset($data['subscription_id']) ? $data['subscription_id'] :null,
+            'country_id' => $data['country_id'],
+            'state_id' => $data['state_id'],
         ]);
     }
 

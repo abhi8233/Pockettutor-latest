@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 
+use App\Models\Feedback;
+
 use Illuminate\Http\Request;
 
 class FeedbackController extends Controller
@@ -24,6 +26,7 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        return view('student/feedback/index');
+        $feedbacks = Feedback::with(['tutor'])->where('user_id', auth()->user()->id)->orderBy('id','desc')->get();
+        return view('student.feedback.index',compact('feedbacks'));
     }
 }

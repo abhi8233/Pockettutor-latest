@@ -40,7 +40,7 @@ class DashboardController extends Controller
             $users->last_name = $request->last_name;
             $users->email = $request->email;
             $users->role=$request->role;
-            $users->field_of_interest = $request->field_of_interest;
+            $users->specialization_id = $request->specialization;
             $users->country_id =$request->country_id;
             $users->language_id =$request->language_id;
            $users->state_id = $request->state_id;

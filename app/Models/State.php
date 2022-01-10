@@ -9,9 +9,15 @@ use App\Models\User;
 class State extends Model
 {
     use HasFactory;
+    protected $table='states';
     protected $guarded=['id'];
 
- public function users()
+    protected $fillable = [
+    	'name',
+    	'country_id'
+    ];
+
+ 	public function users()
     {
         return $this->hasMany(User::class);
     }
