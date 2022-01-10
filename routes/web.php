@@ -54,16 +54,24 @@ Route::get('admin/tutor/delete/{id}', [App\Http\Controllers\Admin\TutorControlle
 // Route::group(['middleware' => ['auth', 'verified','student']], function () { 
 Route::group(['middleware' => ['auth', 'verified']], function () { 
 
-	Route::get('student/dashboard', [App\Http\Controllers\Student\DashboardController::class, 'index'])->name('student_dashboard');
+	Route::resource('student/dashboard', App\Http\Controllers\Student\DashboardController::class)->names('sdashboard');
+	Route::get('student/profile', [App\Http\Controllers\Student\DashboardController::class, 'profile'])->name('sprofile');
 
-	Route::get('student/feedback', [App\Http\Controllers\Student\FeedbackController::class, 'index'])->name('student_feedback');
+	Route::resource('student/booking', App\Http\Controllers\Student\BookingController::class)->names('sbooking');
 
-	Route::get('student/plan', [App\Http\Controllers\Student\PlanController::class, 'index'])->name('student_plan');
+	Route::resource('student/feedback', App\Http\Controllers\Student\FeedbackController::class)->names('sfeedback');
 
-	Route::get('student/profile', [App\Http\Controllers\Student\ProfileController::class, 'index'])->name('student_profile');
+	Route::resource('student/plan', App\Http\Controllers\Student\PlanController::class)->names('splan');
 
-	Route::resource('book-slot', 'App\Http\Controllers\Booking\BookingController');
-	Route::get('tutor/select', 'App\Http\Controllers\Booking\BookingController@selectedSpecializationTutor')->name('tutor.select');
+	// Route::resource('book-slot', 'App\Http\Controllers\Booking\BookingController');
+
+	// Route::get('student/feedback', [App\Http\Controllers\Student\FeedbackController::class, 'index'])->name('student_feedback');
+
+	// Route::get('student/plan', [App\Http\Controllers\Student\PlanController::class, 'index'])->name('student_plan');
+
+	// Route::get('student/profile', [App\Http\Controllers\Student\ProfileController::class, 'index'])->name('student_profile');
+
+	// Route::get('tutor/select', 'App\Http\Controllers\Booking\BookingController@selectedSpecializationTutor')->name('tutor.select');
 	
 });
 

@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
-
-use App\Models\Bookings;
-
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -26,9 +23,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $bookingslots= Bookings::with(['tutor'])->where('user_id',auth()->user()->id)->orderBy('id','desc')->get();
-        // dd($bookingslots);
-        return view('student/dashboard',compact('bookingslots'));
+        return view('student/dashboard');
+    }
+
+    public function profile(){
+        
+        return view('student/setting/profile');
     }
 
     
