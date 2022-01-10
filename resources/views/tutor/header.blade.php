@@ -8,9 +8,9 @@
             <span class="notification-icon"><i class="mdi mdi-bell"></i></span>
 
             <div class="user-info d-flex align-items-center flex-wrap">
-                <a href="profile">
+                <a href="{{ route('tprofile') }}">
                     <span>{{ substr(Auth::user()->first_name, 0, 1) }}{{ substr(Auth::user()->last_name, 0, 1)}}</span>
-                </a>
+                </a> 
                 <label>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item dropdown">
@@ -19,6 +19,9 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item"  href="{{ route('tprofile') }}">
+                                    Profile
+                                </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}

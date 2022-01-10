@@ -9,9 +9,19 @@ use App\Models\User;
 class Subscription extends Model
 {
     use HasFactory;
+    protected $table='subscriptions';
     protected $guarded=['id'];
 
-     public function users()
+    protected $fillable = [
+    	'plan',
+    	'price',
+    	'minutes',
+    	'slots',
+    	
+    ];
+
+
+    public function users()
     {
         return $this->hasMany(User::class);
     }

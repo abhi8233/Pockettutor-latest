@@ -22,7 +22,7 @@ class BookingController extends Controller
     {
         $specializations= Specialization::orderBy('id','desc')->get();
         $languages= languages::orderBy('id','desc')->get();
-
+        
         return view('booking.index',compact('specializations','languages'));
     }
  

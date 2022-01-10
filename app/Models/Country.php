@@ -10,7 +10,12 @@ use App\Models\User;
 class Country extends Model
 {
     use HasFactory;
+    protected $table = 'country';
     protected $guarded=['id'];
+
+    protected $fillable = [
+    	'name',
+    ];
 
     public function users()
     {

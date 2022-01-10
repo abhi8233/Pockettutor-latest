@@ -9,7 +9,17 @@ use App\Models\Subscription;
 class UserPlan extends Model
 {
     use HasFactory;
+    protected $table='user_plans';
     protected $guarded=['id'];
+    
+    protected $fillable = [
+        'user_id',
+        'subscription_id',
+        'price',
+        'minutes',
+        'remaining_minutes',
+        'slots'
+    ];
     
     public function subscription()
     {

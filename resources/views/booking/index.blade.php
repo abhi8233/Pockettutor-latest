@@ -27,7 +27,7 @@
             <form id="frm-BookingSlot" name="frm-BookingSlot" class="bookingSlotFrm" enctype="multipart/form-data">
                 @method('POST')
                 @csrf
-                <div class="row mx-0 mt-3">
+                <div class="row mx-0 mt-3 mb-5">
                     <div class="col-12 mb-2">
                         <label class="col-md-4 col-form-label">Select Specialization</label>
                         <div class="">
@@ -58,7 +58,7 @@
                         <input type="text" name="tutor_id" id="tutor_id" style="visibility: hidden;">
                     </div>
 
-                    <div class="col-12 mb-5 date-time">
+                    <div class="col-12 mb-3 date-time">
                         <label class="col-md-4 col-form-label">Select Date & Time</label>
                         <div class="row mb-5">
                             <div class="col-12 col-md-6">
@@ -184,10 +184,15 @@
                     data: new FormData($('#frm-BookingSlot')[0]),
                     processData: false,
                     contentType: false,
-                    success: function(data) {
-                        if (data.status === 'success') {
-                            window.location = "{{ route('sbooking.index') }}";
-                        } else if (data.status === 'error') {
+                    success: function (data) {
+                        // console.log(data);
+                        // alert(data.status);
+                        if (data.status == 200) {
+                            $(".date-time").after('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Booking booked successfully.</div>');
+                            setTimeout(function(){
+                                window.location ="{{ route('sbooking.index') }}";
+                            },1000);
+                        } else {
                             alert("Opps..! Something Went to Wrong.")
                         }
                     }

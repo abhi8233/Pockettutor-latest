@@ -10,9 +10,14 @@ use App\Models\User;
 class Languages extends Model
 {
     use HasFactory;
+    protected $table = 'languages';
     protected $guarded=['id'];
+
+    protected $fillable = [
+    	'name',
+    ];
  
- public function users()
+ 	public function users()
     {
         return $this->hasMany(User::class);
     }

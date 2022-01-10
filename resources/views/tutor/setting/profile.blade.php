@@ -80,7 +80,7 @@
                                 </div>
 
                                 <div class="d-flex flex-column mb-2">
-                                    <span class="fw-200">Field of interest</span>
+                                    <span class="fw-200">Specialization</span>
                                     <span class="fw-500">Accounts maths tax</span>
                                 </div>
                             </div>
@@ -152,7 +152,7 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="email" class="col-form-label p-0 mb-1">Field of interest <span class="pt-color-red pt-fs-16">*</span> </label>
+                                        <label for="email" class="col-form-label p-0 mb-1">Specialization <span class="pt-color-red pt-fs-16">*</span> </label>
                                         <select class="select2 intrest select2-hidden-accessible" name="intrest">
                                             <option value="IND">1</option>
                                             <option value="IND">2</option>

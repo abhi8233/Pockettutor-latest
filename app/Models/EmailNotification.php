@@ -8,7 +8,13 @@ use App\Models\User;
 
 class EmailNotification extends Model
 {
-     protected $table='email_notification';
     use HasFactory;
+    protected $table='email_notification';
     protected $guarded=['id'];
+
+    protected $fillable = [
+    	'admin_email',
+    	'name',
+    	'email',
+    ];
 }

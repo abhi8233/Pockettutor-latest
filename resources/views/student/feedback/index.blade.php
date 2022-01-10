@@ -21,13 +21,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</td>
-                </tr>
-
-            </tbody>
+                @foreach($feedbacks as $feedback)
+                    <tr>
+                        <td>{{ $loop->iteration}}</td>
+                        <td>{{$feedback->tutor->first_name}} {{$feedback->tutor->last_name}}</td>
+                        <td>{{$feedback->description}}</td>
+                        
+                    </tr>
+                @endforeach
+            </tbody> 
         </table>
     </div>
 </div>
