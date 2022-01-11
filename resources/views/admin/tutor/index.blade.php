@@ -15,6 +15,13 @@
         </div>
     </div>
     <div class="student-list bg-white mt-4">
+        @if (\Session::has('success'))
+            <div class="alert alert-success">
+                <ul>
+                    <li>{!! \Session::get('success') !!}</li>
+                </ul>
+             </div>
+        @endif
         <table id="student_list" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
@@ -41,8 +48,14 @@
                     <td>{{isset($user->fieldInterest->name) ? $user->fieldInterest->name:''}}</td>
                     <td><img src="../assets/images/icons/pdf-icon.svg"></td>
                     <td>
-                         <a class="btn btn-primary" href="{{ route('user_edit',$user->id) }}">Edit</a>
-                         <a class="btn btn-danger" href="{{ route('tutor_delete',$user->id) }}">Delete</a>
+                        <form action="{{ route('admin_tutor.destroy',$user->id) }}" method="POST">
+    
+                        <a class="btn btn-primary" href="{{ route('admin_tutor.edit',$user->id) }}">Edit</a>
+                            @csrf
+                            @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                         
                      </td>
                 </tr>
                 @endforeach

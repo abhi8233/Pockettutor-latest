@@ -15,8 +15,8 @@ class CreateSettingTable extends Migration
     {
         Schema::create('setting', function (Blueprint $table) {
             $table->id();
-            $table->string('setting_key');
-            $table->string('setting_value');
+            $table->string('stripe_secret_key');
+            $table->string('stripe_public_key');
             $table->string('status')->default('active');
             $table->timestamps();
         });

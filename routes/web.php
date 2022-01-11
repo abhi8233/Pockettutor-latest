@@ -30,13 +30,14 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 	Route::get('admin/profile', [App\Http\Controllers\Admin\DashboardController::class, 'profile'])->name('profile');
 
 	Route::get('admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin_dashboard');
+
 	Route::get('admin/user/delete/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'delete'])->name('user_delete');
 	Route::get('admin/tutor/delete/{id}', [App\Http\Controllers\Admin\TutorController::class, 'delete'])->name('tutor_delete');
 
-	Route::get('admin/user/edit/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'edit'])->name('user_edit');
-	Route::post('admin/user/update', [App\Http\Controllers\Admin\DashboardController::class, 'update'])->name('update_user');
 
-	Route::get('admin/tutor', [App\Http\Controllers\Admin\TutorController::class, 'index'])->name('admin_tutor');
+	Route::resource('admin/student', App\Http\Controllers\Admin\StudentController::class)->names('student');
+
+	Route::resource('admin/tutor', App\Http\Controllers\Admin\TutorController::class)->names('admin_tutor');
 
 	Route::get('admin/subscription', [App\Http\Controllers\Admin\SubscriptionController::class, 'index'])->name('admin_subscription');
 

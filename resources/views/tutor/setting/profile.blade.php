@@ -50,7 +50,7 @@
 
                                 <div class="mt-5 d-flex flex-column align-items-center">
                                     <img src="../assets/images/profile.png" class="pt-width-px-150 pt-height-px-150">
-                                    <span class="mt-2 fw-500 pt-font-size-px-18">John Marteen</span>
+                                    <span class="mt-2 fw-500 pt-font-size-px-18">{{$user->first_name}} {{$user->last_name}}</span>
                                 </div>
                             </div>
                         </div>
@@ -59,29 +59,33 @@
                             <div class="col-12 col-md-6">
                                 <div class="d-flex flex-column mb-2">
                                     <span class="fw-200">Email id</span>
-                                    <span class="fw-500">johnmarteen@gmail.com</span>
+                                    <span class="fw-500">{{$user->email}}</span>
                                 </div>
 
                                 <div class="d-flex flex-column mb-2">
                                     <span class="fw-200">Country</span>
-                                    <span class="fw-500">USA</span>
+                                    <span class="fw-500">@if(isset($user->country->name)){{$user->country->name}}@else -
+                                    @endif</span>
                                 </div>
 
                                 <div class="d-flex flex-column mb-2">
                                     <span class="fw-200">State</span>
-                                    <span class="fw-500">Texas</span>
+                                    <span class="fw-500">@if(isset($user->state->name)){{$user->state->name}}@else
+                                    -
+                                @endif</span>
                                 </div>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <div class="d-flex flex-column mb-2">
                                     <span class="fw-200">Language</span>
-                                    <span class="fw-500">English</span>
+                                    <span class="fw-500">@if(isset($user->languages->name)){{$user->languages->name}}@else
+                                    -@endif</span>
                                 </div>
 
                                 <div class="d-flex flex-column mb-2">
                                     <span class="fw-200">Specialization</span>
-                                    <span class="fw-500">Accounts maths tax</span>
+                                    <span class="fw-500"></span>
                                 </div>
                             </div>
                         </div>
@@ -113,26 +117,24 @@
                                 <div class="col-12 col-md-6">
                                     <div class="mb-3">
                                         <label for="email" class="col-form-label p-0 mb-1">First Name <span class="pt-color-red pt-fs-16">*</span> </label>
-                                        <input type="text" placeholder="Enter plan name" class="form-control" name="plan-name">
+                                        <input type="text" placeholder="Enter plan name" class="form-control" name="plan-name" value="{{$user->first_name}}">
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="email" class="col-form-label p-0 mb-1">Country <span class="pt-color-red pt-fs-16">*</span> </label>
                                         <select class="select2 country select2-hidden-accessible" name="country">
-                                            <option value="IND">India</option>
-                                            <option value="IND">India</option>
-                                            <option value="IND">India</option>
-                                            <option value="IND">India</option>
-                                            <option value="IND">India</option>
+                                        @foreach(\App\Models\Country::all() as $country)
+                                            <option value="{{$country->id}}" {{$country->id == $user->country_id ?'selected':''}}>{{$country->name}}</option>
+                                        @endforeach
                                         </select>
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="email" class="col-form-label p-0 mb-1">Language <span class="pt-color-red pt-fs-16">*</span> </label>
-                                        <select class="select2 language select2-hidden-accessible" name="language">
-                                            <option value="IND">English</option>
-                                            <option value="IND">Spanish</option>
-                                            <option value="IND">French</option>
+                                        <select class="select2 language select2-hidden-accessible" name="language_id">
+                                           @foreach(\App\Models\Languages::all() as $language)
+                                                <option value="{{$language->id}}" {{$language->id == $user->language_id ?'selected':''}}>{{$language->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
@@ -148,15 +150,15 @@
 
                                     <div class="mb-3">
                                         <label for="email" class="col-form-label p-0 mb-1">Last Name <span class="pt-color-red pt-fs-16">*</span> </label>
-                                        <input type="text" placeholder="Enter minutes" class="form-control" name="plan-name">
+                                        <input type="text" placeholder="Enter minutes" class="form-control" name="plan-name" value="{{$user->last_name}}">
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="email" class="col-form-label p-0 mb-1">Specialization <span class="pt-color-red pt-fs-16">*</span> </label>
                                         <select class="select2 intrest select2-hidden-accessible" name="intrest">
-                                            <option value="IND">1</option>
-                                            <option value="IND">2</option>
-                                            <option value="IND">3</option>
+                                            @foreach(\App\Models\Specialization::All() as $specialization)
+                                                <option value="{{$specialization->id}}" {{$specialization->id == $user->specialization_id ?'selected':''}}>{{$specialization->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
@@ -187,28 +189,35 @@
                                 <div class="pt-font-size-px-18">Change Password</div>
                             </div>
                         </div>
-
-                        <form method="" action="" class="">
+                        <form  class=""  id="change-password">
+                            @method('POST')
+                            @csrf
                             <div class="row mb-3">
                                 <div class="col-12 col-md-6">
                                     <div class="mb-3">
                                         <label for="email" class="col-form-label p-0 mb-1">New Password <span class="pt-color-red pt-fs-16">*</span> </label>
                                         <div class="position-relative">
-                                            <input id="password-field" type="password" class="form-control" name="password" value="secret">
-                                            <span toggle="#password-field" class="mdi mdi-eye-outline field-icon toggle-password"></span>
+                                            <input type="password" class="form-control" id="new_password" name="new_password" >
+                                            <span toggle="#new_password" class="mdi mdi-eye-outline field-icon toggle-password"></span>
                                         </div>
+                                        @error('new_password'))
+                                        <div class="pt-color-red">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="mb-4">
                                         <label for="email" class="col-form-label p-0 mb-1">Confirm Password <span class="pt-color-red pt-fs-16">*</span> </label>
                                         <div class="position-relative">
-                                            <input id="password-field" type="password" class="form-control" name="password" value="secret">
-                                            <span toggle="#password-field" class="mdi mdi-eye-outline field-icon toggle-password"></span>
+                                            <input  type="password" class="form-control" name="confirmed" id="confirmed">
+                                            <span toggle="#confirmed" class="mdi mdi-eye-outline field-icon toggle-password"></span>
                                         </div>
+                                        @error('confirmed'))
+                                        <div class="pt-color-red">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
-                                    <div class="">
-                                        <button class="btn text-decoration-none common-btn" data-bs-toggle="modal" data-bs-target="#newplan">
+                                    <div class="change mb-4">
+                                        <button type="submit" class="btn text-decoration-none common-btn" data-bs-toggle="modal" data-bs-target="#newplan">
                                             Change Password
                                         </button>
                                     </div>
@@ -224,11 +233,56 @@
 
 
                         </form>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+@section('js-hooks')
+<script>
+    $(document).ready(function() {
+        $("#change-password").validate({
+            rules: {
+                new_password: {
+                    required: true
+                },
+                confirmed: {
+                    required: true
+                }
+            },
+            messages: {
+                new_password: {
+                    required: "New Password is required"
+                },
+                confirmed: {
+                    required: "Confirmed Password is required"
+                },
+            },
+            submitHandler: function(form) {
+                // alert('valid form submitted'); 
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('updateTPassword')}}",
+                    data: new FormData($('#change-password')[0]),
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        if (data.status == 200) {
+                            $(".change").after('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Password Change  successfully.</div>');
+                            setTimeout(function(){
+                                window.location ="{{ route('tprofile') }}";
+                            },1000);
+                        } else {
+                            alert("Opps..! Something Went to Wrong.")
+                        }
+                    }
+                });
+                return false;
+            }
+        });
+
+     });
+</script>
 @endsection

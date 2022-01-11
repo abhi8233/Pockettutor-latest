@@ -38,7 +38,8 @@
 
         <div class="row">
             <div class="col-lg-12 col-md-6">
-                <form method="POST" action="{{ route('update_user') }}">
+                <form method="POST" action="{{ route('admin_tutor.update',$user->id) }}">
+                    @method('PUT')
                     @csrf
                     <input type="hidden" id="user_id" name="id" value="{{$user->id}}">
                     <div class="mb-3">
