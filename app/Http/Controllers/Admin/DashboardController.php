@@ -27,6 +27,12 @@ class DashboardController extends Controller
         $users=User::where('role','Student')->get();
         return view('admin/dashboard',compact('users'));
     }
+
+     public function profile(){
+        
+        return view('admin.settings.profile');
+    }
+
     public function edit($id)
     {
         $user=User::find($id);
