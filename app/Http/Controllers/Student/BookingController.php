@@ -11,7 +11,9 @@ use App\Models\User;
 use App\Models\Specialization;
 use App\Models\languages;
 use App\Models\Feedback;
-
+use Mail;
+use App\Mail\NotifyStudentBookingMail;
+use App\Mail\NotifyTutorBookingMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -99,8 +101,13 @@ class BookingController extends Controller
             $bookingslot->save();
 
             if($bookingslot){
-                
-                return response()->Json(['status' => '200','msg'=>'Booking booked successfully.']);
+                Mail::to(auth()->user()->email)->send(new NotifyStudentBookingMail($bookingslot));
+                Mail::to($bookingslot->tutor->email)->send(new NotifyTutorBookingMail($bookingslot));
+                  if (Mail::failures()) {
+                       return response()->Json(['status' => '400','msg' => 'Something want wrong in sent Mail .']);
+                  }else{
+                       return response()->Json(['status' => '200','msg'=>'Booking booked successfully.']);
+                     }
             }else{
                 return response()->Json(['status' => '400','msg' => 'Something want wrong.']);
             }

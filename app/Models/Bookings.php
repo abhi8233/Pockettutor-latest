@@ -22,4 +22,7 @@ class Bookings extends Model
     public function specialization(){
         return $this->belongsTo('App\Models\Specialization','specialization_id','id');
     }
+     public function language(){
+        return $this->belongsTo('App\Models\Languages','language_id','id');
+    }
 }
