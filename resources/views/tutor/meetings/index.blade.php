@@ -28,7 +28,7 @@
                     <td>{{$booking->id}}</td>
                     <td>{{$booking->user->first_name}} {{$booking->user->last_name}}</td>
                     <td>{{$booking->date_time}}</td>
-                    <td>{{$booking->date_google_link}}</td>
+                    <td><a href="{{$booking->google_link}}" target="_blank">{{$booking->google_link}}</a></td>
                     <td>@if($booking->date_time >= Carbon\Carbon::now())
                         Pending
                         @else

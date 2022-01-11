@@ -99,6 +99,7 @@ class BookingController extends Controller
             $bookingslot->save();
 
             if($bookingslot){
+                
                 return response()->Json(['status' => '200','msg'=>'Booking booked successfully.']);
             }else{
                 return response()->Json(['status' => '400','msg' => 'Something want wrong.']);
