@@ -52,6 +52,25 @@
                         </div>
                     </div>
 
+                    <div class="col-12 mb-2">
+                        <label class="col-md-4 col-form-label">Rating</label>
+                        <div class="">
+                            <select class="select2 front-rating" name="rating" id="rating">
+                                <option value=""> Select Rating</option>
+                                <option value="0.5">0.5</option>
+                                <option value="1.0">1.0</option>
+                                <option value="1.5">1.5</option>
+                                <option value="2.0">2.0</option>
+                                <option value="2.5">2.5</option>
+                                <option value="3.0">3.0</option>
+                                <option value="3.5">3.5</option>
+                                <option value="4.0">4.0</option>
+                                <option value="4.5">4.5</option>
+                                <option value="5.0">5.0</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="col-12 mb-2 tutor-main">
                         <label class="col-md-4 col-form-label">Select Tutor</label>
                         <div class="row mx-0 mt-3" id="tutor_html_id"></div>
@@ -101,7 +120,8 @@
                     url: "{{route('getTutor')}}",
                     data: {
                         'specialization_id': $(this).val(),
-                        'language_id': $('#language').val()
+                        'language_id': $('#language').val(),
+                        'rating': $('#rating').val()
                     },
                     // beforeSend: function(){
                     //     $('#frm-BookingSlot').html('<div class="mb-5 text-center"><i class="fa fa-spinner fa-spin"></i>  Please Wait...</div>');
@@ -120,6 +140,27 @@
                     url: "{{route('getTutor')}}",
                     data: {
                         'language_id': $(this).val(),
+                        'specialization_id': $('#specialization').val(),
+                        'rating': $('#rating').val()
+                    },
+                    // beforeSend: function(){
+                    //     $('#frm-BookingSlot').html('<div class="mb-5 text-center"><i class="fa fa-spinner fa-spin"></i>  Please Wait...</div>');
+                    // },
+                    success: function(data) {
+                        $("#tutor_html_id").html(data);
+                    }
+                });
+            }
+        });
+
+        $(document).on('change', '#rating', function() {
+            if ($(this).val() != null) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('getTutor')}}",
+                    data: {
+                        'rating': $(this).val(),
+                        'language_id': $('#language').val(),
                         'specialization_id': $('#specialization').val()
                     },
                     // beforeSend: function(){
@@ -192,8 +233,11 @@
                             setTimeout(function(){
                                 window.location ="{{ route('sbooking.index') }}";
                             },1000);
-                        } else {
-                            alert("Opps..! Something Went to Wrong.")
+                        }else if (data.status == 500) { 
+                            $(".date-time").after('<div class="alert alert-warning alert-dismissible" id="myAlert"><strong>Google Meet!</strong> Creadentials not found.</div>');
+                        }else {
+                            // alert("Opps..! Something Went to Wrong.")
+                            $(".date-time").after('<div class="alert alert-danger alert-dismissible" id="myAlert"><strong>Opps..!</strong> Something Went to Wrong.</div>');
                         }
                     }
                 });

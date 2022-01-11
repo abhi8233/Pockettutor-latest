@@ -11,7 +11,10 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^3.4"
+        "laravel/ui": "^3.4",
+        "google/auth": "^1.10",
+        "google/apiclient-services": "~0.13",
+        "google/apiclient": "^2.10"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -46,12 +49,19 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ]
+        ],
+        "pre-autoload-dump": "Google\\Task\\Composer::cleanup"
     },
     "extra": {
         "laravel": {
             "dont-discover": []
-        }
+        },
+        "branch-alias": {
+            "dev-master": "2.x-dev"
+        },
+        "google/apiclient-services": [
+            "Calendar"
+        ]
     },
     "config": {
         "optimize-autoloader": true,

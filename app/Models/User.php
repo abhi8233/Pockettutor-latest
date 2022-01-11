@@ -12,6 +12,7 @@ use App\Models\Country;
 use App\Models\State;
 use App\Models\Languages;
 use App\Models\Specialization;
+use App\Models\Feedback;
 use App\Models\Bookings;
 
 class User extends Authenticatable
@@ -85,6 +86,11 @@ class User extends Authenticatable
     public function fieldInterest()
     {
         return $this->belongsTo(Specialization::class);
+    }
+
+    public function feedback()
+    {
+        return $this->belongsTo(Feedback::class,'tutor_id','id');
     }
 
     

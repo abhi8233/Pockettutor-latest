@@ -1,7 +1,8 @@
 <?php
-
+namespace App\CustomClass;
 namespace App\Http\Controllers\Booking;
 
+use App\CustomClass\Meet;
 use App\Http\Controllers\Controller;
 
 // use App\Models\Bookings;
@@ -13,6 +14,17 @@ use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->meet = new Meet;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -33,7 +45,36 @@ class BookingController extends Controller
      */
     public function create()
     {
-        
+
+        if(!$this->meet->isCredentialLoaded()){
+            return view('booking.create');
+        } else if(!$this->meet->isAppPermitted()){
+            $url = $this->meet->get_consent_screen_url();
+            // return redirect()->route('booking.edit',compact('url'));
+            return view('booking.edit',compact('url'));
+        } else {
+            $meetings = $this->meet->getMeetingList();
+
+            if(!count($meetings)) {
+                echo '<p>No meeting found</p>';
+            } else {
+                echo '<table border="1" style="border-collapse: collapse;"><tbody>';
+                foreach($meetings as $meeting) {
+                    echo '<tr>
+                        <td>' . $meeting['title'] . '</td>
+                        <td>' . $meeting['meeting_link'] . '</td>
+                        <td>' . $meeting['start'] . '</td>
+                        <td><a href="?action=delete&id='.$meeting['id'].'">Delete</a></td>
+                        <td><a href="?action=update&id='.$meeting['id'].'">Update with Random Data</a></td>
+                    </tr>';
+                }
+                echo '</tbody></table>';
+            }
+
+            ?>
+            <a href="?action=create">Create Meeting with Random Data</a>
+            <?php
+        }
     }
 
     /**
@@ -44,8 +85,24 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
+        if(isset($_FILES['credential']) && $_FILES['credential']['error']==0) {
 
-        
+            // Save credential file if exist and no error
+            $data = $this->meet->saveCredential($_FILES['credential']);
+            if($data){
+                return response()->Json(['status' => '200','msg'=>'Booking booked successfully.']);
+            }else{
+                return response()->Json(['status' => '400','msg' => 'Something want wrong.']);
+            }
+        }
+    
+    }
+
+    public function saveToken() {
+        if(isset($_GET['code'])) {
+            $this->meet->saveToken($_GET['code']);
+            return redirect()->route('booking.create');
+        }
     }
 
     /**
@@ -67,7 +124,7 @@ class BookingController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**

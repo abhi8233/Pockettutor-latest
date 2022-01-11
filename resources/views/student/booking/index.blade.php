@@ -12,7 +12,7 @@
         </div>
     </div>
     <!-- <div class="card-tools">
-        <a class="btn btn-success" href="{{route('booking')}}"><i class="fas fa-plus"></i> &nbsp; Booking Slot</a>
+        <a class="btn btn-success" href="{{route('booking.index')}}"><i class="fas fa-plus"></i> &nbsp; Booking Slot</a>
     </div> -->
     <div class="student-list bg-white mt-4">
         <table id="student_list" class="table table-striped" style="width:100%">
@@ -33,7 +33,7 @@
                         <td>{{$bookingslot->tutor->first_name}} {{$bookingslot->tutor->last_name}}</td>
                         <td>{{$bookingslot->date_time}}</td>
                         <td>{{$bookingslot->specialization->name}}</td>
-                        <td>{{$bookingslot->google_meet_link}}</td>
+                        <td><a href="{{$bookingslot->google_link}}" target="_blank">{{$bookingslot->google_link}}</a></td>
                         <!-- <td>
                             <a href="{{ route('sbooking.edit',$bookingslot->id) }}" title="edit" ><i class="fas fa-pen"></i></a>
                             <a href="{{ route('sbooking.destroy',$bookingslot->id) }}" ><i class="fas fa-trash"></i></a>

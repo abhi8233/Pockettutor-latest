@@ -66,7 +66,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 	Route::resource('student/booking', App\Http\Controllers\Student\BookingController::class)->names('sbooking');
 	Route::get('student/getTutor', [App\Http\Controllers\Student\BookingController::class,'getTutor'])->name('getTutor');
 	/* booking page for student */
-	Route::get('booking', [App\Http\Controllers\Booking\BookingController::class, 'index'])->name('booking');
+	Route::resource('booking', App\Http\Controllers\Booking\BookingController::class)->names('booking');
+	Route::get('getToken', [App\Http\Controllers\Booking\BookingController::class,'saveToken'])->name('saveToken');
 
 	Route::resource('student/feedback', App\Http\Controllers\Student\FeedbackController::class)->names('sfeedback');
 
