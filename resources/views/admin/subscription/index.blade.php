@@ -1,4 +1,8 @@
 @extends('layouts.adminApp')
+@section('css-hooks')
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+
+@endsection
 
 @section('content')
 <div class="student-list-page main-top">
@@ -19,11 +23,11 @@
     </div>
     <div class="student-list bg-white p-3 mt-4">
          @if (\Session::has('success'))
-    <div class="alert alert-success">
-        <ul>
-            <li>{!! \Session::get('success') !!}</li>
-        </ul>
-    </div>
+        <div class="alert alert-success">
+            <ul>
+                <li>{!! \Session::get('success') !!}</li>
+            </ul>
+        </div>
         @endif
         <table id="student_list" class="table table-striped" style="width:100%">
             <thead>
@@ -46,7 +50,7 @@
                     <td>{{$subscription->created_at}}</td>
                     <td>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                            <input data-id="{{$subscription->id}}" class="form-check-input toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="Deactive" {{ $subscription->status ? 'checked' : '' }}>
                         </div>
                     </td>
                 </tr>
@@ -61,6 +65,7 @@
 <div class="modal fade " id="newplan" tabindex="-1" aria-labelledby="newplanLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
+            <div class="alert alert-danger" style="display:none"></div>
             <div class="modal-header">
                 <h5 class="modal-title" id="newplanLabel">Add New Plan</h5>
                 <button type="button" class="">
@@ -68,30 +73,29 @@
                 </button>
             </div>
             <div class="modal-body pb-5">
-                <form method="post" action="{{route('add_subscription')}}" class="pt-width-p-80 my-0 mx-auto">
-                         @csrf
+                <form method="post" action="{{route('add_subscription')}}" class="pt-width-p-80 my-0 mx-auto"  id="form">
                     <div class="mb-3">
                         <label for="email" class="col-form-label p-0 mb-1">Plan Name <span class="pt-color-red pt-fs-16">*</span> </label>
-                        <input type="text" placeholder="Enter plan name" class="form-control" name="plan_name">
+                        <input type="text" id="plan_name" placeholder="Enter plan name" class="form-control" name="plan_name">
                     </div>
 
                     <div class="mb-3">
                         <label for="email" class="col-form-label p-0 mb-1">Monthly Cost <span class="pt-color-red pt-fs-16">*</span> </label>
-                        <input type="text" placeholder="Enter monthly cost" class="form-control" name="cost">
+                        <input type="text" placeholder="Enter monthly cost" class="form-control" id="cost" name="cost">
                     </div>
 
                     <div class="mb-5">
                         <label for="email" class="col-form-label p-0 mb-1">Minutes <span class="pt-color-red pt-fs-16">*</span> </label>
-                        <input type="text" placeholder="Enter minutes" class="form-control" name="minutes">
+                        <input type="text" placeholder="Enter minutes" class="form-control" id="minutes" name="minutes">
                     </div>
 
                     <div class="mb-3">
                         <label for="slot" class="col-form-label p-0 mb-1">Slots <span class="pt-color-red pt-fs-16">*</span> </label>
-                        <input type="text" placeholder="Enter slot" class="form-control" name="slot">
+                        <input type="text" placeholder="Enter slot" class="form-control" id="slot" name="slot">
                     </div>
 
                     <div>
-                        <button class="btn text-decoration-none common-btn " data-bs-toggle="modal" data-bs-target="#newplan">
+                        <button id="ajaxSubmit" class="btn text-decoration-none common-btn ">
                             Create Plan
                         </button>
                     </div>
@@ -101,4 +105,77 @@
         </div>
     </div>
 </div>
+@endsection
+@section('js-hooks')
+<script>
+    
+  $(function() {
+    $('.toggle-class').change(function() {
+        var status = $(this).prop('checked') == true ? 'Active' : 'Deactive'; 
+        var subscription_id = $(this).data('id'); 
+         
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: '/changeStatus',
+            data: {'status': status, 'subscription_id': subscription_id},
+            success: function(data){
+               if (data.status == 200) {
+                    $(".table").before('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Status change successfully.</div>');
+                    setTimeout(function(){
+                        window.location ="{{ route('admin_subscription') }}";
+                    },1000);
+                } else {
+                    alert("Opps..! Something Went to Wrong.")
+                }
+            }
+        });
+    })
+  });
+ $(document).ready(function() {
+    $('#ajaxSubmit').click(function(e){
+       e.preventDefault();
+       $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+          }
+      });
+       jQuery.ajax({
+          url: "{{route('add_subscription')}}",
+          method: 'post',
+          data: {
+             _token: '{{csrf_token()}}',
+             plan_name: jQuery('#plan_name').val(),
+             cost: jQuery('#cost').val(),
+             minutes: jQuery('#minutes').val(),
+             slot: jQuery('#slot').val(),
+          },
+          success: function(result){
+            if(result.errors)
+            {
+                jQuery('.alert-danger').html('');
+
+                jQuery.each(result.errors, function(key, value){
+                    jQuery('.alert-danger').show();
+                    jQuery('.alert-danger').append('<li>'+value+'</li>');
+                });
+            }
+            else
+            {
+                if (data.status == 200) {
+                    $(".table").before('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Subscription added successfully.</div>');
+                    setTimeout(function(){
+                        window.location ="{{ route('admin_subscription') }}";
+                    },1000);
+                } else {
+                    alert("Opps..! Something Went to Wrong.")
+                }
+                jQuery('.alert-danger').hide();
+                $('#newplan').modal('hide');
+            }
+          }});
+       });
+    });
+
+</script>
 @endsection

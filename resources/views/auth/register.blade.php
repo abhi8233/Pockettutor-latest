@@ -139,7 +139,7 @@
                     
                         <div class="mb-3 subscription" style="display: none;">
                         <div class="d-flex wrapper justify-content-between">
-                             @foreach(\App\Models\Subscription::All() as $sub)
+                             @foreach(\App\Models\Subscription::where('status','Active')->get() as $sub)
                              <input type="radio" id="option-Basic" name="subscription_id" value="{{$sub->id}}">
                             <label for="option-Basic" class="option">
                                 <div class="k-width-p-100">

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 
 use App\Models\User;
+use Mail;
+use App\Mail\NotifyUserRegisterMail;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -83,19 +85,32 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
-        return User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'role'=>$data['role'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'specialization_id' => $data['specialization'],
-            'language_id' => $data['language_id'],
-            'subscription_id'=>isset($data['subscription_id']) ? $data['subscription_id'] :null,
-            'country_id' => $data['country_id'],
-            'state_id' => $data['state_id'],
-        ]);
+            $user = new User();
+            $user->first_name = $data['first_name'];
+            $user->last_name = $data['last_name'];
+            $user->email = $data['email'];
+            $user->role=$data['role'];
+            $user->password= Hash::make($data['password']);
+            $user->specialization_id = $data['specialization'];
+            $user->country_id =$data['country_id'];
+            $user->language_id =$data['language_id'];
+            $user->state_id = $data['state_id'];
+            $user->subscriptions_id=isset($data['subscription_id']) ? $data['subscription_id'] :null;
+            $user->save();
+            Mail::to($user->email)->send(new NotifyUserRegisterMail());
+            return $user;
+        // return User::create([
+        //     'first_name' => $data['first_name'],
+        //     'last_name' => $data['last_name'],
+        //     'role'=>$data['role'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        //     'specialization_id' => $data['specialization'],
+        //     'language_id' => $data['language_id'],
+        //     'subscription_id'=>isset($data['subscription_id']) ? $data['subscription_id'] :null,
+        //     'country_id' => $data['country_id'],
+        //     'state_id' => $data['state_id'],
+        // ]);
     }
 
     //we can also play with the registered user object thrown after registration using the registered method because you returned that method or redirectPath method in register method.

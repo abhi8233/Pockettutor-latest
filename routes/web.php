@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 	Route::post('admin/stripe', [App\Http\Controllers\Admin\SettingsController::class, 'stripesetting'])->name('stripe_setting');
 	Route::post('admin/add/notification', [App\Http\Controllers\Admin\SettingsController::class, 'addnotification'])->name('add_notification');
 	Route::post('admin/add/subscription', [App\Http\Controllers\Admin\SubscriptionController::class, 'store'])->name('add_subscription');
+	Route::get('changeStatus',[App\Http\Controllers\Admin\SubscriptionController::class, 'changeStatus']);
 
 });
 

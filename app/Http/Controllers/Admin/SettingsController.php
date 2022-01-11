@@ -47,12 +47,21 @@ class SettingsController extends Controller
             'setting_value'=>'required',
     ]);
         $setting=new Setting();
-        $setting->setting_key=$request->setting_key;
-        $setting->setting_value=$request->setting_value;
-
-        $setting->status=$request->status=='on'?'Active':'Inactive';
+        $setting->setting_key='stripe payment option';
+        $setting->setting_value=$request->option=='on'?'Enable':'Disable';
         $setting->save();
-        if($email_notification){
+
+        $setting=new Setting();
+        $setting->setting_key='stripe secret key';
+        $setting->setting_value=$request->setting_key;
+        $setting->save();
+
+        $setting=new Setting();
+        $setting->setting_key='stripe public key';
+        $setting->setting_value=$request->setting_value;
+        $setting->save();
+
+        if($setting){
             return response()->Json(['status' => '200','msg'=>'Stripe Setting added successfully.']);
         }else{
             return response()->Json(['status' => '400','msg' => 'Something want wrong.']);

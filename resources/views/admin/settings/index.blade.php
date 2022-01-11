@@ -25,7 +25,7 @@
             </label>
             <div class="d-flex align-items-center">
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="status" data-on-toggle="Active" data-off-toggle="Inactive">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="option" data-on-toggle="Enable" data-off-toggle="Disable">
                 </div>
             </div>
         </div>
