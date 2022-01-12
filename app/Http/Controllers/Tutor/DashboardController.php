@@ -44,7 +44,7 @@ class DashboardController extends Controller
          $this->validate($request,
             ['new_password' => ['required', 'string', 'min:8'],
             ]);
-        $user=User::find(auth()->user()->id);
+        $user = User::find(auth()->user()->id);
         $user->password= Hash::make($request->password);
         $user->save();
         if($user){
