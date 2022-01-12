@@ -28,7 +28,7 @@ class DashboardController extends Controller
     {
         return view('tutor.dashboard');
     }
-
+    
     public function profile()
     {
         $user = User::with(['specialization','languages','country'])->where('id',auth()->user()->id)->first();
