@@ -11,6 +11,16 @@ class Bookings extends Model
     protected $table = 'booking_slots';
     protected $guarded=['id'];
 
+    protected $fillable = [
+        'user_id',
+        'tutor_id',
+        'specialization_id',
+        'language_id',
+        'date_time',
+        'google_link',
+        'event_id',
+    ];
+
     public function tutor(){
         return $this->belongsTo('App\Models\User','tutor_id','id');
     }
@@ -22,7 +32,8 @@ class Bookings extends Model
     public function specialization(){
         return $this->belongsTo('App\Models\Specialization','specialization_id','id');
     }
-     public function language(){
+
+    public function language(){
         return $this->belongsTo('App\Models\Languages','language_id','id');
     }
 }

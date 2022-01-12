@@ -38,6 +38,9 @@ class User extends Authenticatable
         'specialization_id',
         'language_id',
         'subscriptions_id',
+        'institution',
+        'city_institution',
+        'country_institution',
         'country_id',
         'state_id',
         'remember_token'
@@ -80,23 +83,21 @@ class User extends Authenticatable
 
     public function languages()
     {
-        return $this->belongsTo(Languages::class);
+        return $this->belongsTo(Languages::class,'language_id','id');
     }
 
-    public function fieldInterest()
+    public function specialization()
     {
         return $this->belongsTo(Specialization::class);
     }
 
     public function feedback()
     {
-        return $this->belongsTo(Feedback::class,'tutor_id','id');
+        return $this->hasMany(Feedback::class,'tutor_id','id');
     }
-
-    
 
     public function booking()
     {
-        return $this->belongsTo(Bookings::class);
+        return $this->hasMany(Bookings::class,'user_id','id');
     }
 }

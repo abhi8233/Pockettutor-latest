@@ -31,7 +31,7 @@ class DashboardController extends Controller
 
     public function profile()
     {
-         $user =User::find(auth()->user()->id);
+        $user = User::with(['specialization','languages','country'])->where('id',auth()->user()->id)->first();
         return view('tutor.setting.profile',compact('user'));
     }
 

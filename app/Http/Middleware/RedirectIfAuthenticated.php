@@ -23,26 +23,15 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
-            /* if (Auth::guard($guard)->check()) {
-                 return redirect(RouteServiceProvider::HOME);
-            }*/
             if (Auth::guard($guard)->check()) {
-                $role = Auth::user()->role; 
-                /* if change redirection then change in login controller */
-                switch ($role) {
-                    case 'SuperAdmin':
-                        return redirect('/admin/dashboard');
-                        break;
-                    case 'Tutor':
-                        return redirect('/tutor/dashboard');
-                        break; 
-                    case 'Student':
-                        /* return redirect('/student/dashboard'); */
-                        return redirect('/student/booking');
-                        break; 
-                    default:
-                        return redirect('/home'); 
-                        break;
+                if(Auth::user()->role == 'SuperAdmin'){
+                    return redirect('/admin/dashboard');
+                }else if(Auth::user()->role == 'Tutor'){
+                    return redirect('/tutor/dashboard');
+                }else if(Auth::user()->role == 'Student'){
+                    return redirect('/student/booking');
+                }else{
+                    return redirect('/login');
                 }
             }
         }

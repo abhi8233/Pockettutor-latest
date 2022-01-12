@@ -1,5 +1,5 @@
 <?php
-
+ 
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +25,7 @@ Route::post('get-states',[App\Http\Controllers\CommonController::class, 'getStat
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 /*---------------------------------- ADMIN ---------------------------------------*/
 // Route::group(['middleware' => ['auth', 'verified','admin']], function () { 
-Route::group(['middleware' => ['auth', 'verified']], function () { 
+Route::group(['middleware' => ['auth', 'verified','superadmin']], function () { 
 
 	Route::get('admin/profile', [App\Http\Controllers\Admin\DashboardController::class, 'profile'])->name('profile');
 
@@ -57,7 +57,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 /*---------------------------------- STUDENT ---------------------------------------*/
 // Route::group(['middleware' => ['auth', 'verified','student']], function () { 
-Route::group(['middleware' => ['auth', 'verified']], function () { 
+Route::group(['middleware' => ['auth', 'verified','student']], function () { 
 
 	Route::resource('student/dashboard', App\Http\Controllers\Student\DashboardController::class)->names('sdashboard');
 	Route::get('student/profile', [App\Http\Controllers\Student\DashboardController::class, 'profile'])->name('sprofile');
@@ -78,7 +78,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 /*------------------------------------ TUTOR ---------------------------------------*/
 // Route::group(['middleware' => ['auth', 'verified','tutor']], function () { 
-Route::group(['middleware' => ['auth', 'verified']], function () { 
+Route::group(['middleware' => ['auth', 'verified','tutor']], function () { 
 
 	Route::resource('tutor/dashboard', App\Http\Controllers\Tutor\DashboardController::class)->names('tdashboard');
 	Route::get('tutor/profile', [App\Http\Controllers\Tutor\DashboardController::class, 'profile'])->name('tprofile');

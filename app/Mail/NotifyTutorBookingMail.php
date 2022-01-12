@@ -18,7 +18,7 @@ class NotifyTutorBookingMail extends Mailable
      */
     public function __construct($bookingslot)
     {
-       $this->bookingslot=$bookingslot;
+       $this->bookingslot = $bookingslot;
     }
 
     /**

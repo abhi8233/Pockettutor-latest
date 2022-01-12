@@ -16,9 +16,9 @@ class NotifyUserRegisterMail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user)
     {
-        //
+         $this->user = $user;
     }
 
     /**
@@ -28,6 +28,6 @@ class NotifyUserRegisterMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.userregister');
+        return $this->view('mail.userregister')->with('user',$this->user);;
     }
 }

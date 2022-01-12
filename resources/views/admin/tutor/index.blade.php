@@ -45,7 +45,7 @@
                     <td>{{isset($user->languages->name) ? $user->languages->name:''}}</td>
                     <td>{{isset($user->Country->name) ? $user->Country->name:''}}</td>
                     <td>{{isset($user->State->name) ? $user->State->name:''}}</td>
-                    <td>{{isset($user->fieldInterest->name) ? $user->fieldInterest->name:''}}</td>
+                    <td>{{isset($user->specialization->name) ? $user->specialization->name:''}}</td>
                     <td><img src="../assets/images/icons/pdf-icon.svg"></td>
                     <td>
                         <form action="{{ route('admin_tutor.destroy',$user->id) }}" method="POST">

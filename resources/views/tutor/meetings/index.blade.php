@@ -24,9 +24,11 @@
             </thead>
             <tbody>
                 @foreach($bookings as $booking)
+                
                 <tr>
                     <td>{{$booking->id}}</td>
-                    <td>{{$booking->user->first_name}} {{$booking->user->last_name}}</td>
+                    <td> {{ (isset($booking->user->first_name)) ? $booking->user->first_name : '' }}
+                        {{ (isset($booking->user->last_name)) ? $booking->user->last_name : '' }} </td>
                     <td>{{$booking->date_time}}</td>
                     <td><a href="{{$booking->google_link}}" target="_blank">{{$booking->google_link}}</a></td>
                     <td>@if($booking->date_time >= Carbon\Carbon::now())

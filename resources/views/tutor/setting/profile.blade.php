@@ -64,28 +64,24 @@
 
                                 <div class="d-flex flex-column mb-2">
                                     <span class="fw-200">Country</span>
-                                    <span class="fw-500">@if(isset($user->country->name)){{$user->country->name}}@else -
-                                    @endif</span>
+                                    <span class="fw-500">{{ isset($user->country->name) ? $user->country->name :  '-' }}</span>
                                 </div>
 
-                                <div class="d-flex flex-column mb-2">
+                                <!-- <div class="d-flex flex-column mb-2">
                                     <span class="fw-200">State</span>
-                                    <span class="fw-500">@if(isset($user->state->name)){{$user->state->name}}@else
-                                    -
-                                @endif</span>
-                                </div>
+                                    <span class="fw-500">{{ isset($user->state->name) ? $user->state->name :  '-' }} </span>
+                                </div> -->
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <div class="d-flex flex-column mb-2">
-                                    <span class="fw-200">Language</span>
-                                    <span class="fw-500">@if(isset($user->languages->name)){{$user->languages->name}}@else
-                                    -@endif</span>
+                                    <span class="fw-200">Language </span>
+                                    <span class="fw-500">{{ isset($user->languages->name) ? $user->languages->name :  '-' }} </span>
                                 </div>
 
                                 <div class="d-flex flex-column mb-2">
                                     <span class="fw-200">Specialization</span>
-                                    <span class="fw-500"></span>
+                                    <span class="fw-500">{{ isset($user->specialization->name) ? $user->specialization->name :  '-' }}</span>
                                 </div>
                             </div>
                         </div>

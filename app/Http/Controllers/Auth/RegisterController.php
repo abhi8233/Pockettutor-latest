@@ -68,12 +68,35 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        if(isset($data['role']) && $data['role'] == 'Tutor'){
+            return Validator::make($data, [
+                'first_name' => ['required', 'string', 'max:255'],
+                'last_name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'country_id' => ['required'],
+                'institution' => ['required'],
+                'city_institution' => ['required'],
+                'country_institution' => ['required'],
+                'specialization' => ['required'],
+                'language_id' => ['required'],
+                'privacy_policy' => ['required'],
+            ]);
+        }else if(isset($data['role']) && $data['role'] == 'Student'){
+            return Validator::make($data, [
+                'first_name' => ['required', 'string', 'max:255'],
+                'last_name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'country_id' => ['required'],
+                'privacy_policy' => ['required'],
+            ]);
+        }else{
+            return Validator::make($data, [
+                'role' => ['required'],
+            ]);
+        }
+        
     }
 
     //we will maintain the default create method but you can tweak it to suit you needs
@@ -85,20 +108,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-            $user = new User();
-            $user->first_name = $data['first_name'];
-            $user->last_name = $data['last_name'];
-            $user->email = $data['email'];
-            $user->role=$data['role'];
-            $user->password= Hash::make($data['password']);
-            $user->specialization_id = $data['specialization'];
-            $user->country_id =$data['country_id'];
-            $user->language_id =$data['language_id'];
-            $user->state_id = $data['state_id'];
-            $user->subscriptions_id=isset($data['subscription_id']) ? $data['subscription_id'] :null;
-            $user->save();
-            Mail::to($user->email)->send(new NotifyUserRegisterMail());
-            return $user;
+
+        $user = new User();
+        $user->first_name        = $data['first_name'];
+        $user->last_name         = $data['last_name'];
+        $user->role              = $data['role'];
+        $user->email             = $data['email'];
+        $user->password          = Hash::make($data['password']);
+        $user->profile           = null;
+        $user->specialization_id = isset($data['specialization']) ? $data['specialization'] : null;
+        $user->language_id       = isset($data['language_id']) ? $data['language_id'] : null;
+        $user->subscriptions_id  = isset($data['subscription_id']) ? $data['subscription_id'] : null;
+        $user->institution       = isset($data['institution']) ? $data['institution'] : null;
+        $user->city_institution  = isset($data['city_institution']) ? $data['city_institution'] : null;
+        $user->country_institution= isset($data['country_institution']) ? $data['country_institution'] : null;
+        $user->country_id        = isset($data['country_id']) ? $data['country_id'] : null;
+        $user->state_id          = isset($data['state_id']) ? $data['state_id'] : null;
+        $user->save();
+
+        Mail::to($user->email)->send(new NotifyUserRegisterMail($user));
+        return $user;
         // return User::create([
         //     'first_name' => $data['first_name'],
         //     'last_name' => $data['last_name'],
@@ -113,11 +142,5 @@ class RegisterController extends Controller
         // ]);
     }
 
-    //we can also play with the registered user object thrown after registration using the registered method because you returned that method or redirectPath method in register method.
-
-    protected function registered(Request $request, $user)
-    {
-        //we can send users account formation email here or anything we want with users even fire that Registered event created earlier
-
-    }
+    
 }
