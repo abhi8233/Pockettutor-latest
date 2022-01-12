@@ -41,11 +41,21 @@ class DashboardController extends Controller
             'last_name' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'max:255']]);
 
-              $user=User::find($request->user_id);
+        $user=User::find($request->user_id);
+
+                if ($request->hasFile('profile')) {
+                $image = $request->file('profile');
+                $name = time().'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('assets/images/profile');
+                $image->move($destinationPath, $name);
+                $user->profile =$name;
+            }
               $user->first_name = $request['first_name'];
               $user->last_name = $request->last_name;
               $user->email = $request->email;
               $user->save();
+              
+
                 if($user){
                     return response()->Json(['status' => '200','msg'=>'User Password Update successfully.']);
                 }else{

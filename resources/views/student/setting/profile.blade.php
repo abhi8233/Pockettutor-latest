@@ -49,7 +49,11 @@
                                 <div class="pt-font-size-px-18">View Profile</div>
 
                                 <div class="mt-5 d-flex flex-column align-items-center">
-                                    <img src="../assets/images/profile.png" class="pt-width-px-150 pt-height-px-150">
+                                    @if(isset($user->profile))
+                                        <img src="../assets/images/profile/{{$user->profile}}" class="pt-width-px-150 pt-height-px-150">
+                                        @else
+                                        <img src="../assets/images/profile.png" class="pt-width-px-150 pt-height-px-150">
+                                        @endif
                                     <span class="mt-2 fw-500 pt-font-size-px-18">{{$user->first_name}} {{$user->last_name}}</span>
                                 </div>
                             </div>
@@ -79,15 +83,24 @@
                     </div>
 
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-
+                    <form  id="update-profile" class="pt-width-p-80 my-0 mx-auto">
+                            @method('POST')
+                            @csrf
                         <div class="row mb-4">
                             <div class="col-12">
                                 <div class="pt-font-size-px-18">Edit Profile</div>
 
                                 <div class="mt-5 d-flex flex-column align-items-center">
                                     <div class="profile-img student">
-                                        <img src="../assets/images/profile.png" class="pt-width-px-150 pt-height-px-150">
-                                        <i class="mdi mdi-pencil edit" aria-hidden="true"></i>
+                                        @if(isset($user->profile))
+                                        <img src="../assets/images/profile/{{$user->profile}}" id="preview_img" class="pt-width-px-150 pt-height-px-150">
+                                        @else
+                                        <img src="../assets/images/profile.png" id="preview_img" class="pt-width-px-150 pt-height-px-150">
+                                        @endif
+                                        
+                                        
+                                        <!-- <i class="mdi mdi-pencil edit" aria-hidden="true"></i> -->
+                                        <input type="file" id="theFileInput" name="profile" accept="image/*" onchange="loadPreview(this);" />
                                         <!-- <img src="../assets/images/flag.png"  /> -->
                                     </div>
 
@@ -97,9 +110,6 @@
                         </div>
 
 
-                        <form  id="update-profile" class="pt-width-p-80 my-0 mx-auto">
-                            @method('POST')
-                            @csrf
                             <div class="row mb-3">
                                 <div class="col-12 col-md-6">
                                     <div class="mb-3">
@@ -195,6 +205,8 @@
 @section('js-hooks')
 <script>
     $(document).ready(function() {
+        
+
         $("#change-password").validate({
             rules: {
                 new_password: {
@@ -238,6 +250,21 @@
      });
 </script>
 <script>
+function loadPreview(input, id) {
+    id = id || '#preview_img';
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+ 
+        reader.onload = function (e) {
+            $(id)
+                    .attr('src', e.target.result)
+                    .width(200)
+                    .height(150);
+        };
+ 
+        reader.readAsDataURL(input.files[0]);
+    }
+ }
     $(document).ready(function() {
        $("#update-profile").validate({
             rules: {
