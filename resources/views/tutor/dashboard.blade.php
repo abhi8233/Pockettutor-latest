@@ -15,7 +15,7 @@
 
 
 
-    <div class="availability-main email-template student-list box-main bg-white mt-4">
+    <!-- <div class="availability-main email-template student-list box-main bg-white mt-4">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <div>Set Availability Type</div>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -54,9 +54,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-12 col-md-4  d-flex justify-content-center">
-
-                                    </div> -->
                                     <div class="col-12 col-md-5 d-flex time p-0">
                                         <select class="select2 select2-hidden-accessible" name="10:00 AM">
                                             <option value="10">10:00 AM</option>
@@ -408,6 +405,63 @@
                 </ul>
             </div>
         </div>
+    </div> -->
+
+    <div class="availability-main email-template student-list box-main bg-white mt-4 p-3">
+        <div id="calendar"></div>
     </div>
 </div>
+@endsection
+
+@section('js-hooks')
+<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			var calendarEl = document.getElementById('calendar');
+
+			var calendar = new FullCalendar.Calendar(calendarEl, {
+				initialDate: '2020-09-12',
+				initialView: 'timeGridWeek',
+				nowIndicator: true,
+				headerToolbar: {
+					left: 'prev,next today',
+					center: 'title',
+					right: 'timeGridWeek'
+				},
+				navLinks: true, // can click day/week names to navigate views
+				editable: true,
+				selectable: true,
+				selectMirror: true,
+				dayMaxEvents: true, // allow "more" link when too many events
+				events: [
+					{
+						groupId: 999,
+						title: 'Repeating Event',
+						start: '2020-09-09T16:00:00'
+					},
+					{
+						groupId: 999,
+						title: 'Repeating Event',
+						start: '2020-09-09T12:00:00'
+					},
+					{
+						groupId: 999,
+						title: 'Repeating Event',
+						start: '2020-09-08T13:30:00'
+					},
+					{
+						groupId: 999,
+						title: 'Repeating Event',
+						start: '2020-09-06T01:30:00'
+					},
+					{
+						groupId: 999,
+						title: 'Repeating Event',
+						start: '2020-09-07T03:30:00'
+					},
+				]
+			});
+
+			calendar.render();
+		});
+	</script>
 @endsection
