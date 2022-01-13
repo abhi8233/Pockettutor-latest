@@ -76,6 +76,7 @@ class DashboardController extends Controller
                 $destinationPath = public_path('assets/images/document');
                 $file->move($destinationPath, $name);
                 $document->document_value =$name;
+                $document->document_type =$file->getClientOriginalExtension();
             }
             $document->user_id = $user->id;
             $document->save();
@@ -89,6 +90,7 @@ class DashboardController extends Controller
                 $destinationPath = public_path('assets/images/document');
                 $file->move($destinationPath, $name);
                 $document->document_value =$name;
+                 $document->document_type =$file->getClientOriginalExtension();
             }
             $document->user_id=$user->id;
             $document->save();
@@ -102,6 +104,7 @@ class DashboardController extends Controller
                 $destinationPath = public_path('assets/images/document');
                 $file->move($destinationPath, $name);
                 $document->document_value =$name;
+                 $document->document_type =$file->getClientOriginalExtension();
             }
             $document->user_id=$user->id;
             $document->save();
@@ -122,7 +125,7 @@ class DashboardController extends Controller
     public function updatePassword(Request $request){
 
          $this->validate($request,
-            ['new_password' => ['required', 'string', 'min:8'],
+            ['new_password' => ['required', 'string', 'min:8','confirmed'],
             ]);
         $user = User::find(auth()->user()->id);
         $user->password= Hash::make($request->password);

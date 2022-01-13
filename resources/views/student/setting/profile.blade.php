@@ -100,7 +100,8 @@
                                         
                                         
                                         <!-- <i class="mdi mdi-pencil edit" aria-hidden="true"></i> -->
-                                        <input type="file" id="theFileInput" name="profile" accept="image/*" onchange="loadPreview(this);" />
+                                        <i class="mdi mdi-pencil edit" id="OpenImgUpload" aria-hidden="true"></i>
+                                        <input type="file" id="theFileInput" name="profile" accept="image/*" onchange="loadPreview(this);" style="display:none;"/>
                                         <!-- <img src="../assets/images/flag.png"  /> -->
                                     </div>
 
@@ -204,24 +205,31 @@
 @endsection
 @section('js-hooks')
 <script>
+    $('#OpenImgUpload').click(function(){ $('#theFileInput').trigger('click'); });
     $(document).ready(function() {
         
 
         $("#change-password").validate({
             rules: {
                 new_password: {
-                    required: true
+                    required: true,
+                    minlength:8
                 },
                 confirmed: {
-                    required: true
+                    required: true,
+                    minlength:8,
+                    equalTo : "#new_password"
                 }
             },
             messages: {
                 new_password: {
-                    required: "New Password is required"
+                    required: "New Password is required",
+                    minlength:"New password must be 8 character"
                 },
                 confirmed: {
-                    required: "Confirmed Password is required"
+                    required: "Confirmed Password is required",
+                    minlength:"Confirmed Password must be 8 character",
+                    equalTo :"Confirmd Password  and New Password not same."
                 },
             },
             submitHandler: function(form) {

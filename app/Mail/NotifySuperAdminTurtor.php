@@ -28,6 +28,6 @@ class NotifySuperAdminTurtor extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.notifysuperadmintutor')->with('user',$user);
+        return $this->view('mail.notifysuperadmintutor')->with('user',$this->user);
     }
 }

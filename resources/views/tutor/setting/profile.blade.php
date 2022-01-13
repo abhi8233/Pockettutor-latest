@@ -107,14 +107,15 @@
                                         @else
                                         <img src="../assets/images/profile.png" id="preview_img" class="pt-width-px-150 pt-height-px-150">
                                         @endif
+                                       <i class="mdi mdi-pencil edit" id="OpenImgUpload" aria-hidden="true"></i>
+
                                         
-                                        <!-- <i class="mdi mdi-pencil edit" aria-hidden="true"></i> -->
-                                        <input type="file" id="profile_img" name="profile" accept="image/*" onchange="loadPreview(this);" />
+                                        <input type="file" id="imgupload" name="profile" accept="image/*" onchange="loadPreview(this);" style="display: none;"/>
 
                                         <!-- <img src="../assets/images/flag.png"  /> -->
                                     </div>
 
-                                    <span class="mt-2 fw-500 pt-font-size-px-18">John Marteen</span>
+                                    <span class="mt-2 fw-500 pt-font-size-px-18">{{$user->first_name}} {{$user->last_name}}</span>
                                 </div>
                             </div>
                         </div>
@@ -146,16 +147,13 @@
 
                                     <div class="mb-3">
                                         <label for="email" class="col-form-label p-0 mb-1">Passport <span class="pt-color-red pt-fs-16">*</span> </label>
+                                        <img src="" id="passport_preview" class="pt-width-px-150 pt-height-px-150" style="display:none;">
+                                     
                                         <div class="file-upload-wrapper" data-text="Select your file!">
-                                            <input name="passport" type="file" class="file-upload-field">
+                                            <input name="passport" type="file" class="file-upload-field" onchange="loadPassportPreview (this);">
                                         </div>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="email" class="col-form-label p-0 mb-1">Certificate <span class="pt-color-red pt-fs-16">*</span> </label>
-                                        <div class="file-upload-wrapper" data-text="Select your file!">
-                                            <input name="certificate" type="file" class="file-upload-field">
-                                        </div>
-                                    </div>
+                                    
                                     <div class="mb-3">
                                         <label for="email" class="col-form-label p-0 mb-1">Other Documents <span class="pt-color-red pt-fs-16">*</span> </label>
                                         <div class="file-upload-wrapper" data-text="Select your file!">
@@ -182,6 +180,12 @@
                                     <div class="mb-3">
                                         <label for="email" class="col-form-label p-0 mb-1">Email<uspan class="pt-color-red pt-fs-16">*</span> </label>
                                         <input type="text" placeholder="Enter email" class="form-control" name="email" value="{{$user->email}}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email" class="col-form-label p-0 mb-1">Certificate <span class="pt-color-red pt-fs-16">*</span> </label>
+                                        <div class="file-upload-wrapper" data-text="Select your file!">
+                                            <input name="certificate" type="file" class="file-upload-field">
+                                        </div>
                                     </div>
 <!-- 
                                     <div class="mb-3">
@@ -264,22 +268,29 @@
 @endsection
 @section('js-hooks')
 <script>
+    $('#OpenImgUpload').click(function(){ $('#imgupload').trigger('click'); });
     $(document).ready(function() {
         $("#change-password").validate({
             rules: {
                 new_password: {
-                    required: true
+                    required: true,
+                    minlength:8
                 },
                 confirmed: {
-                    required: true
+                    required: true,
+                    minlength:8,
+                    equalTo : "#new_password"
                 }
             },
             messages: {
                 new_password: {
-                    required: "New Password is required"
+                    required: "New Password is required",
+                    minlength:"New password must be 8 character"
                 },
                 confirmed: {
-                    required: "Confirmed Password is required"
+                    required: "Confirmed Password is required",
+                    minlength:"Confirmed Password must be 8 character",
+                    equalTo :"Confirmd Password  and New Password not same."
                 },
             },
             submitHandler: function(form) {
@@ -321,8 +332,22 @@
         };
  
         reader.readAsDataURL(input.files[0]);
+        }
     }
- }
+    function loadPassportPreview(input, id) {
+    id = id || '#passport_preview';
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $(id)
+                    .attr('src', e.target.result)
+                    .width(200)
+                    .height(150);
+        };
+ 
+        reader.readAsDataURL(input.files[0]);
+        }
+    }
     $(document).ready(function() {
        $("#update-profile").validate({
             rules: {
@@ -340,13 +365,13 @@
             },
             messages: {
                 first_name: {
-                    required: "Student First Name  is required"
+                    required: "Tutor First Name  is required"
                 },
                 last_name: {
-                    required: "Student Last name is required"
+                    required: "Tutor Last name is required"
                 },
                 email: {
-                    required: "Student email is required"
+                    required: "Tutor email is required"
                 },
             },
             submitHandler: function(form) {
