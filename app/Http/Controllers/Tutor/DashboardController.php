@@ -42,18 +42,23 @@ class DashboardController extends Controller
     public function updateProfile(Request $request)
     {
         $this->validate($request,
-            ['first_name' => ['required', 'string'],
-            'last_name' => ['required', 'string'],
-            'email' => ['required', 'string', 'email', 'max:255']]);
+            [
+                'first_name' => ['required', 'string'],
+                'last_name' => ['required', 'string'],
+                'email' => ['required', 'string', 'email', 'max:255']
+            ]
+        );
+
         $user=User::find($request->user_id);
 
         if ($request->hasFile('profile')) {
-        $image = $request->file('profile');
-        $name = time().'.'.$image->getClientOriginalExtension();
-        $destinationPath = public_path('assets/images/profile');
-        $image->move($destinationPath, $name);
-        $user->profile =$name;
-    }
+            $image = $request->file('profile');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('assets/images/profile');
+            $image->move($destinationPath, $name);
+            $user->profile =$name;
+        }
+
         $user->first_name = $request['first_name'];
         $user->last_name = $request->last_name;
         $user->email = $request->email;
@@ -63,24 +68,22 @@ class DashboardController extends Controller
         $user->save();
 
         if($request->passport){
-            $document =new Document();
+            $document = new Document();
             $document->document_key ='passport';
-            if ($request->hasFile('passport')) 
-            {
+            if ($request->hasFile('passport')){
                 $file = $request->file('passport');
                 $name = time().'.'.$file->getClientOriginalExtension();
                 $destinationPath = public_path('assets/images/document');
                 $file->move($destinationPath, $name);
                 $document->document_value =$name;
             }
-            $document->user_id=$user->id;
+            $document->user_id = $user->id;
             $document->save();
         }
         if($request->certificate){
-            $document =new Document();
+            $document = new Document();
             $document->document_key ='certificate';
-            if ($request->hasFile('certificate')) 
-            {
+            if ($request->hasFile('certificate')){
                 $file = $request->file('certificate');
                 $name = time().'.'.$file->getClientOriginalExtension();
                 $destinationPath = public_path('assets/images/document');
@@ -93,8 +96,7 @@ class DashboardController extends Controller
         if($request->other_document){
             $document =new Document();
             $document->document_key ='other_document';
-            if ($request->hasFile('other_document')) 
-            {
+            if ($request->hasFile('other_document')){
                 $file = $request->file('other_document');
                 $name = time().'.'.$file->getClientOriginalExtension();
                 $destinationPath = public_path('assets/images/document');
@@ -106,9 +108,10 @@ class DashboardController extends Controller
         }
         
 
-        $email=EmailNotification::get('admin_email')->first();
-        $documents =Document::where('user_id',$user->id)->get();
+        $email = EmailNotification::get('admin_email')->first();
+        $documents = Document::where('user_id',$user->id)->get();
         Mail::to($email->admin_email)->send(new NotifySuperAdminMail($user,$documents));
+        
         if($user){
             return response()->Json(['status' => '200','msg'=>'User Password Update successfully.']);
         }else{

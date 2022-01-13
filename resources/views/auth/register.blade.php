@@ -106,29 +106,24 @@
                         <div class="col-md-6">
                             <label for="institution" class="col-form-label p-0 mb-1">{{ __('Institution') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
-                            <select class="form-control institution select2 @error('institution') is-invalid @enderror" name="institution" id="institution" data-placeholder="Select Institution">
-                                <option value=""> Select Institution</option>
-                                <option value="1" {{ 1 == old('institution') ? 'selected' :'' }} >Institution1</option>
-                                <option value="2" {{ 2 == old('institution') ? 'selected' :'' }} >Institution2</option>
-                                <option value="3" {{ 3 == old('institution') ? 'selected' :'' }} >Others</option>
-                            </select>
-
+                            <input type="text" class="form-control institution  @error('institution') is-invalid @enderror" name="institution" id="institution" value="{{ old('institution') }}">
+                            
                             @error('institution')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
                         </div>
-                        <div class="col-md-6">
-                            <label for="city_institution" class="col-form-label p-0 mb-1">{{ __('City of Institution') }} <span class="pt-color-red pt-fs-16">*</span></label>
+                        <div class="col-md-6" >
+                            <label  for="password" class="col-form-label p-0 mb-1">{{ __('Country of Institution') }} <span class="pt-color-red pt-fs-16">*</span></label>
+                            <div id="country_institution_div">
+                                <select class="form-control country_institution select2 @error('country_institution') is-invalid @enderror" name="country_institution" id="country_institution" data-placeholder="Select Country of Institution" onchange="getState(this)">
+                                    <option value=""> Select Country of Institution</option>
+                                </select>
+                            </div>
+                           
 
-                            <select class="form-control city_institution select2 @error('city_institution') is-invalid @enderror" name="city_institution" id="city_institution" data-placeholder="Select City of Institution">
-                                <option value=""> Select City of Institution</option>
-                                <option value="1" {{ 1 == old('city_institution') ? 'selected' :'' }}>City1</option>
-                                <option value="2" {{ 2 == old('city_institution') ? 'selected' :'' }}>City2</option>
-                            </select>
-
-                            @error('city_institution')
+                            @error('country_institution')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -139,20 +134,41 @@
 
                     <div class="row mb-3 tutor_field">
                         <div class="col-md-6">
-                            <label for="password" class="col-form-label p-0 mb-1">{{ __('Country of Institution') }} <span class="pt-color-red pt-fs-16">*</span></label>
+                            <label for="password" class="col-form-label p-0 mb-1">{{ __('State of Institution') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
-                            <select class="form-control country_institution select2 @error('country_institution') is-invalid @enderror" name="country_institution" id="country_institution" data-placeholder="Select Country of Institution">
-                                <option value=""> Select Country of Institution</option>
-                                <option value="1" {{ 1 == old('country_institution') ? 'selected' :'' }}>Country1</option>
-                                <option value="2" {{ 2 == old('country_institution') ? 'selected' :'' }}>Country2</option>
-                            </select>
+                            <div id="state_institution_div">
+                                <select class="form-control state_institution select2 @error('state_institution') is-invalid @enderror" name="state_institution" id="state_institution" data-placeholder="Select State of Institution">
+                                    <option value=""> Select State of Institution</option>
+                                </select>
+                            </div>
 
-                            @error('country_institution')
+                            @error('state_institution')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
                         </div>
+
+                        <div class="col-md-6">
+                            <label for="city_institution" class="col-form-label p-0 mb-1">{{ __('City of Institution') }} <span class="pt-color-red pt-fs-16">*</span></label>
+
+                            <div id="city_institution_div">
+                                <select class="form-control city_institution select2 @error('city_institution') is-invalid @enderror" name="city_institution" id="city_institution" data-placeholder="Select City of Institution">
+                                    <option value=""> Select City of Institution</option>
+                                </select>
+                            </div>
+
+                            @error('city_institution')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        
+                        
+                    </div>
+
+                    <div class="row mb-3 tutor_field">
                         <div class="col-md-6">
                             <label for="specialization" class="col-form-label p-0 mb-1">{{ __('
                                 Specialization') }} <span class="pt-color-red pt-fs-16">*</span></label>
@@ -169,10 +185,6 @@
                             </span>
                             @enderror
                         </div>
-                        
-                    </div>
-
-                    <div class="row mb-3 tutor_field">
                         <div class="col-md-6">
                             <label for="language_id" class="col-form-label p-0 mb-1">{{ __('Language') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
@@ -210,18 +222,16 @@
                     
                     <div class="mb-3 subscription" style="display: none;">
                         <div class="d-flex wrapper justify-content-between">
-                             @foreach(\App\Models\Subscription::where('status','Active')->get() as $sub)
-                             <input type="radio" id="option-Basic" name="subscription_id" value="{{$sub->id}}">
-                            <label for="option-Basic" class="option">
-                                <div class="k-width-p-100">
-                                    <div class="pt-font-size-px-16">{{$sub->plan}}</div>
-                                    <div class="pt-font-size-px-16">${{$sub->price}}</div>
-                                    <div class="pt-font-size-px-14">Minutes :{{$sub->minutes}}</div>
-                                </div>
-                            </label>
-                             @endforeach               
-                                
-
+                            @foreach(\App\Models\Subscription::where('status','Active')->get() as $sub)
+                                <input type="radio" id="option-Basic_{{$sub->id}}" name="subscription_id" value="{{$sub->id}}">
+                                <label for="option-Basic_{{$sub->id}}" class="option">
+                                    <div class="k-width-p-100">
+                                        <div class="pt-font-size-px-16">{{$sub->plan}}</div>
+                                        <div class="pt-font-size-px-16">${{$sub->price}}</div>
+                                        <div class="pt-font-size-px-14">Minutes :{{$sub->minutes}}</div>
+                                    </div>
+                                </label>
+                            @endforeach               
                         </div>
                     </div>
 
@@ -251,7 +261,6 @@
                                 {{ __('Sign in') }}
                             </a>
                         </div>
-
                     </div>
 
                 </form>
@@ -262,50 +271,44 @@
 @endsection
 @push('js-hooks')
 <script>
+
     $(document).ready(function() {
         $(".select2").select2({
             placeholder: $(this).data('placeholder'),
             allowClear: true
         });   
 
-        // if($('input:radio[name=role]').not(':checked')){
-        //     $('#tutor').attr('checked',true);
-        // }
-        // setTimeout(function(){
-        //     if ($('input:radio[name=role]').is(":checked") &&  $('input:radio[name=role]').val() == 'Tutor') {
-               
-        //         $('.tutor_field').addClass('d-flex');
-        //         $('.subscription').addClass('d-none');
-        //         $('.tutor_field').removeClass('d-none');
-        //         // $('.subscription').removeClass('d-flex');
-        //     }
-        //     if ($('input:radio[name=role]').is(":checked") &&  $('input:radio[name=role]').val() == 'Student') {
-
-        //         $('.tutor_field').addClass('d-none');
-        //         $('.subscription').css('display', 'block');
-        //         $('.tutor_field').removeClass('d-flex');
-        //         $('.subscription').removeClass('d-none');
-        //     }
-        // },1000);
         $('input:radio[name=role]').change(function() {
-             
-  
             if (this.value == 'Tutor') {
-               
                 $('.tutor_field').addClass('d-flex');
                 $('.subscription').addClass('d-none');
                 $('.tutor_field').removeClass('d-none');
                 // $('.subscription').removeClass('d-flex');
             }
             if (this.value == 'Student') {
-
                 $('.tutor_field').addClass('d-none');
                 $('.subscription').css('display', 'block');
                 $('.tutor_field').removeClass('d-flex');
                 $('.subscription').removeClass('d-none');
             }
         });
-    
+
+        $.ajax({
+            url:"{{url('get-country')}}",
+            type: "POST", 
+            data: {
+                _token: '{{csrf_token()}}' 
+            },
+            dataType : 'json',
+            beforeSend: function(){
+                $('#country_institution_div').html('Loading...');
+            },
+            success: function(result){
+                // console.log(result);
+                $("#country_institution_div").html(result);
+            }
+        });
+
         // $('#country_id').change(function() {
         //     var country_id = this.value;
         //     $('#state_id').html('');
@@ -325,7 +328,49 @@
         //         }
         //     });
         // });
-});
+    });
+
+    function getState(country_id){
+        var countryid = country_id.value;
+
+        $.ajax({
+            url:"{{url('get-states')}}",
+            type: "POST", 
+            data: {
+                country_id : countryid,
+                _token: '{{csrf_token()}}' 
+            },
+            dataType : 'json',
+            beforeSend: function(){
+                $('#state_institution_div').html('Loading...');
+            },
+            success: function(result){
+                // console.log(result);
+                $("#state_institution_div").html(result);
+            }
+        });
+    }
+
+    function getCity(state_id){
+        var stateid = state_id.value;
+        
+        $.ajax({
+            url:"{{url('get-cities')}}",
+            type: "POST", 
+            data: {
+                state_id : stateid,
+                _token: '{{csrf_token()}}' 
+            },
+            dataType : 'json',
+            beforeSend: function(){
+                $('#city_institution_div').html('Loading...');
+            },
+            success: function(result){
+                // console.log(result);
+                $("#city_institution_div").html(result);
+            }
+        });
+    }
 </script>
 
 @endpush

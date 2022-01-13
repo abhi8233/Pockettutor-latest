@@ -14,6 +14,7 @@ class Document extends Model
     protected $fillable = [
         'document_key',
         'document_value',
+        'document_type',
         'user_id'
     ];
 
