@@ -1,11 +1,5 @@
 @extends('layouts.bookingApp')
-@section('css-hooks')
-<style type="text/css">
-    label.error {
-        color: red;
-    }
-</style>
-@endsection
+
 @section('content')
 <div class="booking">
     <div class="row mx-0">
@@ -108,6 +102,9 @@
         $.ajax({
             type: "GET",
             url: "{{route('getTutor')}}",
+            beforeSend: function(){
+                $('#tutor_html_id').html('Loading...');
+            },
             success: function(data) {
                 $("#tutor_html_id").html(data);
             }
@@ -123,9 +120,9 @@
                         'language_id': $('#language').val(),
                         'rating': $('#rating').val()
                     },
-                    // beforeSend: function(){
-                    //     $('#frm-BookingSlot').html('<div class="mb-5 text-center"><i class="fa fa-spinner fa-spin"></i>  Please Wait...</div>');
-                    // },
+                    beforeSend: function(){
+                        $('#tutor_html_id').html('Loading...');
+                    },
                     success: function(data) {
                         $("#tutor_html_id").html(data);
                     }
@@ -143,9 +140,9 @@
                         'specialization_id': $('#specialization').val(),
                         'rating': $('#rating').val()
                     },
-                    // beforeSend: function(){
-                    //     $('#frm-BookingSlot').html('<div class="mb-5 text-center"><i class="fa fa-spinner fa-spin"></i>  Please Wait...</div>');
-                    // },
+                    beforeSend: function(){
+                        $('#tutor_html_id').html('Loading...');
+                    },
                     success: function(data) {
                         $("#tutor_html_id").html(data);
                     }
@@ -163,9 +160,9 @@
                         'language_id': $('#language').val(),
                         'specialization_id': $('#specialization').val()
                     },
-                    // beforeSend: function(){
-                    //     $('#frm-BookingSlot').html('<div class="mb-5 text-center"><i class="fa fa-spinner fa-spin"></i>  Please Wait...</div>');
-                    // },
+                    beforeSend: function(){
+                        $('#tutor_html_id').html('Loading...');
+                    },
                     success: function(data) {
                         $("#tutor_html_id").html(data);
                     }
@@ -244,28 +241,7 @@
                 return false;
             }
         });
-
-        // $('body').on('click','#btn-booking',function(e){
-        //     e.preventDefault();
-        //     if ($(".bookingslotFrm").valid()) {
-        //         $.ajax({
-        //             type: "POST",
-        //             url: "{{route('sbooking.store')}}",
-        //             data: new FormData($('.bookingslotFrm')[0]),
-        //             processData: false,
-        //             contentType: false,
-        //             success: function (data) {
-        //                 if (data.status === 'success') {
-        //                     window.location ="{{ route('sbooking.index') }}";
-        //                 } else if (data.status === 'error') {
-        //                     alert("Opps..! Something Went to Wrong.")
-        //                 }
-        //             }
-        //         });
-        //     } else {
-        //         e.preventDefault();
-        //     }
-        // });
+    
     });
 </script>
 @endsection

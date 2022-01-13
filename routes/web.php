@@ -19,10 +19,11 @@ Route::get('/', function () {
 
 Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('country/select', 'App\Http\Controllers\Students\CountryController@select')->name('country.select');
-Route::post('get-states',[App\Http\Controllers\CommonController::class, 'getState']);
+Route::post('get-country',[App\Http\Controllers\CommonController::class, 'getCountry'])->name('get-country');
+Route::post('get-states',[App\Http\Controllers\CommonController::class, 'getStates'])->name('get-states');
+Route::post('get-cities',[App\Http\Controllers\CommonController::class, 'getCities'])->name('get-cities');
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 /*---------------------------------- ADMIN ---------------------------------------*/
 Route::group(['middleware' => ['auth', 'verified','superadmin']], function () { 
 
@@ -35,6 +36,7 @@ Route::group(['middleware' => ['auth', 'verified','superadmin']], function () {
 	/*User list*/ 
 	Route::resource('admin/student', App\Http\Controllers\Admin\StudentController::class)->names('student');
 	Route::resource('admin/tutor', App\Http\Controllers\Admin\TutorController::class)->names('tutor');
+	Route::post('changeTutorStatus',[App\Http\Controllers\Admin\TutorController::class, 'changeTutorStatus'])->name('changeTutorStatus');
 
 	/* subscription menu */ 
 	Route::resource('admin/subscription', App\Http\Controllers\Admin\SubscriptionController::class)->names('subscription');

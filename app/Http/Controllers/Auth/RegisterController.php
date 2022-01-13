@@ -79,6 +79,7 @@ class RegisterController extends Controller
                 'country_id' => ['required'],
                 'institution' => ['required'],
                 'city_institution' => ['required'],
+                'state_institution' => ['required'],
                 'country_institution' => ['required'],
                 'specialization' => ['required'],
                 'language_id' => ['required'],
@@ -123,6 +124,7 @@ class RegisterController extends Controller
         $user->subscriptions_id  = isset($data['subscription_id']) ? $data['subscription_id'] : null;
         $user->institution       = isset($data['institution']) ? $data['institution'] : null;
         $user->city_institution  = isset($data['city_institution']) ? $data['city_institution'] : null;
+        $user->state_institution  = isset($data['state_institution']) ? $data['state_institution'] : null;
         $user->country_institution= isset($data['country_institution']) ? $data['country_institution'] : null;
         $user->country_id        = isset($data['country_id']) ? $data['country_id'] : null;
         $user->state_id          = isset($data['state_id']) ? $data['state_id'] : null;
@@ -130,7 +132,7 @@ class RegisterController extends Controller
 
         Mail::to($user->email)->send(new NotifyUserRegisterMail($user));
         if($user->role == 'Tutor'){
-            $email=EmailNotification::get('admin_email')->first();
+            $email = EmailNotification::get('admin_email')->first();
             Mail::to($email->admin_email)->send(new NotifySuperAdminTurtor($user));
         }
         

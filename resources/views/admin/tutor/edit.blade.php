@@ -31,32 +31,24 @@
     <div class="page-head px-3 py-2 d-flex justify-content-between align-items-center">
         <label class="page-title d-flex align-items-center">
             <i class="mdi mdi-email-outline" aria-hidden="true"></i>
-            <span class="ps-1">User Edit</span>
+            <span class="ps-1">Update Tutor</span>
         </label>
     </div>
     <div class="box-main bg-white p-3 px-4 mt-4 pb-2">
 
         <div class="row">
             <div class="col-lg-12 col-md-6">
-                <form method="POST" action="{{ route('admin_tutor.update',$user->id) }}">
+                <form id="frm-UpdateTutor" name="frm-UpdateTutor" class="UpdateTutorFrm" enctype="multipart/form-data" >
                     @method('PUT')
                     @csrf
                     <input type="hidden" id="user_id" name="id" value="{{$user->id}}">
-                    <div class="mb-3">
-                        <label for="name" class="col-form-label p-0 mb-1">{{ __('Select an Option') }} <span class="pt-color-red pt-fs-16">*</span></label>
-                        <div class="d-flex">
-                            <div class="me-5">
-                                <input type="radio" name="role" value="Tutor" {{($user->role == 'Tutor')? "checked":""}}> {{ __('Tutor') }}
-                            </div>
-                            <div class="">
-                                <input type="radio" name="role" value="Student" {{($user->role == 'Student')? "checked":""}}> {{ __('Student') }}
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="first_name" class="col-form-label p-0 mb-1">{{ __('First Name') }} <span class="pt-color-red pt-fs-16">*</span></label>
+
                             <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ $user->first_name }}" autocomplete="name" autofocus>
+
                             @error('first_name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -75,13 +67,11 @@
                             </span>
                             @enderror
                         </div>
-
                     </div>
 
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="email" class="col-form-label p-0 mb-1">{{ __('E-Mail Address') }} <span class="pt-color-red pt-fs-16">*</span></label>
-
 
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" autocomplete="email">
 
@@ -93,34 +83,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="language_id" class="col-form-label p-0 mb-1">{{ __('Language') }} <span class="pt-color-red pt-fs-16">*</span></label>
-
-                            <select class="form-control language_id" name="language_id">
-                                <option value=""> Select Language</option>
-                                @foreach(\App\Models\Languages::all() as $language)
-                                    <option value="{{$language->id}}" {{$language->id == $user->language_id ?'selected':''}}>{{$language->name}}</option>
-                                @endforeach
-                            </select>
-                           
-                        </div>
-                    </div>
-
-                    <div class="row mb-3 tutor_field">
-                        <div class="col-md-6">
-                            <label for="specialization" class="col-form-label p-0 mb-1">{{ __('Specialization') }} <span class="pt-color-red pt-fs-16">*</span></label>
-
-                            <select class="form-control specialization" name="specialization">
-                                <option value=""> Select Specialization</option>
-                                @foreach(\App\Models\Specialization::All() as $specialization)
-                                <option value="{{$specialization->id}}" {{$specialization->id == $user->specialization_id ?'selected':''}}>{{$specialization->name}}</option>
-                                @endforeach
-                                
-                            </select>
-                            
-                        </div>
-                        <div class="col-md-6">
-                            <label for="country_id" class="col-form-label p-0 mb-1">{{ __('Country') }} 
-                                <span class="pt-color-red pt-fs-16">*</span></label>
+                            <label for="country_id" class="col-form-label p-0 mb-1">{{ __('Country') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
                             <select class="form-control country_id" name="country_id" id="country_id">
                                 <option value=""> Select Country</option>
@@ -128,53 +91,126 @@
                                     <option value="{{$country->id}}" {{$country->id == $user->country_id ?'selected':''}}>{{$country->name}}</option>
                                 @endforeach
                             </select>
-                            
+
+                            @error('country_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                     </div>
 
-                    <div class="row mb-3 tutor_field">
-
+                    <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="state_id" class="col-form-label p-0 mb-1">{{ __('State') }} <span class="pt-color-red pt-fs-16">*</span></label>
+                            <label for="specialization" class="col-form-label p-0 mb-1">{{ __('Specialization') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
-
-                            <select class="form-control state_id" name="state_id" id="state_id">
-                                <option value=""> Select State</option>
-                                 @foreach(\App\Models\State::all() as $state)
-                                    <option value="{{$state->id}}" {{$state->id == $user->state_id ?'selected':''}}>{{$state->name}}</option>
+                            <select class="form-control specialization" id="specialization" name="specialization">
+                                <option value=""> Select Specialization</option>
+                                @foreach(\App\Models\Specialization::All() as $specialization)
+                                <option value="{{$specialization->id}}" {{$specialization->id == $user->specialization_id ?'selected':''}}>{{$specialization->name}}</option>
                                 @endforeach
+                                
                             </select>
                             
+                            @error('specialization')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="language_id" class="col-form-label p-0 mb-1">{{ __('Language') }} <span class="pt-color-red pt-fs-16">*</span></label>
+
+                            <select class="form-control language_id" id="language_id" name="language_id">
+                                <option value=""> Select Language</option>
+                                @foreach(\App\Models\Languages::all() as $language)
+                                    <option value="{{$language->id}}" {{$language->id == $user->language_id ?'selected':''}}>{{$language->name}}</option>
+                                @endforeach
+                            </select>
+                           
+                            @error('language_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                     </div>
 
-                    
-                        <div class="mb-3 subscription " style="display: none;">
-                        <div class="d-flex wrapper justify-content-between">
-                             @foreach(\App\Models\Subscription::All() as $sub)
-                             <input type="radio" id="option-Basic" name="subscription_id" value="{{$sub->id}}"{{($user->subscriptions_id == $sub->id)? "checked":""}}>
-                            <label for="option-Basic" class="option">
-                                <div class="k-width-p-100">
-                                    <div class="pt-font-size-px-16">{{$sub->plan}}</div>
-                                    <div class="pt-font-size-px-16">${{$sub->price}}</div>
-                                    <div class="pt-font-size-px-14">Minutes :{{$sub->minutes}}</div>
-                                </div>
-                            </label>
-                             @endforeach               
-                                
+                   
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="institution" class="col-form-label p-0 mb-1">{{ __('Institution') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
+                            <input type="text" class="form-control institution  @error('institution') is-invalid @enderror" name="institution" id="institution" value="{{ $user->institution }}">
+                            
+                            @error('institution')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-6" >
+                            <label  for="password" class="col-form-label p-0 mb-1">{{ __('Country of Institution') }} <span class="pt-color-red pt-fs-16">*</span></label>
+                            <div id="country_institution_div">
+                                <select class="form-control country_institution select2 @error('country_institution') is-invalid @enderror" name="country_institution" id="country_institution" data-placeholder="Select Country of Institution" onchange="getState(this)">
+                                    <option value=""> Select Country of Institution</option>
+                                </select>
+                            </div>
+                           
+                            @error('country_institution')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="password" class="col-form-label p-0 mb-1">{{ __('State of Institution') }} <span class="pt-color-red pt-fs-16">*</span></label>
+
+                            <div id="state_institution_div">
+                                <select class="form-control state_institution select2 @error('state_institution') is-invalid @enderror" name="state_institution" id="state_institution" data-placeholder="Select State of Institution">
+                                    <option value=""> Select State of Institution</option>
+                                </select>
+                            </div>
+
+                            @error('state_institution')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="city_institution" class="col-form-label p-0 mb-1">{{ __('City of Institution') }} <span class="pt-color-red pt-fs-16">*</span></label>
+
+                            <div id="city_institution_div">
+                                <select class="form-control city_institution select2 @error('city_institution') is-invalid @enderror" name="city_institution" id="city_institution" data-placeholder="Select City of Institution">
+                                    <option value=""> Select City of Institution</option>
+                                </select>
+                            </div>
+
+                            @error('city_institution')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                     </div>
 
 
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <div class="d-flex justify-content-center pt-width-p-80 my-0 mx-auto">
                             <button type="submit" class="btn common-btn">
-                                {{ __('Edit Account') }}
+                                {{ __('Update') }}
                             </button>
                         </div>
                     </div>
-
+                    <div class="msg"></div>
                 </form>
             </div>
             <div class="col-12 col-md-6">
@@ -186,61 +222,195 @@
 @endsection
 @section('js-hooks')
 <script>
-    $(document).ready(function() {
-        
-        var value =$('input:radio[name=role]:checked').val();
-            if (value == 'Tutor') {
-               
-                $('.tutor_field').addClass('d-flex');
-                $('.subscription').addClass('d-none');
-                $('.tutor_field').removeClass('d-none');
-                // $('.subscription').removeClass('d-flex');
-            }
-            if (value == 'Student') {
-                $('.tutor_field').addClass('d-none');
-                $('.subscription').css('display', 'block');
-                $('.tutor_field').removeClass('d-flex');
-                $('.subscription').removeClass('d-none');
-            }
+    $(".select2").select2({
+        placeholder: $(this).data('placeholder'),
+        allowClear: true
+    });
 
-        $('input:radio[name=role]').change(function() {
-            if (this.value == 'Tutor') {
-               
-                $('.tutor_field').addClass('d-flex');
-                $('.subscription').addClass('d-none');
-                $('.tutor_field').removeClass('d-none');
-                // $('.subscription').removeClass('d-flex');
-            }
-            if (this.value == 'Student') {
+    $.ajax({
+        url:"{{url('get-country')}}",
+        type: "POST", 
+        data: {
+            current_country_id : '{{ $user->country_institution }}',
+            _token: '{{csrf_token()}}' 
+        },
+        dataType : 'json',
+        beforeSend: function(){
+            $('#country_institution_div').html('Loading...');
+        },
+        success: function(result){
+            // console.log(result);
+            $("#country_institution_div").html(result);
+        }
+    });
 
-                $('.tutor_field').addClass('d-none');
-                $('.subscription').css('display', 'block');
-                $('.tutor_field').removeClass('d-flex');
-                $('.subscription').removeClass('d-none');
-            }
-        });
-    })
-</script>
-<script>
-$(document).ready(function() {
-    $('#country_id').on('change', function() {
-    var country_id = this.value;
     $.ajax({
         url:"{{url('get-states')}}",
         type: "POST", 
         data: {
-        country_id: country_id,
-        _token: '{{csrf_token()}}' 
-    },
-    dataType : 'json',
-    success: function(result){
-        $.each(result.states,function(key,value){
-        $("#state_id").append('<option value="'+value.id+'">'+value.name+'</option>');
-        });
+            country_id : '{{ $user->country_institution }}',
+            current_state_id : '{{ $user->state_institution }}',
+            _token: '{{csrf_token()}}' 
+        },
+        dataType : 'json',
+        beforeSend: function(){
+            $('#state_institution_div').html('Loading...');
+        },
+        success: function(result){
+            // console.log(result);
+            $("#state_institution_div").html(result);
         }
     });
-    });
-});
-</script>
 
+    $.ajax({
+        url:"{{url('get-cities')}}",
+        type: "POST", 
+        data: {
+            current_city_id : '{{ $user->city_institution }}',
+            state_id : '{{ $user->state_institution }}',
+            _token: '{{csrf_token()}}' 
+        },
+        dataType : 'json',
+        beforeSend: function(){
+            $('#city_institution_div').html('Loading...');
+        },
+        success: function(result){
+            // console.log(result);
+            $("#city_institution_div").html(result);
+        }
+    });
+
+    function getState(country_id){
+        var countryid = country_id.value;
+
+        $.ajax({
+            url:"{{url('get-states')}}",
+            type: "POST", 
+            data: {
+                country_id : countryid,
+                _token: '{{csrf_token()}}' 
+            },
+            dataType : 'json',
+            beforeSend: function(){
+                $('#state_institution_div').html('Loading...');
+            },
+            success: function(result){
+                // console.log(result);
+                $("#state_institution_div").html(result);
+            }
+        });
+    }
+
+    function getCity(state_id){
+        var stateid = state_id.value;
+        
+        $.ajax({
+            url:"{{url('get-cities')}}",
+            type: "POST", 
+            data: {
+                state_id : stateid,
+                _token: '{{csrf_token()}}' 
+            },
+            dataType : 'json',
+            beforeSend: function(){
+                $('#city_institution_div').html('Loading...');
+            },
+            success: function(result){
+                // console.log(result);
+                $("#city_institution_div").html(result);
+            }
+        });
+    }
+
+    $("#frm-UpdateTutor").validate({
+        rules: {
+            first_name: {
+                required: true
+            },
+            last_name: {
+                required: true
+            },
+            email: {
+                required: true
+            },
+            country_id: {
+                required: true
+            },
+            specialization : {
+                required: true
+            },
+            language_id : {
+                required: true
+            },
+            institution : {
+                required: true
+            },
+            country_institution : {
+                required: true
+            },
+            state_institution : {
+                required: true
+            },
+            city_institution : {
+                required: true
+            },
+        },
+        messages: {
+            first_name: {
+                required: "First Name is required"
+            },
+            last_name: {
+                required: "Last Name is required"
+            },
+            email: {
+                required: "Email is required"
+            },
+            country_id: {
+                required: "Country id is required"
+            },
+            specialization : {
+                required: "Specialization is required"
+            },
+            language_id : {
+                required: "Language id is required"
+            },
+            institution : {
+                required: "Language id is required"
+            },
+            country_institution : {
+                required: "Country of institution is required"
+            },
+            state_institution : {
+                required: "State of institution is required"
+            },
+            city_institution : {
+                required: "City of institution is required"
+            },
+        },
+        submitHandler: function(form) {
+            $.ajax({
+                type: "POST",
+                url: "{{ route('tutor.update',$user->id) }}",
+                data: new FormData($('#frm-UpdateTutor')[0]),
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    // console.log(data);
+                    // alert(data.status);
+                    if (data.status == 200) {
+                        $(".msg").after('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Tutor Update Successfullay.</div>');
+                        setTimeout(function(){
+                            window.location ="{{ route('tutor.index') }}";
+                        },1000);
+                    }else {
+                        // alert("Opps..! Something Went to Wrong.")
+                        $(".msg").after('<div class="alert alert-danger alert-dismissible" id="myAlert"><strong>Opps..!</strong> Something Went to Wrong.</div>');
+                    }
+                }
+            });
+            return false;
+        }
+    });
+    
+</script>
 @endsection

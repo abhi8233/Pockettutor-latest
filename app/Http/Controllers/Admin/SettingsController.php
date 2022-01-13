@@ -35,7 +35,7 @@ class SettingsController extends Controller
     {
         return view('admin/settings/settingspayment');
     }
-    public function setSettingStripPayment(){
+    public function setSettingStripPayment(Request $request){
         // store strip payament
 
         $this->validate($request,['setting_key'=>'required',
@@ -69,7 +69,7 @@ class SettingsController extends Controller
     {
         return view('admin/settings/settingstemplate');
     }
-    public function setSettingEmailTemplate(){
+    public function setSettingEmailTemplate(Request $request){
         // store email template
     }
 
@@ -78,7 +78,7 @@ class SettingsController extends Controller
     {
         return view('admin/settings/settingsnotification');
     }
-    public function setSettingEmailNotification(){
+    public function setSettingEmailNotification(Request $request){
         //store Email Notification
         $request->validate([  
             'admin_email' => 'required',
@@ -110,7 +110,7 @@ class SettingsController extends Controller
     {
         return view('admin/settings/settingslanguage');
     }
-    public function setSettingMultiLanguage(){
+    public function setSettingMultiLanguage(Request $request){
         //store Email Notification
 
     }
