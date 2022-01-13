@@ -15,7 +15,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::where('role','Student')->get();
+        return view('admin/student/index',compact('users'));
     }
 
     /**
@@ -58,7 +59,7 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        $user=User::find($id);
+        $user = User::find($id);
         return view('admin/student/edit',compact('user'));
     }
 
@@ -82,7 +83,7 @@ class StudentController extends Controller
             $users->state_id = $request->state_id== null ? 0 : $request->state_id;
             $users->subscriptions_id=$request->subscription_id;
             $users->save();
-            return redirect()->route('admin_dashboard')->with('success', 'Student Update successfullay added.');
+            return redirect()->route('student.index')->with('success', 'Student Update successfullay added.');
     }
 
     /**
@@ -95,6 +96,6 @@ class StudentController extends Controller
     {
         $user=User::find($id);
         $user->delete();
-        return redirect()->route('admin_dashboard')->with('success', 'Student delete successfullay added.');
+        return redirect()->route('student.index')->with('success', 'Student delete successfullay added.');
     }
 }

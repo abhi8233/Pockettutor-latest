@@ -101,7 +101,7 @@
                 // alert('valid form submitted'); 
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('add_notification') }}",
+                    url: "{{ route('setSettings.email.notification') }}",
                     data: new FormData($('#frm-SettingNotification')[0]),
                     processData: false,
                     contentType: false,
@@ -109,7 +109,7 @@
                         if (data.status == 200) {
                             $(".save").after('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Settings Notification Added successfully.</div>');
                             setTimeout(function(){
-                                window.location ="{{ route('add_notification') }}";
+                                window.location ="{{ route('getSettings.email.notification') }}";
                             },1000);
                         } else {
                             alert("Opps..! Something Went to Wrong.")

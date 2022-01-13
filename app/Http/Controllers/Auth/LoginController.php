@@ -52,7 +52,7 @@ class LoginController extends Controller
                 }else{
                     return redirect()->intended($this->redirectPath());
                 }
-                
+
             }else{
                 return redirect()->intended($this->redirectPath());
             }
@@ -87,7 +87,7 @@ class LoginController extends Controller
                 return '/student/booking';
                 break; 
             default:
-                return '/home';
+                return '/login';
                 break;
         }
     }

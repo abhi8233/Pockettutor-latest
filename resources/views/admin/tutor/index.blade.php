@@ -48,9 +48,9 @@
                     <td>{{isset($user->specialization->name) ? $user->specialization->name:''}}</td>
                     <td><img src="../assets/images/icons/pdf-icon.svg"></td>
                     <td>
-                        <form action="{{ route('admin_tutor.destroy',$user->id) }}" method="POST">
+                        <form action="{{ route('tutor.destroy',$user->id) }}" method="POST">
     
-                        <a class="btn btn-primary" href="{{ route('admin_tutor.edit',$user->id) }}">Edit</a>
+                        <a class="btn btn-primary" href="{{ route('tutor.edit',$user->id) }}">Edit</a>
                             @csrf
                             @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>

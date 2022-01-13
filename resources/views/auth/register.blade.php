@@ -110,6 +110,7 @@
                                 <option value=""> Select Institution</option>
                                 <option value="1" {{ 1 == old('institution') ? 'selected' :'' }} >Institution1</option>
                                 <option value="2" {{ 2 == old('institution') ? 'selected' :'' }} >Institution2</option>
+                                <option value="3" {{ 3 == old('institution') ? 'selected' :'' }} >Others</option>
                             </select>
 
                             @error('institution')

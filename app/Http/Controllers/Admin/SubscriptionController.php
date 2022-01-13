@@ -31,8 +31,8 @@ class SubscriptionController extends Controller
     }
 
     public function store(Request $request)
-   {
-     $request->validate([  
+    {
+        $request->validate([  
             'plan_name' => ['required', 'string', 'max:255'],
             'cost' => ['required'],
             'minutes' => ['required'],

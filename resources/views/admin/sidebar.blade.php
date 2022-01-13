@@ -11,13 +11,13 @@
                 </a>
                 <ul class="child-menu">
                     <li class="menu-item">
-                        <a class="menu-link" href="{{ route('admin_dashboard') }}">
+                        <a class="menu-link" href="{{ route('student.index') }}">
                             <i class="mdi mdi-account-outline" aria-hidden="true"></i>
                             <span>Student List</span>
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a class="menu-link" href="{{ route('admin_tutor.index') }}">
+                        <a class="menu-link" href="{{ route('tutor.index') }}">
                             <i class="mdi mdi-account-outline" aria-hidden="true"></i>
                             <span>Tutor List</span>
                         </a>
@@ -25,13 +25,13 @@
                 </ul>
             </li>
             <li class="perent-menu menu-item parent">
-                <a class="menu-link" href="{{ route('admin_subscription') }}">
+                <a class="menu-link" href="{{ route('subscription.index') }}">
                     <i class="mdi mdi-cash" aria-hidden="true"></i>
                     <span>Subscription</span>
                 </a>
             </li>
             <li class="perent-menu menu-item parent">
-                <a class="menu-link" href="{{ route('admin_meetings') }}">
+                <a class="menu-link" href="{{ route('meetings.index') }}">
                     <i class="mdi mdi-account-multiple-outline" aria-hidden="true"></i>
                     <span>Meetings</span>
                 </a>
@@ -43,25 +43,25 @@
                 </a>
                 <ul class="child-menu">
                     <li class="menu-item">
-                        <a class="menu-link" href="{{ route('admin_settings') }}">
+                        <a class="menu-link" href="{{ route('getSettings.stripe.payment') }}">
                             <i class="mdi mdi-credit-card-outline" aria-hidden="true"></i>
                             <span>Stripe Payment</span>
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a class="menu-link" href="{{ route('admin_template') }}">
+                        <a class="menu-link" href="{{ route('getSettings.email.template') }}">
                             <i class="mdi mdi-email-outline" aria-hidden="true"></i>
                             <span>Email Template</span>
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a class="menu-link" href="{{ route('admin_notification') }}">
+                        <a class="menu-link" href="{{ route('getSettings.email.notification') }}">
                             <i class="mdi mdi-email-outline" aria-hidden="true"></i>
                             <span>Email Notification</span>
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a class="menu-link" href="{{ route('admin_language') }}">
+                        <a class="menu-link" href="{{ route('getSettings.multi.language') }}">
                             <i class="mdi mdi-translate" aria-hidden="true"></i>
                             <span>Multi Language</span>
                         </a>

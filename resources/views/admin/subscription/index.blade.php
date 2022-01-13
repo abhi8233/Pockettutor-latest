@@ -73,7 +73,7 @@
                 </button>
             </div>
             <div class="modal-body pb-5">
-                <form method="post" action="{{route('add_subscription')}}" class="pt-width-p-80 my-0 mx-auto"  id="form">
+                <form method="post" action="{{route('subscription.store')}}" class="pt-width-p-80 my-0 mx-auto"  id="form">
                     <div class="mb-3">
                         <label for="email" class="col-form-label p-0 mb-1">Plan Name <span class="pt-color-red pt-fs-16">*</span> </label>
                         <input type="text" id="plan_name" placeholder="Enter plan name" class="form-control" name="plan_name">
@@ -117,13 +117,13 @@
         $.ajax({
             type: "GET",
             dataType: "json",
-            url: '/changeStatus',
+            url: "{{ route('changeStatus') }}",
             data: {'status': status, 'subscription_id': subscription_id},
             success: function(data){
                if (data.status == 200) {
                     $(".table").before('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Status change successfully.</div>');
                     setTimeout(function(){
-                        window.location ="{{ route('admin_subscription') }}";
+                        window.location ="{{ route('subscription.index') }}";
                     },1000);
                 } else {
                     alert("Opps..! Something Went to Wrong.")
@@ -141,7 +141,7 @@
           }
       });
        jQuery.ajax({
-          url: "{{route('add_subscription')}}",
+          url: "{{route('subscription.store')}}",
           method: 'post',
           data: {
              _token: '{{csrf_token()}}',
@@ -165,7 +165,7 @@
                 if (data.status == 200) {
                     $(".table").before('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Subscription added successfully.</div>');
                     setTimeout(function(){
-                        window.location ="{{ route('admin_subscription') }}";
+                        window.location ="{{ route('subscription.index') }}";
                     },1000);
                 } else {
                     alert("Opps..! Something Went to Wrong.")

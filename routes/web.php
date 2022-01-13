@@ -26,30 +26,56 @@ Route::post('get-states',[App\Http\Controllers\CommonController::class, 'getStat
 /*---------------------------------- ADMIN ---------------------------------------*/
 Route::group(['middleware' => ['auth', 'verified','superadmin']], function () { 
 
-	Route::get('admin/profile', [App\Http\Controllers\Admin\DashboardController::class, 'profile'])->name('profile');
 
-	Route::get('admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin_dashboard');
+	Route::resource('admin/dashboard', App\Http\Controllers\Admin\DashboardController::class)->names('SAdashboard');
+	Route::get('admin/profile', [App\Http\Controllers\Admin\DashboardController::class, 'profile'])->name('SAprofile');
+	Route::post('admin/update-profile', [App\Http\Controllers\Admin\DashboardController::class, 'updateProfile'])->name('updateSAProfile');
+	Route::post('admin/update-pasword', [App\Http\Controllers\Admin\DashboardController::class, 'updatePassword'])->name('updateSAPassword');
 
-	Route::get('admin/user/delete/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'delete'])->name('user_delete');
-	Route::get('admin/tutor/delete/{id}', [App\Http\Controllers\Admin\TutorController::class, 'delete'])->name('tutor_delete');
-
-
+	/*User list*/ 
 	Route::resource('admin/student', App\Http\Controllers\Admin\StudentController::class)->names('student');
+	Route::resource('admin/tutor', App\Http\Controllers\Admin\TutorController::class)->names('tutor');
 
-	Route::resource('admin/tutor', App\Http\Controllers\Admin\TutorController::class)->names('admin_tutor');
+	/* subscription menu */ 
+	Route::resource('admin/subscription', App\Http\Controllers\Admin\SubscriptionController::class)->names('subscription');
+	Route::get('changeStatus',[App\Http\Controllers\Admin\SubscriptionController::class, 'changeStatus'])->name('changeStatus');
 
-	Route::get('admin/subscription', [App\Http\Controllers\Admin\SubscriptionController::class, 'index'])->name('admin_subscription');
 
-	Route::get('admin/meetings', [App\Http\Controllers\Admin\MeetingsController::class, 'index'])->name('admin_meetings');
+	/* meeting menu */ 
+	Route::resource('admin/meetings', App\Http\Controllers\Admin\MeetingsController::class)->names('meetings');
 
-	Route::get('admin/settings', [App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('admin_settings');
-	Route::get('admin/template', [App\Http\Controllers\Admin\SettingsController::class, 'settingstemplate'])->name('admin_template');
-	Route::get('admin/notification', [App\Http\Controllers\Admin\SettingsController::class, 'settingsnotification'])->name('admin_notification');
-	Route::get('admin/language', [App\Http\Controllers\Admin\SettingsController::class, 'settingslanguage'])->name('admin_language');
-	Route::post('admin/stripe', [App\Http\Controllers\Admin\SettingsController::class, 'stripesetting'])->name('stripe_setting');
-	Route::post('admin/add/notification', [App\Http\Controllers\Admin\SettingsController::class, 'addnotification'])->name('add_notification');
-	Route::post('admin/add/subscription', [App\Http\Controllers\Admin\SubscriptionController::class, 'store'])->name('add_subscription');
-	Route::get('changeStatus',[App\Http\Controllers\Admin\SubscriptionController::class, 'changeStatus']);
+	/* setting menu */ 
+	Route::resource('admin/settings', App\Http\Controllers\Admin\SettingsController::class)->names('settings');
+
+	Route::get('admin/payment', [App\Http\Controllers\Admin\SettingsController::class, 'getSettingStripPayment'])->name('getSettings.stripe.payment');
+	Route::post('admin/setPayment', [App\Http\Controllers\Admin\SettingsController::class, 'setSettingStripPayment'])->name('setSettings.stripe.payment');
+
+	Route::get('admin/template', [App\Http\Controllers\Admin\SettingsController::class, 'getSettingEmailTemplate'])->name('getSettings.email.template');
+	Route::post('admin/setTemplate', [App\Http\Controllers\Admin\SettingsController::class, 'setSettingEmailTemplate'])->name('setSettings.email.template');
+
+	Route::get('admin/notification', [App\Http\Controllers\Admin\SettingsController::class, 'getSettingEmailNotification'])->name('getSettings.email.notification');
+	Route::post('admin/setNotification', [App\Http\Controllers\Admin\SettingsController::class, 'setSettingEmailNotification'])->name('setSettings.email.notification');
+
+	Route::get('admin/language', [App\Http\Controllers\Admin\SettingsController::class, 'getSettingMultiLanguage'])->name('getSettings.multi.language');
+	Route::post('admin/setLanguage', [App\Http\Controllers\Admin\SettingsController::class, 'setSettingMultiLanguage'])->name('setSettings.multi.language');
+
+
+
+
+	// Route::get('admin/profile', [App\Http\Controllers\Admin\DashboardController::class, 'profile'])->name('profile');
+	// Route::get('admin/user/delete/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'delete'])->name('user_delete');
+	// Route::get('admin/tutor/delete/{id}', [App\Http\Controllers\Admin\TutorController::class, 'delete'])->name('tutor_delete');
+	// Route::get('admin/subscription', [App\Http\Controllers\Admin\SubscriptionController::class, 'index'])->name('admin_subscription');
+	// Route::get('admin/meetings', [App\Http\Controllers\Admin\MeetingsController::class, 'index'])->name('admin_meetings');
+
+	// Route::get('admin/settings', [App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('admin_settings');
+	// // Route::get('admin/template', [App\Http\Controllers\Admin\SettingsController::class, 'settingstemplate'])->name('admin_template');
+	// Route::get('admin/notification', [App\Http\Controllers\Admin\SettingsController::class, 'settingsnotification'])->name('admin_notification');
+	// Route::get('admin/language', [App\Http\Controllers\Admin\SettingsController::class, 'settingslanguage'])->name('admin_language');
+	// Route::post('admin/stripe', [App\Http\Controllers\Admin\SettingsController::class, 'stripesetting'])->name('stripe_setting');
+	// Route::post('admin/add/notification', [App\Http\Controllers\Admin\SettingsController::class, 'addnotification'])->name('add_notification');
+	// Route::post('admin/add/subscription', [App\Http\Controllers\Admin\SubscriptionController::class, 'store'])->name('add_subscription');
+	// Route::get('changeStatus',[App\Http\Controllers\Admin\SubscriptionController::class, 'changeStatus']);
 
 });
 

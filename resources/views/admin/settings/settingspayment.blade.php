@@ -94,7 +94,7 @@
                 // alert('valid form submitted'); 
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('stripe_setting') }}",
+                    url: "{{ route('setSettings.stripe.payment') }}",
                     data: new FormData($('#stripe-setting')[0]),
                     processData: false,
                     contentType: false,
@@ -102,7 +102,7 @@
                         if (data.status == 200) {
                             $(".save").after('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Stripe Setting Added successfully.</div>');
                             setTimeout(function(){
-                                window.location ="{{ route('admin_settings') }}";
+                                window.location ="{{ route('getSettings.stripe.payment') }}";
                             },1000);
                         } else {
                             alert("Opps..! Something Went to Wrong.")
