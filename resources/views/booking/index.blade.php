@@ -40,46 +40,9 @@
                         </div>
                     </div>
 
-                    <div class="col-12 mb-2">
-                        <label class="col-md-4 col-form-label">Select Language</label>
-                        <div class="">
-                            <select class="" name="language" id="language">
-                                <option value=""> Select Language</option>
-                                @foreach($languages as $language)
-                                <option value="{{$language->id}}">{{$language->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-12 mb-2">
-                        <label class="col-md-4 col-form-label">Rating</label>
-                        <div class="">
-                            <select class="select2 front-rating" name="rating" id="rating">
-                                <option value=""> Select Rating</option>
-                                <option value="0.5">0.5</option>
-                                <option value="1.0">1.0</option>
-                                <option value="1.5">1.5</option>
-                                <option value="2.0">2.0</option>
-                                <option value="2.5">2.5</option>
-                                <option value="3.0">3.0</option>
-                                <option value="3.5">3.5</option>
-                                <option value="4.0">4.0</option>
-                                <option value="4.5">4.5</option>
-                                <option value="5.0">5.0</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-12 mb-2 tutor-main">
-                        <label class="col-md-4 col-form-label">Select Tutor</label>
-                        <div class="row mx-0 mt-3" id="tutor_html_id"></div>
-                        <input type="text" name="tutor_id" id="tutor_id" style="visibility: hidden;">
-                    </div>
-
                     <div class="col-12 mb-3 date-time">
                         <label class="col-md-4 col-form-label">Select Date & Time</label>
-                        <div class="row mb-5">
+                        <div class="row">
                             <!-- <div class="col-12 col-md-6">
                                 <input type="date" id="date" name="date" placeholder="Select Date" class="">
                             </div>
@@ -262,10 +225,90 @@
 
                             </div>
                         </div>
-                        <button type="submit" class="btn text-decoration-none common-btn" id="btn-booking">
-                            Complete Booking
-                        </button>
                     </div>
+
+                    <div class="col-12 mb-2">
+                        <label class="col-md-4 col-form-label">Select Language</label>
+                        <div class="language-booking d-flex">
+                            <!-- <select class="" name="language" id="language">
+                                <option value=""> Select Language</option>
+                                @foreach($languages as $language)
+                                <option value="{{$language->id}}">{{$language->name}}</option>
+                                @endforeach
+                            </select> -->
+                            <label>
+                                <input type="checkbox">
+                                <span>
+                                    English
+                                </span>
+                            </label>
+
+                            <label>
+                                <input type="checkbox" checked>
+                                <span>
+                                    Spanish
+                                </span>
+                            </label>
+
+                            <label>
+                                <input type="checkbox">
+                                <span>
+                                    Korean
+                                </span>
+                            </label>
+
+                            <label>
+                                <input type="checkbox" checked>
+                                <span>
+                                    Japanese
+                                </span>
+                            </label>
+
+                            <label>
+                                <input type="checkbox">
+                                <span>
+                                    Hindi
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mb-2">
+                        <label class="col-md-4 col-form-label">Rating</label>
+                        <!-- <div class="">
+                            <select class="select2 front-rating" name="rating" id="rating">
+                                <option value=""> Select Rating</option>
+                                <option value="0.5">0.5</option>
+                                <option value="1.0">1.0</option>
+                                <option value="1.5">1.5</option>
+                                <option value="2.0">2.0</option>
+                                <option value="2.5">2.5</option>
+                                <option value="3.0">3.0</option>
+                                <option value="3.5">3.5</option>
+                                <option value="4.0">4.0</option>
+                                <option value="4.5">4.5</option>
+                                <option value="5.0">5.0</option>
+                            </select>
+                        </div> -->
+                        <div class="number">
+                            <span class="minus">-</span>
+                            <input type="text" value="1+" />
+                            <span class="plus">+</span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mb-2 tutor-main">
+                        <label class="col-md-4 col-form-label">Select Tutor</label>
+                        <div class="row mx-0 mt-3" id="tutor_html_id"></div>
+                        <input type="text" name="tutor_id" id="tutor_id" style="visibility: hidden;">
+                    </div>
+
+
+                    <button type="submit" class="btn text-decoration-none common-btn" id="btn-booking">
+                        Complete Booking
+                    </button>
+
+
 
                 </div>
             </form>
