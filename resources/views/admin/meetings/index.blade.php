@@ -23,49 +23,20 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($bookings as $booking)
                 <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>Lorem</td>
-                    <td>15-12-2021 12:30 PM </td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>Lorem</td>
-                    <td>15-12-2021 12:30 PM </td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>Lorem</td>
-                    <td>15-12-2021 12:30 PM </td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>Lorem</td>
-                    <td>15-12-2021 12:30 PM </td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>Lorem</td>
-                    <td>15-12-2021 12:30 PM </td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem</td>
-                    <td>Lorem</td>
-                    <td>15-12-2021 12:30 PM </td>
-                    <td>Pending</td>
-                </tr>
+                    <td>{{$loop->iteration}}</td>
+                    <td>{{isset($booking->tutor->first_name) ? $booking->tutor->first_name : ''}} {{isset($booking->tutor->last_name) ? $booking->tutor->last_name: ''}}</td>
 
+                    <td>{{isset($booking->user->first_name) ? $booking->user->first_name : ''}} {{isset($booking->user->last_name) ? $booking->user->last_name: ''}}</td>
+                    <td>{{ $booking->date_time }} </td>
+                    <td>@if($booking->date_time >= Carbon\Carbon::now())
+                        Pending
+                        @else
+                        Expired
+                        @endif</td>
+                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

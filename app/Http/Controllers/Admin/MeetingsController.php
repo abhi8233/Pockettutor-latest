@@ -24,7 +24,7 @@ class MeetingsController extends Controller
      */
     public function index()
     {
-        $bookingslots = Bookings::with(['tutor','specialization'])->get();
-        return view('admin.meetings.index',$bookingslots);
+        $bookings = Bookings::with(['tutor','user','specialization'])->get();
+        return view('admin.meetings.index',compact('bookings'));
     }
 }
