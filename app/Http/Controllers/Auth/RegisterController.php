@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 
 use App\Models\User;
+use App\Models\EmailNotification;
 use Mail;
 use App\Mail\NotifyUserRegisterMail;
+use App\Mail\NotifySuperAdminTurtor;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -127,6 +129,11 @@ class RegisterController extends Controller
         $user->save();
 
         Mail::to($user->email)->send(new NotifyUserRegisterMail($user));
+        if($user->role == 'Tutor'){
+            $email=EmailNotification::get('admin_email')->first();
+            Mail::to($email->admin_email)->send(new NotifySuperAdminTurtor($user));
+        }
+        
         return $user;
         // return User::create([
         //     'first_name' => $data['first_name'],
