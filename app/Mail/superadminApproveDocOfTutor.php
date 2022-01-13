@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class NotifyUserRegisterMail extends Mailable
+class superadminApproveDocOfTutor extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -18,7 +18,7 @@ class NotifyUserRegisterMail extends Mailable
      */
     public function __construct($user)
     {
-         $this->user = $user;
+        $this->user = $user;
     }
 
     /**
@@ -28,6 +28,6 @@ class NotifyUserRegisterMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.userregister')->with('user',$this->user);
+        return $this->view('mail.superadminApproveDocOfTutor')->with('user',$this->user);
     }
 }

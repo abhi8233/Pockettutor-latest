@@ -85,7 +85,7 @@ class StudentController extends Controller
             $users->save();
             return redirect()->route('student.index')->with('success', 'Student Update successfullay added.');
     }
-
+ 
     /**
      * Remove the specified resource from storage.
      *

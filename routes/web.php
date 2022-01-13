@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth', 'verified','superadmin']], function () {
 
 	/*User list*/ 
 	Route::resource('admin/student', App\Http\Controllers\Admin\StudentController::class)->names('student');
+	
 	Route::resource('admin/tutor', App\Http\Controllers\Admin\TutorController::class)->names('tutor');
 	Route::post('changeTutorStatus',[App\Http\Controllers\Admin\TutorController::class, 'changeTutorStatus'])->name('changeTutorStatus');
 

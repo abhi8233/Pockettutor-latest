@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Document;
+use Mail;
+use App\Mail\superadminApproveDocOfTutor;
 
 class TutorController extends Controller
 {
@@ -42,16 +44,18 @@ class TutorController extends Controller
     }
 
     public function changeTutorStatus(Request $request){
-        dd($request->all());
+        // dd($request->all());
+
+        $users = User::find($request->user_id);
+        $users->is_document = $request->status;
+        $users->save();
         
-        // $subscription = User::where("user_id",$request->user_id);
-        // $subscription->status = $request->status;
-        // $subscription->save();
-        // if($subscription){
-        //     return response()->Json(['status' => '200','msg'=>'Status change successfully.']);
-        // }else{
-        //     return response()->Json(['status' => '400','msg' => 'Something want wrong.']);
-        // }
+        if($users){
+            Mail::to($users->email)->send(new superadminApproveDocOfTutor($users));
+            return response()->Json(['status' => '200','msg'=>'Status change successfully.']);
+        }else{
+            return response()->Json(['status' => '400','msg' => 'Something want wrong.']);
+        }
     }
 
     /**

@@ -29,7 +29,7 @@
                 @foreach($feedbacks as $feedback)
                     <tr>
                         <td>{{ $loop->iteration}}</td>
-                        <td>{{$feedback->tutor->first_name}} {{$feedback->tutor->last_name}}</td>
+                        <td>{{isset($feedback->tutor->first_name) ? $feedback->tutor->first_name : ''}} {{ isset($feedback->tutor->last_name) ? $feedback->tutor->last_name : '' }}</td>
                         <td>{{$feedback->description}}</td>
                         <td>-</td>
                         
@@ -49,7 +49,7 @@
                 </button>
             </div>
             <div class="modal-body pb-5">
-                <form method="post" action="{{route('add_subscription')}}" class="pt-width-p-80 my-0 mx-auto">
+                <form method="post" action="" class="pt-width-p-80 my-0 mx-auto">
                          @csrf
                     <div class="mb-3">
                         <label for="email" class="col-form-label p-0 mb-1">Tutor Name<span class="pt-color-red pt-fs-16">*</span> </label>

@@ -7,9 +7,7 @@
             <i class="mdi mdi-account-outline" aria-hidden="true"></i>
             <span class="ps-1">Student List</span>    
         </label>
-        <div class="pr-5">
-            <a class="p-0 text-decoration-none  btn btn-primary pr-5" href="{{ route('register') }}"><span class="m-3">Add</span></a>
-        </div>
+       
         <div class="date-filter">
             <input type="text" class="form-control" id="stu_list_daterange" />
         </div>
@@ -51,11 +49,11 @@
                     <td>{{$user->updated_date}}</td>
                     <td>
     
-                        <a class="btn btn-primary" href="{{ route('student.edit',$user->id) }}">Edit</a>
+                        <a class="btn btn-primary" href="{{ route('student.edit',$user->id) }}"><i class="fa fa-edit"></i></a>
                         <form action="{{ route('student.destroy',$user->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash-alt"></i></button>
                         </form>
                        </td>
                 </tr>

@@ -50,7 +50,7 @@
                     <td>{{$subscription->created_at}}</td>
                     <td>
                         <div class="form-check form-switch">
-                            <input data-id="{{$subscription->id}}" class="form-check-input toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="Deactive" {{ $subscription->status ? 'checked' : '' }}>
+                            <input data-id="{{$subscription->id}}" class="form-check-input toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="Deactive" {{ $subscription->status== 'Active' ? 'checked' : '' }}>
                         </div>
                     </td>
                 </tr>

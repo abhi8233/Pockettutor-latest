@@ -12,7 +12,6 @@
         </div>
     </div>
     <div class="student-list bg-white mt-4">
-        
         <table id="student_list" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
@@ -34,10 +33,8 @@
                         <td>{{isset($user->specialization->name) ? $user->specialization->name:''}}</td>
                         <td>{{isset($user->languages->name) ? $user->languages->name:''}}</td>
                         <td>
-                            <div class="d-flex align-items-center">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input toggle-status" type="checkbox" id="flexSwitchCheckDefault{{ $user->id }}" data-id="{{ $user->id }}" name="option" data-on-toggle="Enable" data-off-toggle="Disable" {{ ($user->is_document == 1) ? 'checked' : '' }}>
-                                </div>
+                            <div class="form-check form-switch">
+                                <input data-id="{{$user->id}}" class="form-check-input toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="Deactive" {{ $user->is_document == 1 ? 'checked' : '' }}>
                             </div>
                         </td>
                         <td>
@@ -79,16 +76,18 @@
 @section('js-hooks')
 <script type="text/javascript">
     $(document).ready(function() {
-        $(document).on('change', '.toggle-status', function() {
+        $(document).on('change', '.toggle-class', function() {
+            var status = $(this).prop('checked') == true ? 1 : 0; 
             $.ajax({
-                type: "GET",
+                type: "POST",
                 url: "{{route('changeTutorStatus')}}",
                 data: {
-                    'status': $(this).val(),
-                    'user_id': $(this).data('id')
+                    'status': status,
+                    'user_id': $(this).data('id'),
+                    _token: '{{csrf_token()}}'
                 },
                 success: function(data) {
-                   console.log(data);
+                   window.location.href = "{{ route('tutor.index') }}"
                 }
             });
         });
