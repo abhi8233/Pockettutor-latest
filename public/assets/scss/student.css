@@ -665,6 +665,15 @@ select {
   padding-right: 20px;
   font-weight: 300;
 }
+select::-moz-placeholder {
+  color: #999;
+}
+select:-ms-input-placeholder {
+  color: #999;
+}
+select::placeholder {
+  color: #999;
+}
 
 .select2 {
   height: 38px !important;
@@ -1036,6 +1045,10 @@ select {
   font-size: 22px;
   right: 10px;
   color: #707070;
+}
+
+label.error {
+  color: red;
 }
 
 .subscription {
