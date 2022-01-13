@@ -653,9 +653,378 @@
 .rate > input:checked ~ label:hover ~ label,
 .rate > label:hover ~ input:checked ~ label {
   color: #c59b08;
-}/*# sourceMappingURL=booking.css.map */
+}
 
-.starrate span.ctrl { position:absolute; z-index:2;}
-    .starrate { color:var(--secondary); cursor:pointer}
-    .starrate.saved { color:var(--dark);}
-    .starrate:hover { color:var(--primary);} .starrate.saved:hover { color:var(--orange);}
+#ct #ct-calendar-full {
+  padding: 120px 0;
+  float: left;
+}
+
+#ct .calendar-wrapper {
+  border: thin solid #c5c5c5;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  float: left;
+  border-radius: 4px;
+}
+
+#ct .calendar-header {
+  height: 70px;
+  text-align: center;
+  position: relative;
+  border-radius: 2px;
+}
+
+#ct .calendar-wrapper .calendar-header a.previous-date {
+  left: 0px;
+  top: 0;
+  height: 100%;
+  line-height: 80px;
+  font-size: 15px;
+  position: absolute;
+  color: #fff;
+  padding: 0px 26px;
+}
+
+#ct .calendar-wrapper .calendar-header a.next-date {
+  right: 0px;
+  top: 0;
+  height: 100%;
+  line-height: 80px;
+  font-size: 15px;
+  position: absolute;
+  color: #fff;
+  padding: 0px 26px;
+}
+
+#ct .calendar-wrapper .calendar-header .calendar-title,
+#ct .calendar-wrapper .calendar-header .calendar-year {
+  padding: 15px 0 5px;
+  display: block;
+  text-align: center;
+  line-height: 1;
+  color: #373854;
+  font-size: 17px;
+  text-transform: uppercase;
+  margin: 0 70px;
+  font-weight: 600;
+}
+
+.date-arrow-left {
+  background: transparent url("../assets/images/date_p.png") no-repeat scroll 10px 10px/14px auto !important;
+}
+
+#ct .calendar-wrapper .calendar-header .calendar-year {
+  font-size: 15px;
+  padding: 5px 0 15px;
+}
+
+#ct .calendar-wrapper .calendar-header .icon-arrow-right:before,
+#ct .calendar-wrapper .calendar-header .icon-arrow-left:before {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#ct .calendar-body .ct-day,
+#ct .calendar-body .ct-week {
+  width: -ms-calc(100%/7);
+  width: calc(100%/7);
+  margin: 0;
+  text-align: center;
+  padding: 0;
+  float: left;
+  font-size: 14px;
+  border-right: thin solid #e5e5e5;
+}
+
+#ct .calendar-body .ct-day.ct-last-day,
+#ct .calendar-body .ct-week.ct-last-week {
+  border-right: 0px;
+}
+
+#ct .calendar-body .ct-week {
+  line-height: 59px;
+  min-height: 60px;
+  cursor: pointer;
+  position: relative;
+}
+
+#ct .calendar-header p {
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+#ct .inactive {
+  color: #ccc;
+}
+
+#ct .calendar-body .ct-show-time .time-slot-container ul li.time-slot.ct-booked,
+#ct .calendar-body .ct-show-time .time-slot-container ul li.time-slot.ct-booked:hover {
+  cursor: not-allowed !important;
+  text-decoration: none;
+}
+
+#ct .weekdays {
+  padding: 0;
+  background: #fff;
+  color: #373854;
+  text-transform: uppercase;
+  line-height: 35px;
+  border-top: 1px solid #c5c5c5;
+  border-radius: 2px;
+  border-bottom: 1px solid #c5c5c5;
+}
+
+#ct .dates {
+  padding: 0;
+  float: left;
+  width: 100%;
+}
+
+#ct .calendar-body .dates .ct-week.ct-slot-booked,
+#ct .dates .ct-week.hide_previous_dates,
+#ct .dates .ct-week.hide_previous_dates:hover {
+  cursor: not-allowed;
+  background: #f5f5f5 !important;
+  color: #ccc !important;
+}
+
+#ct .dates .ct-week.hide_previous_dates a span,
+#ct .dates .ct-week.hide_previous_dates:hover a span,
+#ct .calendar-body .ct-week.ct-booked a span {
+  color: #ccc !important;
+}
+
+#ct .dates .ct-week {
+  border-bottom: thin solid #c5c5c5;
+}
+
+#ct .dates .ct-week a {
+  color: #000;
+}
+
+#ct .today-date {
+  position: relative;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 0.7em;
+  float: left;
+  width: 100%;
+}
+
+#ct .today-date a.ct-button {
+  position: relative;
+  left: 6%;
+}
+
+#ct .calendar-body .ct-show-time .time-slot-container .ct-slot-legends {
+  float: right;
+  display: block;
+  position: relative;
+  text-align: center;
+  top: 4px;
+  padding-top: 2px;
+  width: 100%;
+  background: #fff;
+  border-radius: 5px 5px 0px 0px;
+  box-shadow: 0px -3px 3px 1px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: 0px -3px 3px 1px rgba(0, 0, 0, 0.08);
+  -webkit-box-shadow: 0px -3px 3px 1px rgba(0, 0, 0, 0.08);
+  -o-box-shadow: 0px -3px 3px 1px rgba(0, 0, 0, 0.08);
+}
+
+#ct .calendar-body .ct-show-time .time-slot-container .ct-slot-legends ul.ct-legends-ul {
+  list-style-type: none;
+  display: inline-block;
+  width: auto;
+  margin: 0px auto;
+  padding: 0px;
+  float: none;
+  clear: both;
+}
+
+#ct .calendar-body .dates .ct-week span.ct-cal-date {
+  font-size: 13px;
+  display: block;
+  position: relative;
+}
+
+#ct .calendar-body .dates .ct-week span.ct-available-slots {
+  font-size: 12px;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  bottom: 0px;
+  line-height: 22px;
+  z-index: 99;
+}
+
+#ct .calendar-body .ct-show-time .time-slot-container .ct-slot-legends ul.ct-legends-ul li {
+  float: left;
+  display: inline-block;
+  margin: 0px 15px 0px 0px !important;
+  vertical-align: middle;
+  font-size: 11px;
+  line-height: 24px;
+  padding: 0px !important;
+}
+
+#ct .calendar-body .ct-show-time .time-slot-container .ct-slot-legends .ct-slot-legends-box {
+  width: 13px;
+  height: 13px;
+  display: inline-block;
+  margin-right: 3px;
+  border-radius: 2px;
+  position: relative;
+  top: 2px;
+}
+
+#ct .calendar-body .ct-show-time .time-slot-container .ct-slot-legends .ct-slot-legends-box.ct-not-available-new {
+  background: #808080;
+}
+
+#ct .calendar-body .ct-show-time .time-slot-container ul li.time-slot.ct-slot-booked {
+  background: #808080 !important;
+  cursor: default;
+  pointer-events: none;
+}
+
+#ct .today-date .ct-selected-date-view {
+  text-align: center;
+  font-size: 14px;
+  line-height: 57px;
+  float: right;
+  position: relative;
+}
+
+#ct .today-date .ct-selected-date-view span.ct-date-selected {
+  padding-right: 15px;
+}
+
+#ct .today-date .ct-selected-date-view span.ct-date-selected:before {
+  content: "";
+  font-family: "Font Awesome 5 Free";
+  font-size: 14px;
+  padding-right: 5px;
+}
+
+#ct .today-date .ct-selected-date-view span.ct-time-selected:before {
+  content: "";
+  font-family: "Font Awesome 5 Free";
+  font-size: 14px;
+  padding-right: 5px;
+}
+
+#ct .calendar-body .dates .ct-week.active {
+  font-size: 18px;
+}
+
+#ct .calendar-body .ct-show-time.shown {
+  transform: scale(1);
+}
+
+#ct .calendar-body .ct-show-time {
+  transition: all 4s ease-in-out;
+}
+
+#ct .calendar-body .ct-show-time {
+  display: none;
+  position: relative;
+  float: left;
+  width: 100%;
+  transform: scale(0.8);
+}
+
+#ct .calendar-body .ct-show-time .time-slot-container {
+  padding: 10px 15px;
+  display: block;
+  float: left;
+  width: 100%;
+  position: relative;
+}
+
+#ct .calendar-body .ct-show-time .time-slot-container ul.time-slot-ul {
+  background: #fff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  display: block;
+  float: left;
+  width: 100%;
+  max-height: 210px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 8px 10px;
+  margin-left: 0px;
+}
+
+#ct .calendar-body .ct-show-time .time-slot-container ul li.time-slot {
+  font-size: 13px;
+  line-height: 30px;
+  height: 30px;
+  margin: 5px;
+  padding: 0px 6px;
+  min-width: 80px;
+  width: -o-calc(100%/6 - 10px);
+  width: -ms-calc(100%/6 - 10px);
+  width: calc(100%/6 - 10px);
+  vertical-align: top;
+  cursor: pointer;
+  text-align: center;
+  float: left;
+  font-weight: 600;
+}
+
+#ct a {
+  text-decoration: none;
+}
+
+.dates .ct-week.by_default_today_selected {
+  background-color: #000 !important;
+}
+
+.dates .ct-week.by_default_today_selected a {
+  color: #fff !important;
+}
+
+#ct .today-date a.ct-button {
+  z-index: 3;
+  font-weight: 400;
+  padding: 0px 15px;
+  line-height: 38px;
+  text-transform: uppercase;
+  font-size: 15px;
+  letter-spacing: 1px;
+  height: 40px;
+  display: inline-block;
+  margin: 10px 10px 10px 0px;
+  cursor: pointer;
+  background: #1377b6;
+  color: #fff;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+#ct .calendar-body .ct-day {
+  font-weight: 600;
+}
+
+#ct .calendar-header i {
+  color: #0077B6 !important;
+  font-size: 30px;
+}
+
+#ct .calendar-body .ct-show-time .time-slot-container ul li.time-slot {
+  background: #fff;
+  border: 1px solid #ccc;
+  color: #333 !important;
+}
+
+#ct .calendar-body .ct-show-time .time-slot-container ul li.time-slot.ct-booked,
+#ct .ct-datetime-select .cal_info .calendar-body .dates .ct-week:hover,
+#ct .ct-datetime-select .cal_info .calendar-body .dates .ct-week:hover a,
+#ct .calendar-body .ct-show-time .time-slot-container ul li.time-slot:hover {
+  color: #fff !important;
+  background-color: #0077B6 !important;
+}/*# sourceMappingURL=booking.css.map */
