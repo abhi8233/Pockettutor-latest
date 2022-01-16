@@ -26,7 +26,9 @@ class PlanController extends Controller
      */
     public function index()
     {
-        $user_plans = UserPlan::where('user_id', auth()->user()->id)->orderBy('id','desc')->get();
-        return view('student.plan.index',compact('user_plans'));
+        $user_plans = UserPlan::where('user_id', auth()->user()->id)->where('is_active',1)->orderBy('id','desc')->get();
+        $plans =UserPlan::where('user_id', auth()->user()->id)->where('is_active',1)->where('minutes','>','remaining_minutes')->orderBy('id','desc')->get();
+        // dd($plans);
+        return view('student.plan.index',compact('user_plans','plans'));
     }
 }

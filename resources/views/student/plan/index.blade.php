@@ -8,9 +8,11 @@
             <span class="ps-1">Plan Info</span>
         </label>
         <div class="d-flex align-items-center">
+            @if(empty($plans ))
             <button class="btn text-decoration-none common-btn ms-2" data-bs-toggle="modal" data-bs-target="#upgradeplan">
                 Upgrade Plan
             </button>
+            @endif
         </div>
     </div>
     <div class="student-list bg-white mt-4">
