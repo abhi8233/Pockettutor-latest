@@ -1,6 +1,7 @@
 <?php
  
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Tutor\TutorSlotController;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,13 +107,19 @@ Route::group(['middleware' => ['auth', 'verified','student']], function () {
 /*------------------------------------ TUTOR ---------------------------------------*/
 Route::group(['middleware' => ['auth', 'verified','tutor']], function () { 
 
-	Route::resource('tutor/dashboard', App\Http\Controllers\Tutor\DashboardController::class)->names('tdashboard');
-	Route::get('tutor/profile', [App\Http\Controllers\Tutor\DashboardController::class, 'profile'])->name('tprofile');
-	Route::post('tutor/update-profile', [App\Http\Controllers\Tutor\DashboardController::class, 'updateProfile'])->name('updateTProfile');
-	Route::post('tutor/update-pasword', [App\Http\Controllers\Tutor\DashboardController::class, 'updatePassword'])->name('updateTPassword');
-
-	Route::resource('tutor/meetings', App\Http\Controllers\Tutor\MeetingsController::class)->names('tmeetings');
-
+	Route::group(['prefix'=>'tutor'],function(){
+		//Tutor 
+		Route::resource('dashboard', App\Http\Controllers\Tutor\DashboardController::class)->names('tdashboard');
+		Route::get('profile', [App\Http\Controllers\Tutor\DashboardController::class, 'profile'])->name('tprofile');
+		Route::post('update-profile', [App\Http\Controllers\Tutor\DashboardController::class, 'updateProfile'])->name('updateTProfile');
+		Route::post('update-pasword', [App\Http\Controllers\Tutor\DashboardController::class, 'updatePassword'])->name('updateTPassword');
+		Route::resource('meetings', App\Http\Controllers\Tutor\MeetingsController::class)->names('tmeetings');
+		//Slots 
+		Route::group(['prefix'=>'slots'],function(){
+			Route::post('store', [TutorSlotController::class, 'store'])->name('storeTutorSlot');
+			Route::get('index', [TutorSlotController::class,'index'])->name('getTutorSlot');
+		});
+	});
 	
 });
 

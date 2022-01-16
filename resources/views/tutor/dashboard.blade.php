@@ -1,5 +1,23 @@
 @extends('layouts.tutorApp')
 
+@section('css-hooks')
+    <style>
+        #calendar_loader
+        {
+            position: absolute;
+            background: #000000b5;
+            height: 113%;
+            width: 78.5%;
+            z-index: 9;
+            font-size: 50px;
+            color: #fff;
+            line-height: 15;
+            text-align: center;
+            display: none;
+        }
+    </style>
+
+@endsection
 @section('content')
 <div class="student-list-page main-top">
     <div class="page-head px-3 py-2 d-flex justify-content-between align-items-center">
@@ -406,62 +424,141 @@
             </div>
         </div>
     </div> -->
-
+    
+    
     <div class="availability-main email-template student-list box-main bg-white mt-4 p-3">
+        <div id="calendar_loader">
+            {{-- <i class="fas fa-stroopwafel fa-spin"></i>  --}}
+            <i class="fas fa-spinner fa-pulse"></i>
+            Preparing Calendar..
+        </div>
         <div id="calendar"></div>
     </div>
 </div>
 @endsection
 
 @section('js-hooks')
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
 <script>
-		document.addEventListener('DOMContentLoaded', function() {
-			var calendarEl = document.getElementById('calendar');
+    
+    
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
 
-			var calendar = new FullCalendar.Calendar(calendarEl, {
-				initialDate: '2020-09-12',
-				initialView: 'timeGridWeek',
-				nowIndicator: true,
-				headerToolbar: {
-					left: 'prev,next today',
-					center: 'title',
-					right: 'timeGridWeek'
-				},
-				navLinks: true, // can click day/week names to navigate views
-				editable: true,
-				selectable: true,
-				selectMirror: true,
-				dayMaxEvents: true, // allow "more" link when too many events
-				events: [
-					{
-						groupId: 999,
-						title: 'Repeating Event',
-						start: '2020-09-09T16:00:00'
-					},
-					{
-						groupId: 999,
-						title: 'Repeating Event',
-						start: '2020-09-09T12:00:00'
-					},
-					{
-						groupId: 999,
-						title: 'Repeating Event',
-						start: '2020-09-08T13:30:00'
-					},
-					{
-						groupId: 999,
-						title: 'Repeating Event',
-						start: '2020-09-06T01:30:00'
-					},
-					{
-						groupId: 999,
-						title: 'Repeating Event',
-						start: '2020-09-07T03:30:00'
-					},
-				]
-			});
+                initialDate: new Date(),
+                initialView: 'timeGridWeek',
+                nowIndicator: true,
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'timeGridWeek'
+                },
+                navLinks: true, // can click day/week names to navigate views
+                editable: true,
+                selectable: true,
+                selectMirror: true,
+                dayMaxEvents: true, // allow "more" link when too many events
+                events:{
+                    url: "{{ route('getTutorSlot') }}"
+                },
+                eventResize: function (resize_slot_obj) {
+                    swal({
+                            text: "You'd like to change slot note?",
+                            buttons: true,
+                            dangerMode: true,
+                            content: {
+                                element: "input",
+                                attributes: {
+                                placeholder: "Type your note here",
+                                type: "text",
+                                },
+                            }
+                        })
+                    .then((slot_note) => {
+                        
+                        if (slot_note) {
+                            create_slot(resize_slot_obj.event,slot_note) 
+                        }
+                        else 
+                        {
+                            create_slot(resize_slot_obj.event,resize_slot_obj.event.title ) 
+                        }
+                    });
+                },
+                eventDrop: function (event) {
+                    alert("Drop event");
+                },
+                eventClick: function (delete_slot_obj) {
+                    
+                    swal({
+                            text: "You'd like to delete the time slot?",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                    .then((yes_delete) => {
+                        
+                        if (yes_delete) {
+                            create_slot(delete_slot_obj.event,"Deleted Slot!")
+                        } 
+                    });
+                   
+                },
+                select: function (create_slot_obj) {
+                    
+                    swal({
+                            text: "Write note here!",
+                            buttons: true,
+                            dangerMode: true,
+                            content: {
+                                element: "input",
+                                attributes: {
+                                placeholder: "Type your note here",
+                                type: "text",
+                                },
+                            },
+                        })
+                    .then((slot_note) => {
+                        
+                        if (slot_note) {
+                            // $("#calendar_loader").css('display','block'); //Loader
+                            create_slot(create_slot_obj,slot_note)
+                        } 
+                    });
+                },
+                eventDidMount: function(info) {
+                  
+                }
+            });
+            
+            calendar.render();
 
-			calendar.render();
-		});
+            function create_slot(calendarEvent,slot_note) {
+                if(calendarEvent.allDay)
+                {
+                    var slot_date=calendarEvent.startStr.split('T')[0];
+                    var slot_start_time="00:00:00";
+                    var slot_end_time="00:00:00";
+                }
+                else
+                {
+                    var slot_date=calendarEvent.startStr.split('T')[0];
+                    var slot_start_time=calendarEvent.startStr.split("T")[1].split("+")[0];
+                    var slot_end_time=calendarEvent.endStr.split("T")[1].split("+")[0];
+                }
+               
+                $.ajax({
+                    url:"{{ route('storeTutorSlot') }}",
+                    type:"post",
+                    data:{slot_note:slot_note,slot_start_time:slot_start_time,slot_date:slot_date,slot_end_time:slot_end_time,_token:"{{ csrf_token() }}"},
+                    success:function(response){
+                        // $("#calendar_loader").css('display','none'); //Loader
+                        calendar.refetchEvents();
+                    }
+                });
+            }
+    });
 	</script>
 @endsection
