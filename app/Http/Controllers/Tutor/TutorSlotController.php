@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Tutor;
 
+use DateTime;
+use DatePeriod;
+use DateInterval;
 use App\Models\TutorSlot;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -77,5 +80,41 @@ class TutorSlotController extends Controller
         }
         return true;
     }
+    public function copy(Request $request)
+    {
+        $activeStartDate=explode("T",str_ireplace("\"","",$request->activeStartDate))[0];
+        $activeEndDate=explode("T",str_ireplace("\"","",$request->activeEndDate))[0];
+        
+        $current_copyDateObject = $this->displayDates($activeStartDate,$activeEndDate);
+       
+        $start_date=date('Y-m-d',strtotime('-7 day', strtotime($activeStartDate)));
+        $previus_copyDateObject = $this->displayDates($start_date,$activeStartDate);
+        
+        $TutorSlotArray=[];
+        $i=1;
+        foreach($previus_copyDateObject as $pc_date_item)
+        {
+            $TutorSlot=TutorSlot::where('tutor_id',Auth::id())->whereDate('slot_date',$pc_date_item)->orderBy('slot_date')->get();
+           
+            foreach($TutorSlot as $itemTutorSlot)
+            {
+                $input=$itemTutorSlot->toArray();
+                $input['slot_date']=$current_copyDateObject[$i];
+                TutorSlot::create($input);
+            }
+           $i++;
+        }
+        return true;
+    }
+    public function displayDates($date1, $date2, $format = 'Y-m-d' ) {
+        $dates = array();
+        $current = strtotime($date1);
+        $date2 = strtotime($date2);
+        while( $current <= $date2 ) {
+           $dates[] = date($format, $current);
+           $current = strtotime('+1 day', $current);
+        }
+        return collect($dates)->slice(1);
+     }
 }
 

@@ -118,6 +118,7 @@ Route::group(['middleware' => ['auth', 'verified','tutor']], function () {
 		Route::group(['prefix'=>'slots'],function(){
 			Route::post('store', [TutorSlotController::class, 'store'])->name('storeTutorSlot');
 			Route::get('index', [TutorSlotController::class,'index'])->name('getTutorSlot');
+			Route::post('copy', [TutorSlotController::class,'copy'])->name('copyForNextWeek');
 		});
 	});
 	

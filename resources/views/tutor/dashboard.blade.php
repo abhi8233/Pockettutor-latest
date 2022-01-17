@@ -451,8 +451,13 @@
                 initialDate: new Date(),
                 initialView: 'timeGridWeek',
                 nowIndicator: true,
+                customButtons: {
+                    btnCopyEvents: {
+                        text: 'Copy last week availability'
+                    }
+                },
                 headerToolbar: {
-                    left: 'prev,next today',
+                    left: 'prev,next today,btnCopyEvents',
                     center: 'title',
                     right: 'timeGridWeek'
                 },
@@ -465,7 +470,7 @@
                     url: "{{ route('getTutorSlot') }}"
                 },
                 eventResize: function (resize_slot_obj) {
-                    swal({
+                   /*  swal({
                             text: "You'd like to change slot note?",
                             buttons: true,
                             dangerMode: true,
@@ -483,16 +488,17 @@
                             create_slot(resize_slot_obj.event,slot_note) 
                         }
                         else 
-                        {
+                        { */
                             create_slot(resize_slot_obj.event,resize_slot_obj.event.title ) 
-                        }
-                    });
+                      /*   }
+                    }); */
                 },
                 eventDrop: function (event) {
                     alert("Drop event");
                 },
                 eventClick: function (delete_slot_obj) {
-                    
+                    // console.log("hi");
+                 /*    
                     swal({
                             text: "You'd like to delete the time slot?",
                             buttons: true,
@@ -500,15 +506,14 @@
                         })
                     .then((yes_delete) => {
                         
-                        if (yes_delete) {
+                        if (yes_delete) { */
                             create_slot(delete_slot_obj.event,"Deleted Slot!")
-                        } 
-                    });
+                       /*  } 
+                    }); */
                    
                 },
                 select: function (create_slot_obj) {
-                    
-                    swal({
+                   /*  swal({
                             text: "Write note here!",
                             buttons: true,
                             dangerMode: true,
@@ -522,14 +527,34 @@
                         })
                     .then((slot_note) => {
                         
-                        if (slot_note) {
+                        if (slot_note) { */
                             // $("#calendar_loader").css('display','block'); //Loader
-                            create_slot(create_slot_obj,slot_note)
-                        } 
-                    });
+                            create_slot(create_slot_obj,"Slot")
+                    //     } 
+                    // });
                 },
                 eventDidMount: function(info) {
-                  
+                    //   console.log(info);
+                    
+                },
+                viewDidMount: function (viewInfo) {
+                    var datePicker = document.getElementById('btnCopySpan');
+                    if (datePicker == null) {
+                        $('.fc-btnCopyEvents-button').on('click', function () {
+                            var activeStartDate=JSON.stringify(viewInfo.view.activeStart);
+                            var activeEndDate=JSON.stringify(viewInfo.view.activeEnd);
+                            $.ajax({
+                                url: '{{ route("copyForNextWeek") }}',
+                                type: 'post',
+                                data: {activeStartDate:activeStartDate,activeEndDate:activeEndDate,_token:"{{ csrf_token() }}"},
+                                success: function (response) {
+                                    console.log(response);
+                                    calendar.refetchEvents();
+                                    swal("Events copied successfully!");
+                                }
+                            });
+                        });
+                    }
                 }
             });
             
