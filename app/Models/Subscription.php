@@ -17,6 +17,7 @@ class Subscription extends Model
     	'price',
     	'minutes',
     	'slots',
+        'status'
     	
     ];
 

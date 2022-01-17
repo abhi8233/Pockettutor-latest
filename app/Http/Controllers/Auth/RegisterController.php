@@ -113,6 +113,7 @@ class RegisterController extends Controller
     {
 
         $user = new User();
+        $user->name        = '-';
         $user->first_name        = $data['first_name'];
         $user->last_name         = $data['last_name'];
         $user->role              = $data['role'];

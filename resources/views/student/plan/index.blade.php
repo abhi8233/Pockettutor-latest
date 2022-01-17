@@ -8,10 +8,10 @@
             <span class="ps-1">Plan Info</span>
         </label>
         <div class="d-flex align-items-center">
-            @if(empty($plans ))
-            <button class="btn text-decoration-none common-btn ms-2" data-bs-toggle="modal" data-bs-target="#upgradeplan">
-                Upgrade Plan
-            </button>
+            @if(empty($userActivePlan) || $userActivePlan->minutes <= $userActivePlan->remaining_minutes)
+                <button class="btn text-decoration-none common-btn ms-2" data-bs-toggle="modal" data-bs-target="#upgradePlan" onclick="getSubscription()">
+                    Upgrade Plan
+                </button>
             @endif
         </div>
     </div>
@@ -22,16 +22,24 @@
                     <th>Sr. No</th>
                     <th>Plan Name</th>
                     <th>Monthly Amount</th>
+                    <th>Status</th>
                     <th>Minutes</th>
                     <th>Left Minutes</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($user_plans as $plan)
+                @foreach($userAllPlans as $plan)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $plan->subscription->plan }}</td>
                     <td>$ {{ $plan->price }}</td>
+                    <td>
+                        @if($plan->is_active == 1)
+                            {{ 'Active' }}
+                        @else
+                            {{ 'Expire' }}
+                        @endif
+                    </td>
                     <td>{{ $plan->minutes }} Min</td>
                     <td>{{ $plan->remaining_minutes }} Min</td>
                 </tr>
@@ -43,7 +51,7 @@
 
 
 <!-- Upgrade Plan -->
-<div class="modal fade" id="upgradeplan" tabindex="-1" aria-labelledby="upgradeplanLabel" aria-hidden="true">
+<div class="modal fade" id="upgradePlan" tabindex="-1" aria-labelledby="upgradePlanLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -52,77 +60,13 @@
                     <i class="mdi mdi-close-circle-outline" aria-hidden="true" data-bs-dismiss="modal" aria-label="Close"></i>
                 </button>
             </div>
-            <div class="modal-body pb-5">
-                <div class="mb-3 subscription">
-                    <div class="row">
-                        <div class="col-12 col-md-3 plan-main">
-                            <div for="option-Basic" class="option">
-                                <div class="d-flex flex-column justify-content-around pt-height-p-100">
-                                    <div class="pt-font-size-px-16">BASIC</div>
-                                    <div class="price-time-main">
-                                        <div class="pt-font-size-px-24 price pt-color-primary fw-500" style="line-height: 1;">$44.99</div>
-                                        <div class="pt-font-size-px-12 minute">Minutes :90</div>
-                                    </div>
-                                    <button class="btn text-decoration-none common-btn"  data-bs-toggle="modal" data-bs-target="#payment">
-                                        Buy Now
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-3 plan-main">
-                            <div for="option-Plus" class="option">
-                                <div class="d-flex flex-column justify-content-around pt-height-p-100">
-                                    <div class="pt-font-size-px-16">PLUS</div>
-                                    <div class="price-time-main">
-                                        <div class="pt-font-size-px-24 price pt-color-primary fw-500" style="line-height: 1;">$74.99</div>
-                                        <div class="pt-font-size-px-12 minute">Minutes :180</div>
-                                    </div>
-                                    <button class="btn text-decoration-none common-btn" data-bs-toggle="modal" data-bs-target="#payment">
-                                        Buy Now
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-3 plan-main">
-                            <div for="option-Premium" class="option">
-                                <div class="d-flex flex-column justify-content-around pt-height-p-100">
-                                    <div class="pt-font-size-px-16">PREMIUM</div>
-                                    <div class="price-time-main">
-                                        <div class="pt-font-size-px-24 price pt-color-primary fw-500" style="line-height: 1;">$114.99</div>
-                                        <div class="pt-font-size-px-12 minute">Minutes :300</div>
-                                    </div>
-                                    <button class="btn text-decoration-none common-btn" data-bs-toggle="modal" data-bs-target="#payment">
-                                        Buy Now
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-3 plan-main">
-                            <div for="option-Mentor" class="option">
-                                <div class="d-flex flex-column justify-content-around pt-height-p-100">
-                                    <div class="pt-font-size-px-16">MENTOR</div>
-                                    <div class="price-time-main">
-                                        <div class="pt-font-size-px-24 price pt-color-primary fw-500" style="line-height: 1;">$299.99</div>
-                                        <div class="pt-font-size-px-12 minute">Minutes :900</div>
-                                    </div>
-                                    <button class="btn text-decoration-none common-btn" data-bs-toggle="modal" data-bs-target="#payment">
-                                        Buy Now
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="modal-body pb-5" id="frm-UpgradePlan"></div>
         </div>
     </div>
 </div>
 
-<!-- Upgrade Plan -->
-<div class="modal fade" id="payment" tabindex="-1" aria-labelledby="paymentLabel" aria-hidden="true">
+
+<!-- <div class="modal fade" id="payment" tabindex="-1" aria-labelledby="paymentLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -142,5 +86,50 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
+@endsection
+@section('js-hooks')
+<script type="text/javascript">
+    function getSubscription(){
+        $.ajax({
+            url:"{{ route('splan.create') }}",
+            type: "GET", 
+            data: {
+                _token: '{{csrf_token()}}' 
+            },
+            success: function(result){
+                $("#frm-UpgradePlan").html(result);
+            }
+        });
+    }
+
+    $(document).on('click', '.btn-subscription', function() {
+        // alert($(this).data('id'));
+        
+        $.ajax({
+            url:"{{ route('splan.store') }}",
+            type: "POST", 
+            data: {
+                subscription_id : $(this).data('id'),
+                price : $(this).data('price'),
+                minutes : $(this).data('minutes'),
+                remaining_minutes : $(this).data('remaining_minutes'),
+                slots : $(this).data('slots'),
+                _token: '{{csrf_token()}}' 
+            },
+            success: function(data){
+                if(data.status == 200){
+                    $("#msg").after('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong> You plan has been change.</div>');
+                    setTimeout(function() {
+                        window.location = "{{ route('splan.index') }}";
+                    }, 1000);
+                } else if (data.status == 400) {
+                    $("#msg").after('<div class="alert alert-warning alert-dismissible" id="myAlert"><strong>Google Meet!</strong>Mismatch Data.</div>');
+                }else{
+                    $("#msg").after('<div class="alert alert-danger alert-dismissible" id="myAlert"><strong>Opps..!</strong> Something Went to Wrong.</div>');
+                }
+            }
+        });
+    });
+</script>
 @endsection

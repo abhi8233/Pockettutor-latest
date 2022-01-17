@@ -16,6 +16,7 @@ class Bookings extends Model
         'tutor_id',
         'specialization_id',
         'language_id',
+        'is_feedback',
         'date_time',
         'google_link',
         'event_id',

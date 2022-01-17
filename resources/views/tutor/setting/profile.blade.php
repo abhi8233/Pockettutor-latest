@@ -68,7 +68,7 @@
 
                                 <div class="d-flex flex-column mb-2">
                                     <span class="fw-200">Country</span>
-                                    <span class="fw-500">{{ isset($user->country->name) ? $user->country->name :  '-' }}</span>
+                                    <span class="fw-500">{{ isset($user->country_id) ? $user->country_id :  '-' }}</span>
                                 </div>
 
                                 <!-- <div class="d-flex flex-column mb-2">
@@ -129,10 +129,8 @@
 
                                     <div class="mb-3">
                                         <label for="email" class="col-form-label p-0 mb-1">Country <span class="pt-color-red pt-fs-16">*</span> </label>
-                                        <select class="select2 country select2-hidden-accessible" name="country_id">
-                                        @foreach(\App\Models\Country::all() as $country)
-                                            <option value="{{$country->id}}" {{$country->id == $user->country_id ?'selected':''}}>{{$country->name}}</option>
-                                        @endforeach
+                                        <select class="select2 country select2-hidden-accessible" name="country_id" id="country_id">
+                                         
                                         </select>
                                     </div>
 
@@ -187,16 +185,7 @@
                                             <input name="certificate" type="file" class="file-upload-field">
                                         </div>
                                     </div>
-<!-- 
-                                    <div class="mb-3">
-                                        <label for="email" class="col-form-label p-0 mb-1">Hourly Cost <span class="pt-color-red pt-fs-16">*</span> </label>
-                                        <input type="text" placeholder="Enter minutes" class="form-control" name="plan-name">
-                                    </div>
- -->
-                                  <!--   <div class="mb-3">
-                                        <label for="email" class="col-form-label p-0 mb-1">Passport Number <span class="pt-color-red pt-fs-16">*</span> </label>
-                                        <input type="text" placeholder="Enter minutes" class="form-control" name="plan-name">
-                                    </div> -->
+
 
                                 </div>
                             </div>
@@ -270,6 +259,23 @@
 <script>
     $('#OpenImgUpload').click(function(){ $('#imgupload').trigger('click'); });
     $(document).ready(function() {
+         $.ajax({
+            url:"{{url('get-country')}}",
+            type: "POST", 
+            data: {
+                _token: '{{csrf_token()}}',
+                current_country_id:'{{ $user->country_id }}'
+            },
+            dataType : 'json',
+            beforeSend: function(){
+                $('#country_id').html('Loading...');
+            },
+            success: function(result){
+                // console.log(result);
+                $("#country_id").html(result);
+            }
+        });
+
         $("#change-password").validate({
             rules: {
                 new_password: {

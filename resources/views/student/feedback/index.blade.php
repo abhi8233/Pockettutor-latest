@@ -1,5 +1,13 @@
 @extends('layouts.studentApp')
-
+@section('css-hooks')
+<style type="text/css">
+    .starrate span.ctrl { position:absolute; z-index:2;}
+    .starrate { color:var(--secondary); cursor:pointer}
+    .starrate.saved { color:var(--dark);}
+    .starrate:hover { color:var(--primary);} 
+    .starrate.saved:hover { color:var(--orange);}
+</style>
+@endsection
 @section('content')
 <div class="student-list-page">
     <div class="page-head px-3 py-2 d-flex justify-content-between align-items-center">
@@ -7,7 +15,7 @@
             <i class="mdi mdi-account-outline" aria-hidden="true"></i>
             <span class="ps-1">Feedback</span>
         </label>
-            <button class="btn text-decoration-none common-btn ms-2 pt-width-p-auto" data-bs-toggle="modal" data-bs-target="#newplan">
+            <button class="btn text-decoration-none common-btn ms-2 pt-width-p-auto" data-bs-toggle="modal" data-bs-target="#newFeedback" onclick="create()">
                 <i class="mdi mdi-plus-thick" aria-hidden="true"></i>
                 Add New Feedback
             </button>
@@ -43,7 +51,10 @@
                 @foreach($feedbacks as $feedback)   
                     <tr>
                         <td>{{ $loop->iteration}}</td>
-                        <td>{{isset($feedback->tutor->first_name) ? $feedback->tutor->first_name : ''}} {{ isset($feedback->tutor->last_name) ? $feedback->tutor->last_name : '' }}</td>
+                        <td>
+                            {{isset($feedback->tutor->first_name) ? $feedback->tutor->first_name : ''}} 
+                            {{ isset($feedback->tutor->last_name) ? $feedback->tutor->last_name : '' }}
+                        </td>
                         <td>{{$feedback->description}}</td>
                         <td>
                             @foreach(range(1,5) as $i)
@@ -60,16 +71,14 @@
                                     @php $feedback->rating--; @endphp
                                 </span>
                             @endforeach
-                            
-                    </td>
-                        
+                        </td>
                     </tr>
                 @endforeach
             </tbody> 
         </table>
     </div>
 </div>
-<div class="modal fade " id="newplan" tabindex="-1" aria-labelledby="newplanLabel" aria-hidden="true">
+<div class="modal fade " id="newFeedback" tabindex="-1" aria-labelledby="newFeedbackLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -78,45 +87,8 @@
                     <i class="mdi mdi-close-circle-outline" aria-hidden="true" data-bs-dismiss="modal" aria-label="Close"></i>
                 </button>
             </div>
-            <div class="modal-body pb-5">
-                <form method="post" action="{{route('sfeedback.store')}}" class="pt-width-p-80 my-0 mx-auto">
-                         @csrf
-                    <div class="mb-3">
-                        <label for="email" class="col-form-label p-0 mb-1">Tutor Name<span class="pt-color-red pt-fs-16">*</span> </label>
-                        <select name="tutor_id">
-                            @foreach($booking_slot as $booking)
-                            <option value="{{$booking->tutor->id}}">{{$booking->tutor->first_name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="email" class="col-form-label p-0 mb-1">description <span class="pt-color-red pt-fs-16">*</span> </label>
-                        <textarea class="form-control" name="description"></textarea> 
-                    </div>
-
-                    <div class="mb-5">
-                        <label for="email" class="col-form-label p-0 mb-1">Rating <span class="pt-color-red pt-fs-16">*</span> </label>
-    
-                        <div id="starrate" class="starrate mt-3" data-val="2.5" data-max="5">
-                            <span class="ctrl"></span>
-                            <span class="cont m-1">
-                            <i class="fas fa-fw fa-star"></i> 
-                            <i class="fas fa-fw fa-star"></i> 
-                            <i class="fas fa-fw fa-star-half-alt"></i> 
-                            <i class="far fa-fw fa-star"></i> 
-                            <i class="far fa-fw fa-star"></i> 
-                            </span>
-                         </div>
-                    </div>
-
-                    <div>
-                        <button type="submit" class="btn text-decoration-none common-btn " data-bs-toggle="modal" data-bs-target="#newplan">
-                            Add Feedback
-                        </button>
-                    </div>
-
-                </form>
+            <div class="modal-body pb-5" id="frm-FeedbackAdd">
+                
             </div>
         </div>
     </div>
@@ -126,6 +98,19 @@
 <script type="text/javascript">
 $(document).ready(function(){
     $(".alert").delay(3000).fadeOut();
-})
+});
+function create(){
+    
+    $.ajax({
+        url:"{{ route('sfeedback.create') }}",
+        type: "GET", 
+        data: {
+            _token: '{{csrf_token()}}' 
+        },
+        success: function(result){
+            $("#frm-FeedbackAdd").html(result);
+        }
+    });
+}
 </script>
 @endsection 

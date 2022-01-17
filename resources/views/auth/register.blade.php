@@ -66,9 +66,6 @@
 
                             <select class="form-control country_id select2 @error('country_id') is-invalid @enderror" name="country_id" id="country_id" data-placeholder="Select Country">
                                 <option value=""> Select Country</option>
-                                @foreach(\App\Models\Country::all() as $country)
-                                    <option value="{{$country->id}}" {{ $country->id == old('country_id') ? 'selected' :'' }}>{{$country->name}}</option>
-                                @endforeach
                             </select>
 
                             @error('country_id')
@@ -302,32 +299,16 @@
             dataType : 'json',
             beforeSend: function(){
                 $('#country_institution_div').html('Loading...');
+                $('#country_id').html('Loading...');
             },
             success: function(result){
                 // console.log(result);
                 $("#country_institution_div").html(result);
+                $("#country_id").html(result);
             }
         });
 
-        // $('#country_id').change(function() {
-        //     var country_id = this.value;
-        //     $('#state_id').html('');
-        //     $.ajax({
-        //             url:"{{url('get-states')}}",
-        //             type: "POST", 
-        //             data: {
-        //             country_id: country_id,
-        //             _token: '{{csrf_token()}}' 
-        //         },
-        //         dataType : 'json',
-        //         success: function(result){
-        //             $('#state_id').html('<option value="">Select State</option>');
-        //             $.each(result.states,function(key,value){
-        //                 $("#state_id").append('<option value="'+value.id+'">'+value.name+'</option>');
-        //             });
-        //         }
-        //     });
-        // });
+        
     });
 
     function getState(country_id){

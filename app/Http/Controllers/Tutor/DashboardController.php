@@ -35,7 +35,7 @@ class DashboardController extends Controller
     
     public function profile()
     {
-        $user = User::with(['specialization','languages','country'])->where('id',auth()->user()->id)->first();
+        $user = User::with(['specialization','languages'])->where('id',auth()->user()->id)->first();
         return view('tutor.setting.profile',compact('user'));
     }
 
@@ -75,8 +75,10 @@ class DashboardController extends Controller
                 $name = time().'.'.$file->getClientOriginalExtension();
                 $destinationPath = public_path('assets/images/document');
                 $file->move($destinationPath, $name);
+                $ext = $file->getClientOriginalExtension();
+
                 $document->document_value =$name;
-                $document->document_type =$file->getClientOriginalExtension();
+                $document->document_type = (!in_array($ext, array('.jpg','.png','.jpeg'))) ? 'image' : 'file' ;
             }
             $document->user_id = $user->id;
             $document->save();
@@ -89,8 +91,10 @@ class DashboardController extends Controller
                 $name = time().'.'.$file->getClientOriginalExtension();
                 $destinationPath = public_path('assets/images/document');
                 $file->move($destinationPath, $name);
+                $ext = $file->getClientOriginalExtension();
+
                 $document->document_value =$name;
-                 $document->document_type =$file->getClientOriginalExtension();
+                $document->document_type = (!in_array($ext, array('.jpg','.png','.jpeg'))) ? 'image' : 'file' ;
             }
             $document->user_id=$user->id;
             $document->save();
@@ -103,8 +107,10 @@ class DashboardController extends Controller
                 $name = time().'.'.$file->getClientOriginalExtension();
                 $destinationPath = public_path('assets/images/document');
                 $file->move($destinationPath, $name);
+                $ext = $file->getClientOriginalExtension();
+
                 $document->document_value =$name;
-                 $document->document_type =$file->getClientOriginalExtension();
+                $document->document_type = (!in_array($ext, array('.jpg','.png','.jpeg'))) ? 'image' : 'file' ;
             }
             $document->user_id=$user->id;
             $document->save();
