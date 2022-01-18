@@ -24,6 +24,8 @@ Route::post('get-country',[App\Http\Controllers\CommonController::class, 'getCou
 Route::post('get-states',[App\Http\Controllers\CommonController::class, 'getStates'])->name('get-states');
 Route::post('get-cities',[App\Http\Controllers\CommonController::class, 'getCities'])->name('get-cities');
 
+Route::get('stripe', [App\Http\Controllers\StripePaymentController::class, 'stripe']);
+Route::post('stripe', [App\Http\Controllers\StripePaymentController::class, 'stripePost'])->name('stripe.post');
 
 /*---------------------------------- ADMIN ---------------------------------------*/
 Route::group(['middleware' => ['auth', 'verified','superadmin']], function () { 

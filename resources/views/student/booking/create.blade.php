@@ -99,7 +99,7 @@
                     });
                 }
             });
-
+ 
             $(".bookingslotFrm").validate({
                 rules: {
                     tutor_id: {
