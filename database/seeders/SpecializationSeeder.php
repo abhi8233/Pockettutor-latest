@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class SpecializationSeeder extends Seeder
 {
@@ -234,7 +235,7 @@ class SpecializationSeeder extends Seeder
                 "Msc Mass Communication",
                 "Urdu",
                 "Quran and Islamic studies",
-                "Can teach primary level",
+                "Can teach primary level"
                 ,"Others");
         	$i = 1;
         	foreach ($specializations as $row) {

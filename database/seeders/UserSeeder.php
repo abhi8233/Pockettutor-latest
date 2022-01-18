@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
 {
@@ -23,7 +24,8 @@ class UserSeeder extends Seeder
 	            'last_name' => 'Admin',
 	            'role' => 'SuperAdmin',
 	            'email' => 'superadmin@gmail.com',
-	            'password' => '$2y$10$3DXWL2TLJ.nIoDP2y53QguZl3MvhZZVIyxAENbEsntPduUEldwJoS'
+	            'password' => '$2y$10$3DXWL2TLJ.nIoDP2y53QguZl3MvhZZVIyxAENbEsntPduUEldwJoS',
+	            'stripe_customer_id' => '-'
 	        ]);
 
 	        //Tutor 
@@ -41,11 +43,12 @@ class UserSeeder extends Seeder
 	            'city_institution' => 'Apple Valley',
 	            'state_institution'	=> 'California',
 	            'country_institution' => 'United States',
-	            'country_id' => 'United States'
+	            'country_id' => 'United States',
+	            'stripe_customer_id' => '-'
 	        ]);
 	        // Student
 	        DB::table('users')->insert([
-        		'id' => 2,
+        		'id' => 3,
             	'name' => '-',
 	            'first_name' => 'Student',
 	            'last_name' => 'Student',
@@ -60,7 +63,7 @@ class UserSeeder extends Seeder
 	            'state_institution'	=> NULL,
 	            'country_institution' => NULL,
 	            'country_id' => 'United States',
-	            'stripe_customer_id' => ''
+	            'stripe_customer_id' => '-'
 	        ]);
 		}
     }
