@@ -41,6 +41,8 @@ class CommonController extends Controller
 
     public function getCountry(Request $request){
         $current_country_id = isset($request->current_country_id) ? $request->current_country_id :'';
+        $input_name = isset($request->input_name) ? $request->input_name :'';
+        $placeholder_name = isset($request->placeholder_name) ? $request->placeholder_name :'';
 
         $html = '';
         $accessToken = $this->getAccessToken();
@@ -63,9 +65,11 @@ class CommonController extends Controller
             $response = curl_exec($curl);
             curl_close($curl);
             $response = json_decode($response);
-           
-            $html .= '<select class="form-control country_institution select2 " name="country_institution" id="country_institution" data-placeholder="Select Country of Institution" onchange="getState(this)">
-                    <option value=""> Select Country of Institution</option>';
+
+            $click_event = ($input_name != "country_id") ? 'onchange="getState(this)"':'';
+
+            $html .= '<select class="form-control '.$input_name.' select2 " name="'.$input_name.'" id="'.$input_name.'" data-placeholder="'.$placeholder_name.'" '.$click_event.'>
+                    <option value=""> '.$placeholder_name.'</option>';
             foreach ($response as $data) {
                 $html .='<option value="'.$data->country_name.'" '.(($current_country_id == $data->country_name) ? "selected" : "" ).' >'.$data->country_name.'</option>';
             }

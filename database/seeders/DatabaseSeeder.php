@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,5 +15,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+        $this->call([
+			EmailNotificationSeeder::class,
+			SpecializationSeeder::class,
+			LanguagesSeeder::class,
+			SettingSeeder::class,
+			SubscriptionsSeeder::class,
+			UserSeeder::class,
+			
+			
+		]);        
+   
     }
 }
