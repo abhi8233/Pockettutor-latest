@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class TutorSlotController extends Controller
 {
+    
     public function index(Request $request)
     {
         $TutorSlot=TutorSlot::where('tutor_id',Auth::id())->get()->whereBetween('slot_date',[explode("T",$request->start)[0],explode("T",$request->end)[0]]);
@@ -28,6 +29,7 @@ class TutorSlotController extends Controller
         }
         return json_encode($TutorSlotsList);
     }
+
     public function store(Request $request)
     {
         $input=$request->all();
