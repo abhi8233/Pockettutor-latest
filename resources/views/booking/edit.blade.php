@@ -1,4 +1,4 @@
-@extends('layouts.bookingApp')
+@extends('layouts.tutorApp')
 @section('content')
 	<div class="consent-screen google-consent-screen-redirect">
         <p>Go and Grant permissions</p>

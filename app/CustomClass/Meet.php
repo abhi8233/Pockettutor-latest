@@ -24,8 +24,12 @@ class Meet {
 	function __construct($owner_id=null, $current_calendar='primary') {
         $this->current_calendar = $current_calendar;
 
-		$this->credential_path = env('CREDENTIAL_PATH') . '/credential.json';
-        $this->token_path = env('CREDENTIAL_PATH') . '/token.json';
+        $credential = 'credential'.$owner_id.'.json';
+        $token = 'token'.$owner_id.'.json';
+
+
+		$this->credential_path = env('CREDENTIAL_PATH') . '/'.$credential;
+        $this->token_path = env('CREDENTIAL_PATH') . '/'.$token;
         $this->google_callback_url = env('GOOGLE_MEET_REDIRECT');
 
         if($this->isCredentialLoaded()) {
@@ -189,13 +193,12 @@ class Meet {
               'dateTime' => (new DateTime($payload['end']))->format('c'),
               'timeZone' => (new DateTime($payload['timezone']))->format('c'),
             ),
-            // $attendees = array(
-            //     array('email'=>'abc@gmail.com'),
-            // )
-            // 'attendees' => array(
-            //     array('email'=>'rashmita.gangani.bi@gmail.com'),
-            // ),
             'attendees' => $attendees,
+            'reminders' => [
+                'useDefault' => true,
+            ],
+            'visibility' => 'private',
+            'privateCopy' => true,
             'conferenceData' => array(
                 'createRequest' => array(
                     'requestId' => 'meet_demo_' . microtime(true),

@@ -11,9 +11,11 @@ use App\Models\User;
 use App\Models\Specialization;
 use App\Models\languages;
 use App\Models\Feedback;
+
 use Mail;
 use App\Mail\NotifyStudentBookingMail;
 use App\Mail\NotifyTutorBookingMail;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,7 +28,7 @@ class BookingController extends Controller
      */
     public function __construct()
     {
-        $this->meet = new Meet;
+        
     }
 
     /**
@@ -36,7 +38,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $bookingslots= Bookings::with(['tutor','specialization'])->where('user_id',auth()->user()->id)->orderBy('id','desc')->get();
+        $bookingslots = Bookings::with(['tutor','specialization'])->where('user_id',auth()->user()->id)->orderBy('id','desc')->get();
         // dd($bookingslots);
         return view('student.booking.index',compact('bookingslots'));
         
@@ -64,16 +66,19 @@ class BookingController extends Controller
             'date.required' => 'Date is required',
             // 'time.required' => 'Time is required',
         ]);
-        $activeDate=explode("T",str_ireplace("\"","",$request->date))[0];
+
+        $activeDate = explode("T",str_ireplace("\"","",$request->date))[0];
         $start_date_time = date("Y-m-d H:i:s",strtotime("$activeDate".$request->slotList[0]));
         $end_date_time = date("Y-m-d H:i:s",strtotime("$activeDate". $request->slotList[0] ."+ 16 minute"));
         
         // dd($activeDate,$request->slotList[0],$start_date_time,$end_date_time);
         
-
+        $this->meet = new Meet($request->tutor_id);
+        
         if($this->meet->isCredentialLoaded() && $this->meet->isAppPermitted() ){
             $specialization_details = Specialization::find($request->specialization);
-            $languages_details = languages::find($request->language);
+            $languages_details = languages::find($request->language[0]);
+            
             $tutor_details = User::find($request->tutor_id);
 
             $event_details = $this->meet->createMeeting(
@@ -83,18 +88,18 @@ class BookingController extends Controller
                     'start'         => $start_date_time,
                     'end'           => $end_date_time,
                     'timezone'      => 'America/Los_Angeles',
-                    'attendees'     => array($tutor_details->email)
+                    'attendees'     => array($tutor_details->email,auth()->user()->email)
                 )
             );
+            
 
             $meetlink = $event_details['conference_link'];
             $event_id = $event_details['event_id'];
 
-            
             $bookingslot = new Bookings;
             $bookingslot->tutor_id = $request->tutor_id;
             $bookingslot->specialization_id = $request->specialization;
-            $bookingslot->language_id = $request->language;
+            $bookingslot->language_id = $request->language[0];
             $bookingslot->date_time = $start_date_time;
             $bookingslot->user_id = auth()->user()->id;
             $bookingslot->google_link = $meetlink;
@@ -104,11 +109,11 @@ class BookingController extends Controller
             if($bookingslot){
                 Mail::to(auth()->user()->email)->send(new NotifyStudentBookingMail($bookingslot));
                 Mail::to($bookingslot->tutor->email)->send(new NotifyTutorBookingMail($bookingslot));
-                  if (Mail::failures()) {
-                       return response()->Json(['status' => '400','msg' => 'Something want wrong in sent Mail .']);
-                  }else{
-                       return response()->Json(['status' => '200','msg'=>'Booking booked successfully.']);
-                     }
+                if (Mail::failures()) {
+                    return response()->Json(['status' => '400','msg' => 'Something want wrong in sent Mail .']);
+                }else{
+                    return response()->Json(['status' => '200','msg'=>'Booking booked successfully.']);
+                }
             }else{
                 return response()->Json(['status' => '400','msg' => 'Something want wrong.']);
             }

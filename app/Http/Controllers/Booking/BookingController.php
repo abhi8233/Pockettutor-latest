@@ -6,6 +6,7 @@ use App\CustomClass\Meet;
 use App\Http\Controllers\Controller;
 
 // use App\Models\Bookings;
+use App\Models\User;
 use App\Models\Specialization;
 use App\Models\languages;
 
@@ -21,8 +22,8 @@ class BookingController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->meet = new Meet;
+        
+        $this->meet = new Meet(10);
     }
 
     /**
@@ -47,32 +48,38 @@ class BookingController extends Controller
     {
 
         if(!$this->meet->isCredentialLoaded()){
+            // dd("credential");
             return view('booking.create');
         } else if(!$this->meet->isAppPermitted()){
+            // dd("url");
             $url = $this->meet->get_consent_screen_url();
             // return redirect()->route('booking.edit',compact('url'));
             return view('booking.edit',compact('url'));
         } else {
-            $meetings = $this->meet->getMeetingList();
+            $updateUser = User::where("id",auth()->user()->id)->update([
+                "is_google_meet" => 1
+            ]);
+            return redirect()->route('tprofile');
+            // $meetings = $this->meet->getMeetingList();
 
-            if(!count($meetings)) {
-                echo '<p>No meeting found</p>';
-            } else {
-                echo '<table border="1" style="border-collapse: collapse;"><tbody>';
-                foreach($meetings as $meeting) {
-                    echo '<tr>
-                        <td>' . $meeting['title'] . '</td>
-                        <td>' . $meeting['meeting_link'] . '</td>
-                        <td>' . $meeting['start'] . '</td>
-                        <td><a href="?action=delete&id='.$meeting['id'].'">Delete</a></td>
-                        <td><a href="?action=update&id='.$meeting['id'].'">Update with Random Data</a></td>
-                    </tr>';
-                }
-                echo '</tbody></table>';
-            }
+            // if(!count($meetings)) {
+            //     echo '<p>No meeting found</p>';
+            // } else {
+            //     echo '<table border="1" style="border-collapse: collapse;"><tbody>';
+            //     foreach($meetings as $meeting) {
+            //         echo '<tr>
+            //             <td>' . $meeting['title'] . '</td>
+            //             <td>' . $meeting['meeting_link'] . '</td>
+            //             <td>' . $meeting['start'] . '</td>
+            //             <td><a href="?action=delete&id='.$meeting['id'].'">Delete</a></td>
+            //             <td><a href="?action=update&id='.$meeting['id'].'">Update with Random Data</a></td>
+            //         </tr>';
+            //     }
+            //     echo '</tbody></table>';
+            // } 
 
             ?>
-            <a href="?action=create">Create Meeting with Random Data</a>
+            <!-- <a href="?action=create">Create Meeting with Random Data</a> -->
             <?php
         }
     }
@@ -100,6 +107,7 @@ class BookingController extends Controller
 
     public function saveToken() {
         if(isset($_GET['code'])) {
+
             $this->meet->saveToken($_GET['code']);
             return redirect()->route('booking.create');
         }

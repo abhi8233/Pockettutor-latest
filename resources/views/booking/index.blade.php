@@ -366,7 +366,7 @@
                         <div class="language-booking d-flex">
                                 @foreach($languages as $language)
                                     <label>
-                                        <input type="checkbox" name="language[]" value="{{$language->id}}">
+                                        <input type="checkbox" name="language[]" value="{{$language->id}}" class="language">
                                         <span>
                                             {{$language->name}}
                                         </span>
@@ -528,7 +528,7 @@ $(document).ready(function() {
             }
         });
 
-        $(document).on('change', '#language', function() {
+        $(document).on('change', '.language', function() {
             if ($(this).val() != null) {
                 $.ajax({
                     type: "GET",

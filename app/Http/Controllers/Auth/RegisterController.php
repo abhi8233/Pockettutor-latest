@@ -143,64 +143,67 @@ class RegisterController extends Controller
         $user->state_id          = isset($data['state_id']) ? $data['state_id'] : null;
         $user->save();
 
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        if(isset($data['role']) && $data['role'] == 'Student'){
+            Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        if (is_null($user->stripe_customer_id)) {
-            $customer = \Stripe\Customer::create([
-              'payment_method' => 'pm_card_visa',
-              'email' => $user->email,
-              'invoice_settings' => [
-                'default_payment_method' => 'pm_card_visa'
-              ]
-            ]);
-        }
-
-        // $subscription = \Stripe\Subscription::create([
-        //     'customer' => isset($customer->id) ? $customer->id : null,
-        //     'items' => [
-        //         [
-        //             'price' => 'price_1KJFJzGY5uvTG2QRUUfWPpek',
-        //         ]
-        //     ],
-        //   // 'add_invoice_items' => [[
-        //   //   'price' => isset($data['price']) ? $data['price'] : null,
-        //   // ]],
-        // ]);
-
-        // dd($subscription);
-        
-        $payment = Stripe\Charge::create ([
-            "amount" => isset($data['price']) ? $data['price'] : null,
-            "currency" => "usd",
-            "source" => $data['stripeToken'],
-            "description" => "Test payment from itsolutionstuff.com." 
-        ]);
-
-        if($payment){
-        
-            $userPlan = new UserPlan();
-            $userPlan->user_id = $user->id;
-            $userPlan->subscription_id = isset($data['subscription_id']) ? $data['subscription_id'] : null;
-            $userPlan->price = isset($data['price']) ? $data['price'] : null;
-            $userPlan->minutes = isset($data['minutes']) ? $data['minutes'] : null;
-            $userPlan->remaining_minutes = 0;
-            $userPlan->slots = isset($data['slots']) ? $data['slots'] : null;
-            $userPlan->is_active  = 1;
-            $userPlan->stripe_plan_id  = 1;
-            $userPlan->save();
-
-            $updateUser = User::where('id',$user->id)->update([
-                'subscriptions_id' => isset($userPlan->id) ? $userPlan->id : null,
-                'stripe_customer_id' => isset($customer->id) ? $customer->id : null ]);
-
-            Mail::to($user->email)->send(new NotifyUserRegisterMail($user));
-            if($user->role == 'Tutor'){
-                $email = EmailNotification::get('admin_email')->first();
-                Mail::to($email->admin_email)->send(new NotifySuperAdminTurtor($user));
+            if (is_null($user->stripe_customer_id)) {
+                $customer = \Stripe\Customer::create([
+                  'payment_method' => 'pm_card_visa',
+                  'email' => $user->email,
+                  'invoice_settings' => [
+                    'default_payment_method' => 'pm_card_visa'
+                  ]
+                ]);
             }
+
+            // $subscription = \Stripe\Subscription::create([
+            //     'customer' => isset($customer->id) ? $customer->id : null,
+            //     'items' => [
+            //         [
+            //             'price' => 'price_1KJFJzGY5uvTG2QRUUfWPpek',
+            //         ]
+            //     ],
+            //   // 'add_invoice_items' => [[
+            //   //   'price' => isset($data['price']) ? $data['price'] : null,
+            //   // ]],
+            // ]);
+
+            // dd($subscription);
+        
+            $payment = Stripe\Charge::create ([
+                "amount" => isset($data['price']) ? $data['price'] : null,
+                "currency" => "usd",
+                "source" => $data['stripeToken'],
+                "description" => "Test payment from itsolutionstuff.com." 
+            ]);
+
+            if($payment){
             
-            return $user;
+                $userPlan = new UserPlan();
+                $userPlan->user_id = $user->id;
+                $userPlan->subscription_id = isset($data['subscription_id']) ? $data['subscription_id'] : null;
+                $userPlan->price = isset($data['price']) ? $data['price'] : null;
+                $userPlan->minutes = isset($data['minutes']) ? $data['minutes'] : null;
+                $userPlan->remaining_minutes = 0;
+                $userPlan->slots = isset($data['slots']) ? $data['slots'] : null;
+                $userPlan->is_active  = 1;
+                $userPlan->stripe_plan_id  = 1;
+                $userPlan->save();
+
+                $updateUser = User::where('id',$user->id)->update([
+                    'subscriptions_id' => isset($userPlan->id) ? $userPlan->id : null,
+                    'stripe_customer_id' => isset($customer->id) ? $customer->id : null ]);
+            }
         }
+
+        Mail::to($user->email)->send(new NotifyUserRegisterMail($user));
+        if($user->role == 'Tutor'){
+            $email = EmailNotification::get('admin_email')->first();
+            Mail::to($email->admin_email)->send(new NotifySuperAdminTurtor($user));
+        }
+        
+        return $user;
+        
         // return User::create([
         //     'first_name' => $data['first_name'],
         //     'last_name' => $data['last_name'],

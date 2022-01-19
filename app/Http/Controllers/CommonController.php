@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Bookings;
-use App\Models\State;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -152,6 +152,5 @@ class CommonController extends Controller
         }
         return response()->json($html);
     }
-
     
 }

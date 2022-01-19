@@ -67,9 +67,11 @@
                         <div class="col-md-6">
                             <label for="country_id" class="col-form-label p-0 mb-1">{{ __('Country') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
-                            <select class="form-control country_id select2 @error('country_id') is-invalid @enderror" name="country_id" id="country_id" data-placeholder="Select Country">
-                                <option value=""> Select Country</option>
-                            </select>
+                            <div id="country_stud_div">
+                                <select class="form-control country_id select2 @error('country_id') is-invalid @enderror" name="country_id" id="country_id" data-placeholder="Select Country">
+                                    <option value=""> Select Country</option>
+                                </select>
+                            </div>
 
                             @error('country_id')
                                 <span class="invalid-feedback" role="alert">

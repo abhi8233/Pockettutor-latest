@@ -24,8 +24,8 @@ Route::post('get-country',[App\Http\Controllers\CommonController::class, 'getCou
 Route::post('get-states',[App\Http\Controllers\CommonController::class, 'getStates'])->name('get-states');
 Route::post('get-cities',[App\Http\Controllers\CommonController::class, 'getCities'])->name('get-cities');
 
-Route::get('stripe', [App\Http\Controllers\StripePaymentController::class, 'stripe']);
-Route::post('stripe', [App\Http\Controllers\StripePaymentController::class, 'stripePost'])->name('stripe.post');
+// Route::get('stripe', [App\Http\Controllers\StripePaymentController::class, 'stripe']);
+// Route::post('stripe', [App\Http\Controllers\StripePaymentController::class, 'stripePost'])->name('stripe.post');
 
 /*---------------------------------- ADMIN ---------------------------------------*/
 Route::group(['middleware' => ['auth', 'verified','superadmin']], function () { 
@@ -85,12 +85,13 @@ Route::group(['middleware' => ['auth', 'verified','superadmin']], function () {
 
 });
 
+Route::resource('booking', App\Http\Controllers\Booking\BookingController::class)->names('booking');
 
 /*---------------------------------- STUDENT ---------------------------------------*/
 Route::group(['middleware' => ['auth', 'verified','student']], function () { 
 
-	Route::resource('booking', App\Http\Controllers\Booking\BookingController::class)->names('booking');
-	Route::get('getToken', [App\Http\Controllers\Booking\BookingController::class,'saveToken'])->name('saveToken');
+	// Route::resource('booking', App\Http\Controllers\Booking\BookingController::class)->names('booking');
+	// Route::get('getToken', [App\Http\Controllers\Booking\BookingController::class,'saveToken'])->name('saveToken');
 
 	Route::group(['prefix'=>'student'],function(){
 
@@ -98,10 +99,11 @@ Route::group(['middleware' => ['auth', 'verified','student']], function () {
 		Route::get('profile', [App\Http\Controllers\Student\DashboardController::class, 'profile'])->name('sprofile');
 		Route::post('update-profile', [App\Http\Controllers\Student\DashboardController::class, 'updateProfile'])->name('updateSProfile');
 		Route::post('update-pasword', [App\Http\Controllers\Student\DashboardController::class, 'updatePassword'])->name('updateSPassword');
+
 		Route::resource('booking', App\Http\Controllers\Student\BookingController::class)->names('sbooking');
 		Route::get('getTutor', [App\Http\Controllers\Student\BookingController::class,'getTutor'])->name('getTutor');
-		/* booking page for student */
 
+		/* booking page for student */
 		Route::resource('feedback', App\Http\Controllers\Student\FeedbackController::class)->names('sfeedback');
 
 		Route::resource('plan', App\Http\Controllers\Student\PlanController::class)->names('splan');
@@ -113,6 +115,9 @@ Route::group(['middleware' => ['auth', 'verified','student']], function () {
 });
 /*------------------------------------ TUTOR ---------------------------------------*/
 Route::group(['middleware' => ['auth', 'verified','tutor']], function () { 
+	
+	
+	Route::get('getToken', [App\Http\Controllers\Booking\BookingController::class,'saveToken'])->name('saveToken');
 
 	Route::group(['prefix'=>'tutor'],function(){
 		//Tutor 
@@ -120,7 +125,9 @@ Route::group(['middleware' => ['auth', 'verified','tutor']], function () {
 		Route::get('profile', [App\Http\Controllers\Tutor\DashboardController::class, 'profile'])->name('tprofile');
 		Route::post('update-profile', [App\Http\Controllers\Tutor\DashboardController::class, 'updateProfile'])->name('updateTProfile');
 		Route::post('update-pasword', [App\Http\Controllers\Tutor\DashboardController::class, 'updatePassword'])->name('updateTPassword');
+
 		Route::resource('meetings', App\Http\Controllers\Tutor\MeetingsController::class)->names('tmeetings');
+
 		//Slots 
 		Route::group(['prefix'=>'slots'],function(){
 			Route::post('store', [TutorSlotController::class, 'store'])->name('storeTutorSlot');

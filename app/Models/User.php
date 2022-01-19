@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+
 use App\Models\Subscription;
-use App\Models\Country;
-use App\Models\State;
 use App\Models\Languages;
 use App\Models\Specialization;
 use App\Models\Feedback;
 use App\Models\Bookings;
+use App\Models\Document;
 
 class User extends Authenticatable
 {
@@ -66,16 +66,6 @@ class User extends Authenticatable
     ];
     
     
-    public function state()
-    {
-        return $this->belongsTo(State::class);
-    }
-
-    public function country()
-    {
-        return $this->belongsTo(Country::class);
-    }
-
     public function subscriptions()
     {
         return $this->belongsTo(Subscription::class);
@@ -94,6 +84,11 @@ class User extends Authenticatable
     public function feedback()
     {
         return $this->hasMany(Feedback::class,'tutor_id','id');
+    }
+
+    public function document()
+    {
+        return $this->hasMany(Document::class);
     }
 
     public function booking()

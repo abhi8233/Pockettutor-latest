@@ -15,10 +15,9 @@ class TutorSlotController extends Controller
     
     public function index(Request $request)
     {
-        $TutorSlot=TutorSlot::where('tutor_id',Auth::id())->get()->whereBetween('slot_date',[explode("T",$request->start)[0],explode("T",$request->end)[0]]);
+        $TutorSlot = TutorSlot::where('tutor_id',Auth::id())->get()->whereBetween('slot_date',[explode("T",$request->start)[0],explode("T",$request->end)[0]]);
         $TutorSlotsList=[];
-        foreach($TutorSlot as $item)
-        {
+        foreach($TutorSlot as $item){
             $all_day=date("Y-m-d",strtotime('+ 1 day',strtotime($item->slot_date)));
             $TutorSlotsList[]=[
                     "groupId"=>$item->id,
@@ -35,25 +34,19 @@ class TutorSlotController extends Controller
         $input=$request->all();
         $input['tutor_id']=Auth::id();
         $TutorSlot_Match=TutorSlot::first();
-        if($TutorSlot_Match)
-        {
+        if($TutorSlot_Match){
         
             $TutorSlot_match_with_date=$TutorSlot_Match->whereDate('slot_date',$request->slot_date)->where('tutor_id',Auth::id());
-            if($TutorSlot_match_with_date->count() > 0 && $request->slot_start_time=="00:00:00" && $request->slot_end_time=="00:00:00")
-            {
-                if($request->slot_start_time!=$TutorSlot_match_with_date->first()->slot_start_time && $request->slot_end_time!=$TutorSlot_match_with_date->first()->slot_end_time)
-                {
+            if($TutorSlot_match_with_date->count() > 0 && $request->slot_start_time=="00:00:00" && $request->slot_end_time=="00:00:00"){
+
+                if($request->slot_start_time != $TutorSlot_match_with_date->first()->slot_start_time && $request->slot_end_time != $TutorSlot_match_with_date->first()->slot_end_time){
                     unset($input['_token']);
                     $TutorSlot_Match->whereDate('slot_date',$request->slot_date)->where('tutor_id',Auth::id())->forceDelete();
                     TutorSlot::create($input);
-                }
-                else
-                {
+                }else{
                     $TutorSlot_match_with_date->forceDelete();
                 }
-            }
-            else
-            {
+            }else{
 
                 $TutorSlot_match_start_time_with_date=$TutorSlot_Match->whereDate('slot_date',$request->slot_date)->where('tutor_id',Auth::id())
                 ->whereTime('slot_start_time',$request->slot_start_time);
@@ -61,27 +54,24 @@ class TutorSlotController extends Controller
                 $TutorSlot_match_start_end_time_with_date=$TutorSlot_Match->whereDate('slot_date',$request->slot_date)->where('tutor_id',Auth::id())
                 ->whereTime('slot_start_time',$request->slot_start_time)->whereTime('slot_end_time',$request->slot_end_time);
 
-                if($TutorSlot_match_start_end_time_with_date->count())
-                {
+                if($TutorSlot_match_start_end_time_with_date->count()){
                     $TutorSlot_match_start_end_time_with_date->forceDelete();
-                }
-                elseif($TutorSlot_match_start_time_with_date->count()>0)
-                {
+
+                }elseif($TutorSlot_match_start_time_with_date->count()>0){
                     unset($input['_token']);
                     $TutorSlot_match_start_time_with_date->update($input);
-                }
-                else
-                {
+
+                }else{
                     TutorSlot::create($input);
+
                 }
             }
-        }
-        else
-        {
+        }else{
             TutorSlot::create($input);
         }
         return true;
     }
+
     public function copy(Request $request)
     {
         $activeStartDate=explode("T",str_ireplace("\"","",$request->activeStartDate))[0];
@@ -94,20 +84,22 @@ class TutorSlotController extends Controller
         
         $TutorSlotArray=[];
         $i=1;
-        foreach($previus_copyDateObject as $pc_date_item)
-        {
+        foreach($previus_copyDateObject as $pc_date_item){
+
             $TutorSlot=TutorSlot::where('tutor_id',Auth::id())->whereDate('slot_date',$pc_date_item)->orderBy('slot_date')->get();
            
-            foreach($TutorSlot as $itemTutorSlot)
-            {
+            foreach($TutorSlot as $itemTutorSlot){
+
                 $input=$itemTutorSlot->toArray();
                 $input['slot_date']=$current_copyDateObject[$i];
                 TutorSlot::create($input);
+                
             }
            $i++;
         }
         return true;
     }
+
     public function displayDates($date1, $date2, $format = 'Y-m-d' ) {
         $dates = array();
         $current = strtotime($date1);
@@ -118,13 +110,13 @@ class TutorSlotController extends Controller
         }
         return collect($dates)->slice(1);
     }
+
     public function slots_list_by_date(Request $request)
     {
-        $activeDate=explode("T",str_ireplace("\"","",$request->activeDate))[0];
-        $TutorSlotList=TutorSlot::whereDate('slot_date',$activeDate)->orderBy('slot_date')->get();
+        $activeDate = explode("T",str_ireplace("\"","",$request->activeDate))[0];
+        $TutorSlotList = TutorSlot::whereDate('slot_date',$activeDate)->orderBy('slot_date')->get();
         $slotList=[];
-        foreach($TutorSlotList as $slotItem)
-        {
+        foreach($TutorSlotList as $slotItem){
             $slotList[]='
             <label>
                 <input type="checkbox" name="slotList[]" value="'.$slotItem->slot_start_time.'">
@@ -133,7 +125,7 @@ class TutorSlotController extends Controller
                 </span>
             </label>';
         }
-        return count($slotList)>0?$slotList:"<h3 class='mb-3'>Slot Not Found</h3>";
+        return count($slotList) > 0 ? $slotList : "<h3 class='mb-3'>Slot Not Found</h3>";
 
     }
 

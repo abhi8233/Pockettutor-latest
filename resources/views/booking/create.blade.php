@@ -1,4 +1,4 @@
-@extends('layouts.bookingApp')
+@extends('layouts.tutorApp')
 @section('content')
 	<form id="frm-Credential" enctype="multipart/form-data" class="consent-screen">
         @method('POST')

@@ -7,10 +7,10 @@ $(document).ready(function () {
   });
 
 
-  $(".language").select2({
-    placeholder: "Select Language",
-    allowClear: true
-  });
+  // $(".language").select2({
+  //   placeholder: "Select Language",
+  //   allowClear: true
+  // });
 
 
 });
@@ -72,9 +72,8 @@ $(document).ready(function () {
     $input.change();
     return false;
   });
-
-
-})
+  
+});
 
 
 
