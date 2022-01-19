@@ -102,6 +102,31 @@
             margin-left: 5px;
             border-radius: 25px;
         }
+        .fc-prev-button{
+            display: none;
+        }
+        .fc-title{
+            font-size: 10.5px;
+        }
+        .fc-day-top
+        {
+            pointer-events: none;
+        }
+        .fc-day-grid-event .fc-content
+        {
+            height: 76px;
+        }
+        tr:first-child>td>.fc-day-grid-event
+        {    
+            margin-top: -24px;
+            line-height: 118px;
+            background: #ffa2a287;
+            color: black;
+            width: 93px;
+            margin-left: 0px;
+
+        }
+        
     </style>
 
 @endsection
@@ -150,9 +175,9 @@
                                 </p>
                                 <p> 
                                     <i class="fa fa-clock"></i> 
-                                    <span id="selected_date_times">un-selected</span></span>
+                                    <span id="selected_date_times">un-selected</span> <span class="btn btn-danger btn-xs mr-2" onclick="reset_input_val()">x Reset</span>
                                 </p>
-                            
+                                
                             </div>
                             <div id='datepicker'></div>
                             {{-- Model --}}
@@ -433,21 +458,22 @@
     
 $(document).ready(function() {
 
-
+    var slot_time;
     $("#displaySlotTime").click(function () {
         $("#selected_date_times").html("");
-        $("input[name='slotList[]']:checked").each(function (index, obj) {
-            console.log(index,obj);
-            var ampm = ($(this).val() > "12:00:00") ? "PM" : "AM";
-            $("#selected_date_times").append(`<span class="badge badge-info">${$(this).val()} - ${ampm}<span>`);
+        $("input[name='slotList']:checked").each(function (index, obj) {
+            
+            slot_time = ($(this).val() > "12:00:00") ? "PM" : "AM";
+            $("#selected_date_times").append(`<span class="badge badge-info">${$(this).val()} - ${slot_time}<span>`);
         });
     });
 
+    
     $("#calendar").fullCalendar({
             header: {
-            left: "prev,next today",
-                center: "title",
-                right: "month"
+            left: "next today",
+                // center: "title",
+                right: "title"
             },
             // themeSystem: 'bootstrap',
             defaultView: "month",
@@ -457,6 +483,21 @@ $(document).ready(function() {
             editable: false,
             eventLimit: true, // allow "more" link when too many events
             selectable: true,
+           /*  events:{
+                    url: "{{ route('getTutorSlot') }}?specialization_id="+$('#specialization').val(),
+                }, */
+            events:[
+                {
+                    start: "2022-01-19",
+                    groupId: 4,
+                    title: "No Slot Available"
+                },
+                {
+                    start: "2022-01-20",
+                    groupId: 4,
+                    title: "No Slot Available"
+                }
+            ],
             selectConstraint: {
                 start: $.fullCalendar.moment().subtract(1, 'days'),
                 end: $.fullCalendar.moment().startOf('month').add(1, 'month')
@@ -465,11 +506,12 @@ $(document).ready(function() {
               
                 // console.log("A-------",start,end);
                 var activeDate=JSON.stringify(start._d);
-                
+                var specialization_id=$('#specialization').val();
+                var slot_time= $("input[name='slotList']:checked").val();
                 $.ajax({
                         url: '{{ route("getDateSlotsList") }}',
                         type: 'post',
-                        data: {activeDate:activeDate,_token:"{{ csrf_token() }}"},
+                        data: {activeDate:activeDate,slot_time:slot_time,specialization_id:specialization_id,_token:"{{ csrf_token() }}"},
                         success: function (response) {
                             $("input[name='date']").val(activeDate);
                             $("#selected_date").html(start._d);
@@ -491,7 +533,31 @@ $(document).ready(function() {
             eventClick: function(calEvent, calEvent) {
                 console.log("C-------",calEvent,calEvent);
             }
+
+           
     });
+    
+        $("#specialization").change(function(){
+            $("#calendar").fullCalendar('refetchEvents');
+                /* if ($(this).val() != null) {
+                    $.ajax({
+                        type: "GET",
+                        url: "{{route('getTutorSlot')}}",
+                        data: {
+                            'specialization_id': $(this).val(),
+                            'start': "2021-12-26",
+                            'end': "2022-02-06"
+                        },
+                        beforeSend: function(){
+                            // $('#tutor_html_id').html('Loading...');
+                        },
+                        success: function(data) {
+                            // $("#tutor_html_id").html(data);
+                            $("#calendar").fullCalendar()
+                        }
+                    });
+                } */
+        });
 });
 
 </script>
@@ -505,8 +571,11 @@ $(document).ready(function() {
             },
             success: function(data) {
                 $("#tutor_html_id").html(data);
+                $("#calendar").fullCalendar('refetchEvents');
             }
         });
+
+       
 
         $(document).on('change', '#specialization', function() {
             if ($(this).val() != null) {
@@ -514,8 +583,8 @@ $(document).ready(function() {
                     type: "GET",
                     url: "{{route('getTutor')}}",
                     data: {
-                        'specialization_id': $(this).val(),
-                        'language_id': $('#language').val(),
+                        'language_id': $(this).val(),
+                        'specialization_id': $('#specialization').val(),
                         'rating': $('#rating').val()
                     },
                     beforeSend: function(){
@@ -527,7 +596,6 @@ $(document).ready(function() {
                 });
             }
         });
-
         $(document).on('change', '.language', function() {
             if ($(this).val() != null) {
                 $.ajax({
@@ -643,5 +711,12 @@ $(document).ready(function() {
         });
     
     });
+
+    function reset_input_val()
+    {
+        $("input[name='slotList']:checked").attr('checked','false');
+        $("#selected_date_times").html("un-selected");
+        $("#selected_date").html("un-selected");
+    }
 </script>
 @endsection

@@ -68,8 +68,8 @@ class BookingController extends Controller
         ]);
 
         $activeDate = explode("T",str_ireplace("\"","",$request->date))[0];
-        $start_date_time = date("Y-m-d H:i:s",strtotime("$activeDate".$request->slotList[0]));
-        $end_date_time = date("Y-m-d H:i:s",strtotime("$activeDate". $request->slotList[0] ."+ 16 minute"));
+        $start_date_time = date("Y-m-d H:i:s",strtotime("$activeDate".$request->slotList));
+        $end_date_time = date("Y-m-d H:i:s",strtotime("$activeDate". $request->slotList ."+ 16 minute"));
         
         // dd($activeDate,$request->slotList[0],$start_date_time,$end_date_time);
         

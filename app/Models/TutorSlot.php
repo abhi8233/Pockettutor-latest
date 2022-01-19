@@ -21,8 +21,8 @@ class TutorSlot extends Model
     ];
 
 
-    public function tutor()
+    public function tutor_user()
     {
-        return $this->belongsTo(User::class)->where('role','Tutor');
+        return $this->belongsTo(User::class,'tutor_id','id')->where('role','Tutor');
     }
 }

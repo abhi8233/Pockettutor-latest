@@ -15,6 +15,10 @@
             text-align: center;
             display: none;
         }
+        .fc-timegrid-event-short .fc-event-time:after
+        {
+            content: '';
+        }
     </style>
 
 @endsection

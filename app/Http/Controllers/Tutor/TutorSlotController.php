@@ -15,13 +15,23 @@ class TutorSlotController extends Controller
     
     public function index(Request $request)
     {
-        $TutorSlot = TutorSlot::where('tutor_id',Auth::id())->get()->whereBetween('slot_date',[explode("T",$request->start)[0],explode("T",$request->end)[0]]);
+        
+        $TutorSlot = TutorSlot::with('tutor_user')
+      /*   ->whereHas('tutor_user',function($query)use($request){
+            if(isset($request->specialization_id))
+            {            
+                return $query->where('specialization_id',$request->specialization_id);
+            }
+            
+        }) */
+        ->where('tutor_id',Auth::id())
+        ->whereBetween('slot_date',[explode("T",$request->start)[0],explode("T",$request->end)[0]])->get();
         $TutorSlotsList=[];
         foreach($TutorSlot as $item){
             $all_day=date("Y-m-d",strtotime('+ 1 day',strtotime($item->slot_date)));
             $TutorSlotsList[]=[
                     "groupId"=>$item->id,
-                    "title"=>$item->slot_note,
+                    // "title"=>$item->slot_note,
                     "start"=>$item->slot_date.'T'.$item->slot_start_time,
                     "end"=>$item->slot_end_time=="00:00:00"?$all_day.'T'.$item->slot_end_time:$item->slot_date.'T'.$item->slot_end_time,
             ];
@@ -113,13 +123,24 @@ class TutorSlotController extends Controller
 
     public function slots_list_by_date(Request $request)
     {
-        $activeDate = explode("T",str_ireplace("\"","",$request->activeDate))[0];
-        $TutorSlotList = TutorSlot::whereDate('slot_date',$activeDate)->orderBy('slot_date')->get();
+        // return $request->all();
+        $activeDate=date("Y-m-d");
+        if(isset($request->activeDate))
+        {
+            $activeDate = explode("T",str_ireplace("\"","",$request->activeDate))[0];
+        }
+        $TutorSlotList = TutorSlot::with('tutor_user')
+        ->whereHas('tutor_user',function($query)use($request){
+            return $query->where('specialization_id',$request->specialization_id);
+            
+        })->whereDate('slot_date',$activeDate)->orderBy('slot_date')->get();
+        // dd($TutorSlotList,$request->all());
         $slotList=[];
         foreach($TutorSlotList as $slotItem){
+            $status=$request->slot_time==$slotItem->slot_start_time?"checked":"";
             $slotList[]='
             <label>
-                <input type="checkbox" name="slotList[]" value="'.$slotItem->slot_start_time.'">
+                <input type="radio" name="slotList" value="'.$slotItem->slot_start_time.'" '.$status.'>
                 <span>
                 '.date("H:i A",strtotime($slotItem->slot_start_time)).'
                 </span>
