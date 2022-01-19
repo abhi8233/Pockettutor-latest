@@ -1,5 +1,110 @@
 @extends('layouts.bookingApp')
+@section('css-hooks')
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://fullcalendar.io/js/fullcalendar-3.0.1/fullcalendar.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <style>
+        
+        #calendar {
+        width: 900px;
+        margin: 0 auto;
+        }
+
+        #wrap {
+        width: 1100px;
+        margin: 0 auto;
+        }
+
+        .closeon {
+        border-radius: 5px;
+        }
+
+        input {
+        width: 50%;
+        }
+
+        input[type="text"][readonly] {
+        border: 2px solid rgba(0, 0, 0, 0);
+        }
+
+        /*info btn*/
+        .dropbtn {
+        /*background-color: #4CAF50;*/
+        background-color: #eee;
+        margin: 10px;
+        padding: 8px 16px 8px 16px;
+        font-size: 16px;
+        border: none;
+        }
+
+        .dropdown {
+        position: relative;
+        display: inline-block;
+        }
+
+        .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 200px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        margin-left: 100px;
+        margin-top: -300px;
+        }
+
+        .dropdown-content p {
+        color: black;
+        padding: 4px 4px;
+        text-decoration: none;
+        display: block;
+        }
+
+        .dropdown-content a:hover {
+        background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+        display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+        background-color: grey;
+        }
+
+        .dropdown:hover .dropbtn span {
+        color: white;
+        }
+        .fc .fc-state-active, .fc .fc-state-active:focus, .fc .fc-state-active:hover, .fc .fc-state-active:active:focus, .fc .fc-state-active:active:hover, .fc .fc-state-active:active {
+            background-color: #0077b6;
+            color: #FFFFFF;
+            border: solid 2px #065d8b;
+        }
+        .fc button
+        {
+            border-color: #0076b5;
+            color: #0077b6;
+        }
+        .fc button:hover, .fc button:focus, .fc button:active, .fc button.active, .fc button:active:focus, .fc button:active:hover, .open > .fc button.dropdown-toggle, .open > .fc button.dropdown-toggle:focus, .open > .fc button.dropdown-toggle:hover {
+            background-color: #1b8ecc;
+            color: #FFFFFF;
+            border: solid 2px #13587e;
+        }
+        .fc-state-default.fc-corner-left
+        {
+            border-radius: 25px;
+        }
+        .fc-state-default.fc-corner-right
+        {
+            margin-left: 5px;
+            border-radius: 25px;
+        }
+    </style>
+
+@endsection
 @section('content')
 <div class="booking">
     <div class="row mx-0">
@@ -35,24 +140,59 @@
                     </div>
 
                     <div class="col-12 mb-3 date-time">
-                        <label class="col-md-4 col-form-label">Select Date & Time</label>
+                        <label class="col-form-label">Select Date & Time</label>
                         <div class="row">
-                            <!-- <div class="col-12 col-md-6">
-                                <input type="date" id="date" name="date" placeholder="Select Date" class="">
+                            <div id='calendar'></div>
+                            <div class="row p-4">
+                                <p style="width: 200px;height: 19px;overflow: hidden;"> 
+                                    <i class="fa fa-calendar text-primary mr-2"></i> 
+                                    <span id="selected_date">un-selected</span>
+                                </p>
+                                <p> 
+                                    <i class="fa fa-clock"></i> 
+                                    <span id="selected_date_times">un-selected</span></span>
+                                </p>
+                            
                             </div>
-                            <div class="col-12 col-md-6">
-                                <input type="time" id="time" name="time" placeholder="Select Time" class="">
-                            </div> -->
-
-                            <div id="ct" class="ct-md-12 ct-sm-12 ct-xs-12 ct-datetime-select-main">
+                            <div id='datepicker'></div>
+                            {{-- Model --}}
+                            <input type="hidden" name="date">
+                            
+                            <button type="button" id="slotModalBtn" data-toggle="modal" data-target="#slotModal" style="display: none"></button>
+                              
+                            <div class="modal fade" id="slotModal" tabindex="-1" role="dialog" aria-labelledby="slotModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="slotModalLabel" style="margin-right: 270px;">Here is the available slots</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="language-booking d-flex" id="BookingSlotBody">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Not Now</button>
+                                      <button type="button" class="btn btn-primary" data-dismiss="modal" id="displaySlotTime">Save Now</button>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                            {{-- Model Close--}}
+                          {{--   <div id="ct" class="ct-md-12 ct-sm-12 ct-xs-12 ct-datetime-select-main">
 
                                 <div class="ct-datetime-select">
 
                                     <div class="calendar-wrapper cal_info">
+
                                         <div class="calendar-header">
+                                        
                                             <a class="previous-date" href="javascript:void(0)"><i class="fas fa-angle-left"></i></a>
                                             <div class="calendar-title">JANUARY</div>
                                             <div class="calendar-year">2022</div>
+                                        
                                             <a data-istoday="N" class="next-date previous_next" href="javascript:void(0)" data-next_month="02" data-next_month_year="2022"><i class="fas fa-angle-right"></i></a>
                                         </div>
                                         <div class="calendar-body">
@@ -217,58 +357,26 @@
 
                                 </div>
 
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
-
+                  
                     <div class="col-12 mb-2">
-                        <label class="col-md-4 col-form-label">Select Language</label>
+                        <label class="col-form-label">Select Language</label>
                         <div class="language-booking d-flex">
-                            <!-- <select class="" name="language" id="language">
-                                <option value=""> Select Language</option>
                                 @foreach($languages as $language)
-                                <option value="{{$language->id}}">{{$language->name}}</option>
+                                    <label>
+                                        <input type="checkbox" name="language[]" value="{{$language->id}}">
+                                        <span>
+                                            {{$language->name}}
+                                        </span>
+                                    </label>
                                 @endforeach
-                            </select> -->
-                            <label>
-                                <input type="checkbox">
-                                <span>
-                                    English
-                                </span>
-                            </label>
-
-                            <label>
-                                <input type="checkbox" checked>
-                                <span>
-                                    Spanish
-                                </span>
-                            </label>
-
-                            <label>
-                                <input type="checkbox">
-                                <span>
-                                    Korean
-                                </span>
-                            </label>
-
-                            <label>
-                                <input type="checkbox" checked>
-                                <span>
-                                    Japanese
-                                </span>
-                            </label>
-
-                            <label>
-                                <input type="checkbox">
-                                <span>
-                                    Hindi
-                                </span>
-                            </label>
                         </div>
                     </div>
-
+                    
                     <div class="col-12 mb-2">
-                        <label class="col-md-4 col-form-label">Rating</label>
+                        <label class="col-form-label">Rating</label>
                         <!-- <div class="">
                             <select class="select2 front-rating" name="rating" id="rating">
                                 <option value=""> Select Rating</option>
@@ -292,7 +400,7 @@
                     </div>
 
                     <div class="col-12 mb-2 tutor-main">
-                        <label class="col-md-4 col-form-label">Select Tutor</label>
+                        <label class="col-form-label">Select Tutor</label>
                         <div class="row mx-0 mt-3" id="tutor_html_id"></div>
                         <input type="text" name="tutor_id" id="tutor_id" style="visibility: hidden;">
                     </div>
@@ -315,6 +423,78 @@
 @endsection
 
 @section('js-hooks')
+
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment-with-locales.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    
+$(document).ready(function() {
+
+
+    $("#displaySlotTime").click(function () {
+        $("#selected_date_times").html("");
+        $("input[name='slotList[]']:checked").each(function (index, obj) {
+            console.log(index,obj);
+            var ampm = ($(this).val() > "12:00:00") ? "PM" : "AM";
+            $("#selected_date_times").append(`<span class="badge badge-info">${$(this).val()} - ${ampm}<span>`);
+        });
+    });
+
+    $("#calendar").fullCalendar({
+            header: {
+            left: "prev,next today",
+                center: "title",
+                right: "month"
+            },
+            // themeSystem: 'bootstrap',
+            defaultView: "month",
+            navLinks: true, // can click day/week names to navigate views
+            // selectable: true,
+            selectHelper: true,
+            editable: false,
+            eventLimit: true, // allow "more" link when too many events
+            selectable: true,
+            selectConstraint: {
+                start: $.fullCalendar.moment().subtract(1, 'days'),
+                end: $.fullCalendar.moment().startOf('month').add(1, 'month')
+            },
+            select: function(start, end) {
+              
+                // console.log("A-------",start,end);
+                var activeDate=JSON.stringify(start._d);
+                
+                $.ajax({
+                        url: '{{ route("getDateSlotsList") }}',
+                        type: 'post',
+                        data: {activeDate:activeDate,_token:"{{ csrf_token() }}"},
+                        success: function (response) {
+                            $("input[name='date']").val(activeDate);
+                            $("#selected_date").html(start._d);
+                            $("#slotModalBtn").click();
+                            $("#BookingSlotBody").html(response);
+                            // console.log(response);
+                            // calendar.refetchEvents();
+                            // swal("Slots copied successfully.");
+                        }
+                    });
+                // console.log(activeStartDate);
+             
+            },
+
+            eventRender: function(event, element) {
+                console.log("B-------",event,element);
+            },
+
+            eventClick: function(calEvent, calEvent) {
+                console.log("C-------",calEvent,calEvent);
+            }
+    });
+});
+
+</script>
 <script type="text/javascript">
     $(document).ready(function() {
         $.ajax({
@@ -411,7 +591,7 @@
                 date: {
                     required: true
                 },
-                time: {
+                slotList: {
                     required: true
                 },
             },
@@ -428,11 +608,13 @@
                 date: {
                     required: "Date is required"
                 },
-                time: {
+                slotList: {
                     required: "Time is required"
                 },
             },
             submitHandler: function(form) {
+                // console.log(form);
+                // return false;
                 // alert('valid form submitted'); 
                 $.ajax({
                     type: "POST",

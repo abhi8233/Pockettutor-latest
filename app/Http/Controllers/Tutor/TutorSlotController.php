@@ -115,6 +115,25 @@ class TutorSlotController extends Controller
            $current = strtotime('+1 day', $current);
         }
         return collect($dates)->slice(1);
-     }
+    }
+    public function slots_list_by_date(Request $request)
+    {
+        $activeDate=explode("T",str_ireplace("\"","",$request->activeDate))[0];
+        $TutorSlotList=TutorSlot::whereDate('slot_date',$activeDate)->orderBy('slot_date')->get();
+        $slotList=[];
+        foreach($TutorSlotList as $slotItem)
+        {
+            $slotList[]='
+            <label>
+                <input type="checkbox" name="slotList[]" value="'.$slotItem->slot_start_time.'">
+                <span>
+                '.date("H:i A",strtotime($slotItem->slot_start_time)).'
+                </span>
+            </label>';
+        }
+        return count($slotList)>0?$slotList:"<h3 class='mb-3'>Slot Not Found</h3>";
+
+    }
+
 }
 
