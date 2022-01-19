@@ -19,7 +19,10 @@
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/fonts/md-icons/materialdesignicons.min.css')}}" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-
+	{{-- <link rel="stylesheet" href="https://demos.creative-tim.com/paper-dashboard-pro/assets/css/themify-icons.css"> --}}
+	<link rel="stylesheet" href="https://demos.creative-tim.com/paper-dashboard-pro/assets/css/paper-dashboard.css">
+	<link rel="stylesheet" href="https://demos.creative-tim.com/paper-dashboard-pro/assets/css/demo.css">
+	
 	<!-- Common script files -->
 	<script src="{{ asset('js/app.js') }}" defer></script>
 

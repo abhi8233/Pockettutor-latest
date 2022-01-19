@@ -89,23 +89,28 @@ Route::group(['middleware' => ['auth', 'verified','superadmin']], function () {
 /*---------------------------------- STUDENT ---------------------------------------*/
 Route::group(['middleware' => ['auth', 'verified','student']], function () { 
 
-	Route::resource('student/dashboard', App\Http\Controllers\Student\DashboardController::class)->names('sdashboard');
-	Route::get('student/profile', [App\Http\Controllers\Student\DashboardController::class, 'profile'])->name('sprofile');
-	Route::post('student/update-profile', [App\Http\Controllers\Student\DashboardController::class, 'updateProfile'])->name('updateSProfile');
-	Route::post('student/update-pasword', [App\Http\Controllers\Student\DashboardController::class, 'updatePassword'])->name('updateSPassword');
-
-	Route::resource('student/booking', App\Http\Controllers\Student\BookingController::class)->names('sbooking');
-	Route::get('student/getTutor', [App\Http\Controllers\Student\BookingController::class,'getTutor'])->name('getTutor');
-	/* booking page for student */
 	Route::resource('booking', App\Http\Controllers\Booking\BookingController::class)->names('booking');
 	Route::get('getToken', [App\Http\Controllers\Booking\BookingController::class,'saveToken'])->name('saveToken');
 
-	Route::resource('student/feedback', App\Http\Controllers\Student\FeedbackController::class)->names('sfeedback');
+	Route::group(['prefix'=>'student'],function(){
 
-	Route::resource('student/plan', App\Http\Controllers\Student\PlanController::class)->names('splan');
+		Route::resource('dashboard', App\Http\Controllers\Student\DashboardController::class)->names('sdashboard');
+		Route::get('profile', [App\Http\Controllers\Student\DashboardController::class, 'profile'])->name('sprofile');
+		Route::post('update-profile', [App\Http\Controllers\Student\DashboardController::class, 'updateProfile'])->name('updateSProfile');
+		Route::post('update-pasword', [App\Http\Controllers\Student\DashboardController::class, 'updatePassword'])->name('updateSPassword');
+		Route::resource('booking', App\Http\Controllers\Student\BookingController::class)->names('sbooking');
+		Route::get('getTutor', [App\Http\Controllers\Student\BookingController::class,'getTutor'])->name('getTutor');
+		/* booking page for student */
+
+		Route::resource('feedback', App\Http\Controllers\Student\FeedbackController::class)->names('sfeedback');
+
+		Route::resource('plan', App\Http\Controllers\Student\PlanController::class)->names('splan');
+
+		Route::group(['prefix'=>'slots'],function(){
+			Route::post('slots_list_by_date', [TutorSlotController::class, 'slots_list_by_date'])->name('getDateSlotsList');
+		});
+	});
 });
-
-
 /*------------------------------------ TUTOR ---------------------------------------*/
 Route::group(['middleware' => ['auth', 'verified','tutor']], function () { 
 

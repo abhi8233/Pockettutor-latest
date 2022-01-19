@@ -49,24 +49,26 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request->all();
         $request->validate([  
             'specialization' => 'required',
             'language'       => 'required',
             'tutor_id'          => 'required',
             'date'              => 'required',
-            'time'              => 'required'
+            // 'time'              => 'required'
         ],
         [
             'specialization.required' => 'Specialization is required',
             'language.required' => 'Language is required',
             'tutor_id.required' => 'Tutor is required',
             'date.required' => 'Date is required',
-            'time.required' => 'Time is required',
+            // 'time.required' => 'Time is required',
         ]);
-
-        $start_date_time = date("Y-m-d H:i:s",strtotime("$request->date $request->time"));
-        $end_date_time = date("Y-m-d H:i:s",strtotime("$request->date $request->time + 16 minute"));
-
+        $activeDate=explode("T",str_ireplace("\"","",$request->date))[0];
+        $start_date_time = date("Y-m-d H:i:s",strtotime("$activeDate".$request->slotList[0]));
+        $end_date_time = date("Y-m-d H:i:s",strtotime("$activeDate". $request->slotList[0] ."+ 16 minute"));
+        
+        // dd($activeDate,$request->slotList[0],$start_date_time,$end_date_time);
         
 
         if($this->meet->isCredentialLoaded() && $this->meet->isAppPermitted() ){

@@ -507,7 +507,7 @@
                     .then((yes_delete) => {
                         
                         if (yes_delete) { */
-                            create_slot(delete_slot_obj.event,"Deleted Slot!")
+                            create_slot(delete_slot_obj.event,"")
                        /*  } 
                     }); */
                    
@@ -529,7 +529,7 @@
                         
                         if (slot_note) { */
                             // $("#calendar_loader").css('display','block'); //Loader
-                            create_slot(create_slot_obj,"Slot")
+                            create_slot(create_slot_obj,"")
                     //     } 
                     // });
                 },
@@ -550,7 +550,7 @@
                                 success: function (response) {
                                     console.log(response);
                                     calendar.refetchEvents();
-                                    swal("Events copied successfully!");
+                                    swal("Slots copied successfully.");
                                 }
                             });
                         });
@@ -577,7 +577,7 @@
                 $.ajax({
                     url:"{{ route('storeTutorSlot') }}",
                     type:"post",
-                    data:{slot_note:slot_note,slot_start_time:slot_start_time,slot_date:slot_date,slot_end_time:slot_end_time,_token:"{{ csrf_token() }}"},
+                    data:{slot_note:" ",slot_start_time:slot_start_time,slot_date:slot_date,slot_end_time:slot_end_time,_token:"{{ csrf_token() }}"},
                     success:function(response){
                         // $("#calendar_loader").css('display','none'); //Loader
                         calendar.refetchEvents();
