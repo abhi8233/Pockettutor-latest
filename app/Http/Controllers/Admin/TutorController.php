@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use App\Models\User;
 use App\Models\Document;
+
 use Mail;
 use App\Mail\superadminApproveDocOfTutor;
 
@@ -91,24 +93,42 @@ class TutorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'country_id' => ['required'],
+            'institution' => ['required'],
+            'city_institution' => ['required'],
+            'state_institution' => ['required'],
+            'country_institution' => ['required'],
+            'specialization' => ['required'],
+            'language_id' => ['required'],
+        ]);
+
         $users = User::find($id);
         $users->first_name          = $request->first_name;
         $users->last_name           = $request->last_name;
-        $users->email               = $request->email;
-        $users->specialization_id   = $request->specialization;
-        $users->language_id         = $request->language_id;
-        $users->subscriptions_id    = $request->subscription_id;
+
+        if($users->email == $request->email){
+            $users->email = $request->email;
+        }else{
+            $users->is_google_meet = 0;
+        }
+
+        $users->country_id          = $request->country_id;
         $users->institution         = $request->institution;
         $users->city_institution    = $request->city_institution;
         $users->state_institution   = $request->state_institution;
         $users->country_institution = $request->country_institution;
-        $users->country_id          = $request->country_id;
+        $users->specialization_id   = $request->specialization;
+        $users->language_id         = $request->language_id;
         $users->save();
 
         if ($users) {
             return response()->Json(['status' => '200','msg'=>'Tutor Update Successfullay.']);
         }else{
-            return response()->Json(['status' => '400','msg' => 'Something want wrong in sent Mail .']);
+            return response()->Json(['status' => '400','msg'=>'Something want wrong in sent Mail.']);
         }
         
     }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 use App\Models\User;
 
 class StudentController extends Controller
@@ -72,18 +74,22 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-            $users=User::find($id);
-            $users->first_name = $request->first_name;
-            $users->last_name = $request->last_name;
-            $users->email = $request->email;
-            $users->role=$request->role;
-            $users->specialization_id = $request->specialization;
-            $users->country_id =$request->country_id == null ? 0 : $request->country_id;
-            $users->language_id =$request->language_id;
-            $users->state_id = $request->state_id== null ? 0 : $request->state_id;
-            $users->subscriptions_id=$request->subscription_id;
-            $users->save();
-            return redirect()->route('student.index')->with('success', 'Student Update successfullay added.');
+        $request->validate([
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'country_id' => ['required'],
+        ]);
+
+        $users = User::find($id);
+        $users->first_name = $request->first_name;
+        $users->last_name = $request->last_name;
+        $users->email = $request->email;
+        $users->role = $request->role;
+        $users->country_id = $request->country_id == null ? 0 : $request->country_id;
+        $users->save();
+
+        return redirect()->route('student.index')->with('success', 'Student Update successfullay added.');
     }
  
     /**

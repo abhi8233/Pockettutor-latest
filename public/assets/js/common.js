@@ -61,15 +61,15 @@ $(document).ready(function () {
 
   // Booking
 
-  $(".specialization").select2({
-    placeholder: "Select Specialization",
-    allowClear: true
-  });
+  // $(".specialization").select2({
+  //   placeholder: "Select Specialization",
+  //   allowClear: true
+  // });
 
-  $(".language").select2({
-    placeholder: "Select Language",
-    allowClear: true
-  });
+  // $(".language").select2({
+  //   placeholder: "Select Language",
+  //   allowClear: true
+  // });
 
   // var setDefaultActive = function () {
   //   var path = window.location.pathname;

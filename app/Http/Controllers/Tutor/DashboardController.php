@@ -189,14 +189,15 @@ class DashboardController extends Controller
 
         if(!array_diff(array("passport","certificate","other_document"),$documentValue)){
 
-            $updateUser = User::where("id",auth()->user()->id)->update([
-                "is_document" => 1
-            ]);
+            // $updateUser = User::where("id",auth()->user()->id)->update([
+            //     "is_document" => 1
+            // ]);
+            $email = EmailNotification::get('admin_email')->first();
+            $documents = Document::where('user_id',$user->id)->get();
+            Mail::to($email->admin_email)->send(new NotifySuperAdminMail($user,$documents));
         }
 
-        $email = EmailNotification::get('admin_email')->first();
-        $documents = Document::where('user_id',$user->id)->get();
-        Mail::to($email->admin_email)->send(new NotifySuperAdminMail($user,$documents));
+        
         
         if($user){
             return response()->Json(['status' => '200','msg'=>'User Password Update successfully.']);

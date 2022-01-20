@@ -85,8 +85,10 @@ class BookingController extends Controller
                 array(
                     'title'         => $specialization_details->name,
                     'description'   => $languages_details->name,
-                    'start'         => $start_date_time,
-                    'end'           => $end_date_time,
+                    // 'start'         => $start_date_time,
+                    // 'end'           => $end_date_time,
+                    'start'         => '2022-01-20T12:10:00-07:00',
+                    'end'           => '2022-01-20T12:25:00-07:00',
                     'timezone'      => 'America/Los_Angeles',
                     'attendees'     => array($tutor_details->email,auth()->user()->email)
                 )

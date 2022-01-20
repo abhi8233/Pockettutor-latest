@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 
-use Stripe;
+use Stripe; 
 
 class RegisterController extends Controller
 {

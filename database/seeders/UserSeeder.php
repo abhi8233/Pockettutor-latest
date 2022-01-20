@@ -39,6 +39,7 @@ class UserSeeder extends Seeder
 	            'password' => '$2y$10$3DXWL2TLJ.nIoDP2y53QguZl3MvhZZVIyxAENbEsntPduUEldwJoS',
 	            'specialization_id' => 1,
 	            'language_id' => 1,
+	            'is_google_meet' => 0,
 	            'institution' => 'US institution',
 	            'city_institution' => 'Apple Valley',
 	            'state_institution'	=> 'California',
@@ -46,13 +47,14 @@ class UserSeeder extends Seeder
 	            'country_id' => 'United States',
 	            'stripe_customer_id' => '-'
 	        ]);
+
 	        // Student
 	        DB::table('users')->insert([
         		'id' => 3,
             	'name' => '-',
 	            'first_name' => 'Student',
 	            'last_name' => 'Student',
-	            'role' => 'Tutor',
+	            'role' => 'Student',
 	            'email' => 'Student@gmail.com',
 	            'password' => '$2y$10$3DXWL2TLJ.nIoDP2y53QguZl3MvhZZVIyxAENbEsntPduUEldwJoS',
 	            'specialization_id' => NULL,
@@ -65,6 +67,19 @@ class UserSeeder extends Seeder
 	            'country_id' => 'United States',
 	            'stripe_customer_id' => '-'
 	        ]);
+
+	        DB::table('user_plans')->insert([
+        		'id' => 1,
+        		'user_id' => 3,
+        		'subscription_id' => 1,
+        		'stripe_plan_id' => '-',
+        		'price' => 44.99,
+        		'minutes' => 90,
+        		'remaining_minutes' => 0,
+        		'slots' => 6,
+        		'is_active' => 1
+        	]);
+
 		}
     }
 }

@@ -23,7 +23,7 @@ class BookingController extends Controller
     public function __construct()
     {
         
-        $this->meet = new Meet(10);
+        
     }
 
     /**
@@ -46,7 +46,7 @@ class BookingController extends Controller
      */
     public function create()
     {
-
+        $this->meet = new Meet(auth()->user()->id);
         if(!$this->meet->isCredentialLoaded()){
             // dd("credential");
             return view('booking.create');
@@ -92,6 +92,7 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
+        $this->meet = new Meet(auth()->user()->id);
         if(isset($_FILES['credential']) && $_FILES['credential']['error']==0) {
 
             // Save credential file if exist and no error
@@ -106,6 +107,7 @@ class BookingController extends Controller
     }
 
     public function saveToken() {
+        $this->meet = new Meet(auth()->user()->id);
         if(isset($_GET['code'])) {
 
             $this->meet->saveToken($_GET['code']);
