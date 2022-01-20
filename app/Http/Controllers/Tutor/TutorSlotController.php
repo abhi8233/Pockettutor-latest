@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tutor;
 use DateTime;
 use DatePeriod;
 use DateInterval;
+use App\Models\Bookings;
 use App\Models\TutorSlot;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -149,6 +150,10 @@ class TutorSlotController extends Controller
         return count($slotList) > 0 ? $slotList : "<h3 class='mb-3'>Slot Not Found</h3>";
 
     }
-
+    public function change_booking_status(Request $request)
+    {
+        Bookings::where('id',$request->booking_id)->update(['meeting_status'=>1,'is_feedback'=>1]);
+        return 1;
+    }
 }
 

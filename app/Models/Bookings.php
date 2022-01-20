@@ -20,6 +20,7 @@ class Bookings extends Model
         'date_time',
         'google_link',
         'event_id',
+        'meeting_status'
     ];
 
     public function tutor(){

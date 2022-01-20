@@ -127,6 +127,7 @@ Route::group(['middleware' => ['auth', 'verified','tutor']], function () {
 		Route::post('update-pasword', [App\Http\Controllers\Tutor\DashboardController::class, 'updatePassword'])->name('updateTPassword');
 
 		Route::resource('meetings', App\Http\Controllers\Tutor\MeetingsController::class)->names('tmeetings');
+		Route::post('change_booking_status', [TutorSlotController::class, 'change_booking_status'])->name('changeMettingBookStatus');
 
 		//Slots 
 		Route::group(['prefix'=>'slots'],function(){

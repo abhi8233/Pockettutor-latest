@@ -21,8 +21,9 @@ class FeedbackController extends Controller
     public function index(){
 
         $feedbacks = Feedback::with(['tutor'])->where('user_id', auth()->user()->id)->orderBy('id','desc')->get();
+        $bookingCount = Bookings::where('user_id',auth()->user()->id)->where('is_feedback',1)->count();
        
-        return view('student.feedback.index',compact('feedbacks'));
+        return view('student.feedback.index',compact('feedbacks','bookingCount'));
     }
 
     /**
@@ -31,8 +32,9 @@ class FeedbackController extends Controller
      */
     public function create(){
 
-        $booking_slot = Bookings::with(['tutor'])->whereDate('date_time','<',Carbon::now())->where('user_id',auth()->user()->id)->where('is_feedback',0)->get();
-        return view('student.feedback.create',compact('booking_slot'));
+        $booking = Bookings::with(['tutor'])->where('user_id',auth()->user()->id)->where('is_feedback',1)->first();
+        
+        return view('student.feedback.create',compact('booking'))->render();
     }
 
     /**
@@ -41,32 +43,23 @@ class FeedbackController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
-        $split = explode('_', $request->booking_tutor_id);
-        $booking_id = $split[0];
-        $tutor_id = $split[1];
+        $booking_id =$request->booking_id;
+        $tutor_id =$request->tutor_id;
+        $feedback = new Feedback();
+        $feedback->tutor_id = $tutor_id;
+        $feedback->user_id = auth()->user()->id;
+        $feedback->booking_id = $booking_id;
+        $feedback->description = $request->description!=""?$request->description:"-";
+        $feedback->rating = $request->star;
+        $feedback->save();
 
-        $feedbacks = Feedback::where('user_id', auth()->user()->id)->where('tutor_id',$tutor_id)->where('tutor_id',$booking_id)->orderBy('id','desc')->get();
-        
-        if(isset($feedbacks) && !empty($feedbacks[0])){
-            return redirect()->back()->with('danger', 'Already feedback added.');
-        }else{
-
-            $feedback = new Feedback();
-            $feedback->tutor_id = $tutor_id;
-            $feedback->user_id = auth()->user()->id;
-            $feedback->booking_id = $booking_id;
-            $feedback->description = $request->description;
-            $feedback->rating = $request->star;
-            $feedback->save();
-
-            $bookings = Bookings::where('id', $booking_id)->update(
-                array('is_feedback' => 1)
-            );
-
-            return redirect()->back()->with('success', 'Feedback Added Successfully');
-        }
+        Bookings::where('id', $booking_id)->update(['is_feedback' =>"0"]);
+        // dd($booking_id);
+        return redirect()->back()->with('success', 'Feedback Added Successfully');
+    
          
     }
 

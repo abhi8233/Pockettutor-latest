@@ -26,6 +26,7 @@ class MeetingsController extends Controller
     public function index()
     {
         $bookings = Bookings::with(['user'])->where('tutor_id',auth()->user()->id)->get();
-        return view('tutor/meetings/index',compact('bookings'));
+        // dd($bookings);
+        return view('tutor.meetings.index',compact('bookings'));
     }
 }
