@@ -351,7 +351,7 @@
                         // console.log(data);
                         // alert(data.status);
                         if (data.status == 200) {
-                            $(".msg").after('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Tutor Update Successfullay.</div>');
+                            $(".msg").after('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Tutor Update Successfully.</div>');
                             setTimeout(function(){
                                 window.location ="{{ route('tutor.index') }}";
                             },1000);
@@ -360,7 +360,7 @@
                             $(".msg").after('<div class="alert alert-danger alert-dismissible" id="myAlert"><strong>Opps..!</strong> Something Went to Wrong.</div>');
                         }
                     }
-                });
+                }); 
                 return false;
             }
         });

@@ -77,7 +77,7 @@ class StudentController extends Controller
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$id],
             'country_id' => ['required'],
         ]);
 
@@ -89,7 +89,11 @@ class StudentController extends Controller
         $users->country_id = $request->country_id == null ? 0 : $request->country_id;
         $users->save();
 
-        return redirect()->route('student.index')->with('success', 'Student Update successfullay added.');
+       if($users){
+            return response()->Json(['status' => '200','msg'=>'Student Update successfully.']);
+        }else{
+            return response()->Json(['status' => '400','msg' => 'Something want wrong.']);
+        }
     }
  
     /**

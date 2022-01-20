@@ -12,9 +12,9 @@
             <span class="ps-1">Subscription Plan</span>
         </label>
         <div class="d-flex align-items-center">
-            <div class="date-filter">
+           <!--  <div class="date-filter">
                 <input type="text" class="form-control" id="stu_list_daterange" />
-            </div>
+            </div> -->
             <button class="btn text-decoration-none common-btn ms-2 pt-width-p-auto" data-bs-toggle="modal" data-bs-target="#newplan">
                 <i class="mdi mdi-plus-thick" aria-hidden="true"></i>
                 Add New Plan
@@ -22,13 +22,14 @@
         </div>
     </div>
     <div class="student-list bg-white p-3 mt-4">
-         @if (\Session::has('success'))
-        <div class="alert alert-success">
-            <ul>
-                <li>{!! \Session::get('success') !!}</li>
-            </ul>
-        </div>
+        @if (\Session::has('success'))
+            <div class="alert alert-success">
+                <ul>
+                    <li>{!! \Session::get('success') !!}</li>
+                </ul>
+            </div>
         @endif
+
         <table id="student_list" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
@@ -36,7 +37,7 @@
                     <th>Plan Name</th>
                     <th>Monthly Cost</th>
                     <th>Minutes</th>
-                    <th>Active Date</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -47,11 +48,17 @@
                     <td>{{$subscription->plan}}</td>
                     <td>${{$subscription->price}}</td>
                     <td>{{$subscription->minutes}} min</td>
-                    <td>{{$subscription->created_at}}</td>
                     <td>
                         <div class="form-check form-switch">
                             <input data-id="{{$subscription->id}}" class="form-check-input toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="Deactive" {{ $subscription->status== 'Active' ? 'checked' : '' }}>
                         </div>
+                    </td>
+                    <td>
+                        <form action="{{ route('subscription.destroy',$subscription->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash-alt"></i></button>
+                        </form>
                     </td>
                 </tr>
             @endforeach
@@ -73,7 +80,10 @@
                 </button>
             </div>
             <div class="modal-body pb-5">
-                <form method="post" action="{{route('subscription.store')}}" class="pt-width-p-80 my-0 mx-auto"  id="form">
+                <!-- action="{{route('subscription.store')}}" -->
+                <form id="frm-subscription" name="frm-subscription" class="pt-width-p-80 my-0 mx-auto">
+                    @method('POST')
+                    @csrf
                     <div class="mb-3">
                         <label for="email" class="col-form-label p-0 mb-1">Plan Name <span class="pt-color-red pt-fs-16">*</span> </label>
                         <input type="text" id="plan_name" placeholder="Enter plan name" class="form-control" name="plan_name">
@@ -89,93 +99,97 @@
                         <input type="text" placeholder="Enter minutes" class="form-control" id="minutes" name="minutes">
                     </div>
 
-                    <div class="mb-3">
-                        <label for="slot" class="col-form-label p-0 mb-1">Slots <span class="pt-color-red pt-fs-16">*</span> </label>
-                        <input type="text" placeholder="Enter slot" class="form-control" id="slot" name="slot">
-                    </div>
-
                     <div>
-                        <button id="ajaxSubmit" class="btn text-decoration-none common-btn ">
+                        <button type="submit"  class="btn text-decoration-none common-btn ">
                             Create Plan
                         </button>
                     </div>
-
                 </form>
+                <div id="msg"></div>
             </div>
         </div>
     </div>
 </div>
+
 @endsection
 @section('js-hooks')
 <script>
     
-  $(function() {
-    $('.toggle-class').change(function() {
-        var status = $(this).prop('checked') == true ? 'Active' : 'Deactive'; 
-        var subscription_id = $(this).data('id'); 
-         
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: "{{ route('changeStatus') }}",
-            data: {'status': status, 'subscription_id': subscription_id},
-            success: function(data){
-               if (data.status == 200) {
-                    $(".table").before('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Status change successfully.</div>');
-                    setTimeout(function(){
-                        window.location ="{{ route('subscription.index') }}";
-                    },1000);
-                } else {
-                    alert("Opps..! Something Went to Wrong.")
+    $(function() {
+        $('.toggle-class').change(function() {
+            var status = $(this).prop('checked') == true ? 'Active' : 'Deactive'; 
+            var subscription_id = $(this).data('id'); 
+             
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{{ route('changeStatus') }}",
+                data: {'status': status, 'subscription_id': subscription_id},
+                success: function(data){
+                    if (data.status == 200) {
+                        $(".table").before('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Status change successfully.</div>');
+                        setTimeout(function(){
+                            window.location ="{{ route('subscription.index') }}";
+                        },1000);
+                    } else {
+                        alert("Opps..! Something Went to Wrong.")
+                    }
                 }
-            }
+            });
         });
-    })
-  });
- $(document).ready(function() {
-    $('#ajaxSubmit').click(function(e){
-       e.preventDefault();
-       $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-          }
-      });
-       jQuery.ajax({
-          url: "{{route('subscription.store')}}",
-          method: 'post',
-          data: {
-             _token: '{{csrf_token()}}',
-             plan_name: jQuery('#plan_name').val(),
-             cost: jQuery('#cost').val(),
-             minutes: jQuery('#minutes').val(),
-             slot: jQuery('#slot').val(),
-          },
-          success: function(result){
-            if(result.errors)
-            {
-                jQuery('.alert-danger').html('');
+    });
 
-                jQuery.each(result.errors, function(key, value){
-                    jQuery('.alert-danger').show();
-                    jQuery('.alert-danger').append('<li>'+value+'</li>');
+    $(document).ready(function() {
+        $("#frm-subscription").validate({
+            rules: {
+                plan_name: {
+                    required: true
+                },
+                cost: {
+                    required: true
+                },
+                minutes: {
+                    required: true
+                }
+            },
+            messages: {
+                plan_name: {
+                    required: "Plan Name is required"
+                },
+                cost: {
+                    required: "Cost is required"
+                },
+                minutes: {
+                    required: "Minutes is required"
+                }
+            },
+            submitHandler: function(form) {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: "{{route('subscription.store')}}",
+                    data: new FormData($('#frm-subscription')[0]),
+                    processData: false,
+                    contentType: false,
+                    success: function(data){
+                        if (data.status == 200) {
+                            $("#msg").html('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Subscription added successfully.</div>');
+                            setTimeout(function(){
+                                window.location ="{{ route('subscription.index') }}";
+                            },1000);
+                        } else {
+                            alert("Opps..! Something Went to Wrong.")
+                        }
+                        jQuery('.alert-danger').hide();
+                        $('#newplan').modal('hide');
+                    }
                 });
             }
-            else
-            {
-                if (data.status == 200) {
-                    $(".table").before('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Subscription added successfully.</div>');
-                    setTimeout(function(){
-                        window.location ="{{ route('subscription.index') }}";
-                    },1000);
-                } else {
-                    alert("Opps..! Something Went to Wrong.")
-                }
-                jQuery('.alert-danger').hide();
-                $('#newplan').modal('hide');
-            }
-          }});
-       });
+        });
     });
+
+    setTimeout(function(){
+        $(".alert-success").remove();
+    },1000);
 
 </script>
 @endsection

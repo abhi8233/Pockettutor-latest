@@ -7,11 +7,18 @@
             <i class="mdi mdi-account-outline" aria-hidden="true"></i>
             <span class="ps-1">Tutor List</span>    
         </label>
-        <div class="date-filter">
+        <!-- <div class="date-filter">
             <input type="text" class="form-control" id="stu_list_daterange" />
-        </div>
+        </div> -->
     </div>
     <div class="student-list bg-white mt-4">
+        @if (\Session::has('success'))
+            <div class="alert alert-success">
+                <ul>
+                    <li>{!! \Session::get('success') !!}</li>
+                </ul>
+            </div>
+        @endif
         <table id="student_list" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
@@ -75,6 +82,9 @@
 @endsection
 @section('js-hooks')
 <script type="text/javascript">
+    setTimeout(function(){
+        $(".alert-success").remove();
+    },1000);
     $(document).ready(function() {
         $(document).on('change', '.toggle-class', function() {
             var status = $(this).prop('checked') == true ? 1 : 0; 

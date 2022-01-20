@@ -34,7 +34,10 @@
                 @csrf
                     <div class="mb-3">
                         <label for="email" class="col-form-label p-0 mb-1">Super Admin Email Id <span class="pt-color-red pt-fs-16">*</span> </label>
-                        <input type="text" placeholder="Enter super admin email id " class="form-control" id="admin_email" name="admin_email" value="">
+
+                        <input type="hidden" id="admin_email_id" name="admin_email_id" value="{{ isset($admin_email->id) ? $admin_email->id : '' }}">
+                        <input type="text" placeholder="Enter super admin email id " class="form-control" id="admin_email" name="admin_email" value="{{ isset($admin_email->setting_value) ? $admin_email->setting_value : '' }}">
+
                         @error('admin_email'))
                             <div class="pt-color-red">{{ $message }}</div>
                         @enderror
@@ -42,7 +45,10 @@
 
                     <div class="mb-3">
                         <label for="email" class="col-form-label p-0 mb-1">Sender Name <span class="pt-color-red pt-fs-16">*</span> </label>
-                        <input type="text" placeholder="Enter sender name" class="form-control" id="name" name="name">
+
+                        <input type="hidden" id="sender_name_id" name="sender_name_id" value="{{ isset($sender_name->id) ? $sender_name->id : '' }}">
+                        <input type="text" placeholder="Enter sender name" class="form-control" id="sender_name" name="sender_name" value="{{ isset($sender_name->setting_value) ? $sender_name->setting_value : '' }}">
+
                         @error('name')
                             <div class="pt-color-red"> {{ $message }} </div>
                         @enderror
@@ -50,7 +56,10 @@
 
                     <div class="mb-5">
                         <label for="email" class="col-form-label p-0 mb-1">Sender Email Id <span class="pt-color-red pt-fs-16">*</span> </label>
-                        <input type="text" placeholder="Enter sender email id" id="email" class="form-control" name="email">
+
+                        <input type="hidden" id="sender_email_id" name="sender_email_id" value="{{ isset($sender_email->id) ? $sender_email->id : '' }}">
+                        <input type="text" placeholder="Enter sender email id" id="sender_email" class="form-control" name="sender_email" value="{{ isset($sender_email->setting_value) ? $sender_email->setting_value : '' }}">
+
                         @error('email')
                             <div class="pt-color-red">{{ $message }}</div>
                         @enderror

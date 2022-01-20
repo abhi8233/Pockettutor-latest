@@ -10,7 +10,7 @@
     <div class="box-main bg-white p-3 px-4 mt-4 pb-2">
         <div class="row">
             <div class="col-lg-12 col-md-6">
-                <form method="POST" action="{{ route('student.update',$user->id) }}">
+                <form method="POST" id="frm-UpdateStudent" name="frm-UpdateStudent">
                     @method('PUT')
                     @csrf
                     <input type="hidden" id="user_id" name="id" value="{{$user->id}}">
@@ -75,10 +75,12 @@
                     <div class="mb-3">
                         <div class="d-flex justify-content-center pt-width-p-80 my-0 mx-auto">
                             <button type="submit" class="btn common-btn">
-                                {{ __('Edit Account') }}
+                                {{ __('Update') }}
                             </button>
                         </div>
                     </div>
+
+                    <div class="msg"></div>
                 </form>
             </div>
             <div class="col-12 col-md-6"></div>
@@ -104,6 +106,61 @@
             },
             success: function(result){
                 $("#country_stud_div").html(result);
+            }
+        });
+
+        //Update tutor details
+        $("#frm-UpdateStudent").validate({
+            rules: {
+                first_name: {
+                    required: true
+                },
+                last_name: {
+                    required: true
+                },
+                email: {
+                    required: true
+                },
+                country_id: {
+                    required: true
+                }
+            },
+            messages: {
+                first_name: {
+                    required: "First Name is required"
+                },
+                last_name: {
+                    required: "Last Name is required"
+                },
+                email: {
+                    required: "Email is required"
+                },
+                country_id: {
+                    required: "Country id is required"
+                }
+            },
+            submitHandler: function(form) {
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('student.update',$user->id) }}",
+                    data: new FormData($('#frm-UpdateStudent')[0]),
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        // console.log(data);
+                        // alert(data.status);
+                        if (data.status == 200) {
+                            $(".msg").after('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Student Update Successfully.</div>');
+                            setTimeout(function(){
+                                window.location ="{{ route('student.index') }}";
+                            },1000);
+                        }else {
+                            // alert("Opps..! Something Went to Wrong.")
+                            $(".msg").after('<div class="alert alert-danger alert-dismissible" id="myAlert"><strong>Opps..!</strong> Something Went to Wrong.</div>');
+                        }
+                    }
+                }); 
+                return false;
             }
         });
     });

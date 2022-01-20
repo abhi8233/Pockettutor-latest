@@ -18,7 +18,6 @@ class CreateSubscriptionsTable extends Migration
             $table->string('plan');
             $table->double('price',8,2);
             $table->string('minutes');
-            $table->string('slots');
             $table->timestamps();
         });
     }

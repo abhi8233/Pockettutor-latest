@@ -96,7 +96,7 @@ class TutorController extends Controller
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$id],
             'country_id' => ['required'],
             'institution' => ['required'],
             'city_institution' => ['required'],
@@ -141,10 +141,9 @@ class TutorController extends Controller
      */
     public function destroy($id)
     {
-        $user=User::find($id);
+        $user = User::find($id);
         $user->delete();
-        
-        return redirect()->route('tutor.index')->with('success', 'Tutor Delete successfullay added.');
+        return redirect()->route('tutor.index')->with('success', 'Tutor Delete successfullay.');
     }
 
 }

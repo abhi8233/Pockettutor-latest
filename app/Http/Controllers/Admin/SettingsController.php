@@ -9,15 +9,7 @@ use App\Models\EmailNotification;
 
 class SettingsController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
+    
 
     /**
      * Show the application dashboard.
@@ -33,29 +25,47 @@ class SettingsController extends Controller
 
     public function getSettingStripPayment()
     {
-        return view('admin/settings/settingspayment');
+        $option = Setting::where("setting_key","stripe_payment_option")->first();
+        $secret_key = Setting::where("setting_key","stripe_secret_key")->first();
+        $public_key = Setting::where("setting_key","stripe_public_key")->first();
+
+        return view('admin/settings/settingspayment',compact('option','secret_key','public_key'));
     }
     public function setSettingStripPayment(Request $request){
         // store strip payament
 
-        $this->validate($request,['setting_key'=>'required',
+        $this->validate($request,[
+            'setting_key'=>'required',
             'setting_value'=>'required',
         ]);
 
-        $setting=new Setting();
-        $setting->setting_key='stripe payment option';
-        $setting->setting_value=$request->option=='on'?'Enable':'Disable';
-        $setting->save();
+        
+        if(isset($request->option_id) && !empty($request->option_id)){
+            $setting = Setting::where("setting_key","stripe_payment_option")->update(["setting_value" => $request->option=='on'?'Enable':'Disable']);
+        }else{
+            $setting = new Setting();
+            $setting->setting_key = 'stripe_payment_option';
+            $setting->setting_value = $request->option=='on'?'Enable':'Disable';
+            $setting->save();
+        }
 
-        $setting=new Setting();
-        $setting->setting_key='stripe secret key';
-        $setting->setting_value=$request->setting_key;
-        $setting->save();
+        if(isset($request->key_id) && !empty($request->key_id)){
+            $setting = Setting::where("setting_key","stripe_secret_key")->update(["setting_value" => $request->setting_key]);
+        }else{
+            $setting = new Setting();
+            $setting->setting_key = 'stripe_secret_key';
+            $setting->setting_value = $request->setting_key;
+            $setting->save();
+        }
 
-        $setting=new Setting();
-        $setting->setting_key='stripe public key';
-        $setting->setting_value=$request->setting_value;
-        $setting->save();
+        if(isset($request->public_id) && !empty($request->public_id)){
+            $setting = Setting::where("setting_key","stripe_public_key")->update(["setting_value" => $request->setting_value]);
+        }else{
+            $setting = new Setting();
+            $setting->setting_key = 'stripe_public_key';
+            $setting->setting_value = $request->setting_value;
+            $setting->save();
+        }
 
         if($setting){
             return response()->Json(['status' => '200','msg'=>'Stripe Setting added successfully.']);
@@ -76,29 +86,62 @@ class SettingsController extends Controller
 
     public function getSettingEmailNotification()
     {
-        return view('admin/settings/settingsnotification');
+        $admin_email = Setting::where("setting_key","admin_email")->first();
+        $sender_name = Setting::where("setting_key","sender_name")->first();
+        $sender_email = Setting::where("setting_key","sender_email")->first();
+
+        return view('admin/settings/settingsnotification',compact('admin_email','sender_name','sender_email'));
     }
     public function setSettingEmailNotification(Request $request){
         //store Email Notification
         $request->validate([  
             'admin_email' => 'required',
-            'name'       => 'required',
-            'email'          => 'required',
+            'sender_name'       => 'required',
+            'sender_email'          => 'required',
         ],
         [
             'admin_email.required' => 'Super Admin Email is required',
-            'name.required' => 'Sender Name is required',
-            'email.required' => 'Sender Email is required',
+            'sender_name.required' => 'Sender Name is required',
+            'sender_email.required' => 'Sender Email is required',
         ]);
 
-        $email_notification=new EmailNotification();
-        $email_notification->admin_email=$request->admin_email;
-        $email_notification->name=$request->name;
+        if(isset($request->admin_email_id) && !empty($request->admin_email_id)){
+            $setting = Setting::where("setting_key","admin_email")->update(["setting_value" => $request->admin_email]);
+        }else{
+            $setting = new Setting();
+            $setting->setting_key = 'admin_email';
+            $setting->setting_value = $request->admin_email;
+            $setting->save();
+        }
 
-        $email_notification->email=$request->email;
-        $email_notification->save();
-        if($email_notification){
-            return response()->Json(['status' => '200','msg'=>'Email Notification added successfully.']);
+        if(isset($request->sender_name_id) && !empty($request->sender_name_id)){
+            $setting = Setting::where("setting_key","sender_name")->update(["setting_value" => $request->sender_name]);
+        }else{
+            $setting = new Setting();
+            $setting->setting_key = 'sender_name';
+            $setting->setting_value = $request->sender_name;
+            $setting->save();
+        }
+
+        if(isset($request->sender_email_id) && !empty($request->sender_email_id)){
+            $setting = Setting::where("setting_key","sender_email")->update(["setting_value" => $request->sender_email]);
+        }else{
+            $setting = new Setting();
+            $setting->setting_key = 'sender_email';
+            $setting->setting_value = $request->sender_email;
+            $setting->save();
+        }
+
+
+        // $email_notification=new EmailNotification();
+        // $email_notification->admin_email=$request->admin_email;
+        // $email_notification->name=$request->name;
+
+        // $email_notification->email=$request->email;
+        // $email_notification->save();
+
+        if($setting){
+            return response()->Json(['status' => '200','msg'=>'Email Notification update successfully.']);
         }else{
             return response()->Json(['status' => '400','msg' => 'Something want wrong.']);
         }
@@ -116,37 +159,6 @@ class SettingsController extends Controller
     }
 
     
-    // public function stripesetting(Request $request)
-    // {
-    //     $this->validate($request,['setting_key'=>'required',
-    //         'setting_value'=>'required',
-    //     ]);
-
-    //     $setting=new Setting();
-    //     $setting->setting_key='stripe payment option';
-    //     $setting->setting_value=$request->option=='on'?'Enable':'Disable';
-    //     $setting->save();
-
-    //     $setting=new Setting();
-    //     $setting->setting_key='stripe secret key';
-    //     $setting->setting_value=$request->setting_key;
-    //     $setting->save();
-
-    //     $setting=new Setting();
-    //     $setting->setting_key='stripe public key';
-    //     $setting->setting_value=$request->setting_value;
-    //     $setting->save();
-
-    //     if($setting){
-    //         return response()->Json(['status' => '200','msg'=>'Stripe Setting added successfully.']);
-    //     }else{
-    //         return response()->Json(['status' => '400','msg' => 'Something want wrong.']);
-    //     }
-    // }
-
-    // public function addnotification(Request $request)
-    // {  
-        
-    // }
+    
     
 }

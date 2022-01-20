@@ -8,12 +8,12 @@
             <span class="ps-1">Student List</span>    
         </label>
        
-        <div class="date-filter">
+        <!-- <div class="date-filter">
             <input type="text" class="form-control" id="stu_list_daterange" />
-        </div>
+        </div> -->
     </div>
     <div class="student-list bg-white mt-4">
-         @if (\Session::has('success'))
+        @if (\Session::has('success'))
             <div class="alert alert-success">
                 <ul>
                     <li>{!! \Session::get('success') !!}</li>
@@ -44,9 +44,9 @@
                     <td>{{isset($user->subscriptions->plan) ? $user->subscriptions->plan:''}}</td>
                     <td>${{isset($user->subscriptions->price) ? $user->subscriptions->price:''}}</td>
                     <td>{{isset($user->subscriptions->minutes) ? $user->subscriptions->minutes:''}}</td>
-                    <td>{{isset($user->subscriptions->slots) ? $user->subscriptions->slots:''}}</td>
+                    <td>{{isset($user->subscriptions->minutes) ? $user->subscriptions->minutes/15:''}}</td>
                     <td>{{$user->created_at}}</td>
-                    <td>{{$user->updated_date}}</td>
+                    <td>{{$user->updated_at}}</td>
                     <td>
     
                         <a class="btn btn-primary" href="{{ route('student.edit',$user->id) }}"><i class="fa fa-edit"></i></a>
@@ -62,4 +62,11 @@
         </table>
     </div>
 </div>
+@endsection
+@section('js-hooks')
+<script type="text/javascript">
+    setTimeout(function(){
+        $(".alert-success").remove();
+    },1000);
+</script>
 @endsection

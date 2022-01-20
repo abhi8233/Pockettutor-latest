@@ -9,44 +9,49 @@
         </label>
     </div>
     @if (\Session::has('success'))
-    <div class="alert alert-success">
-        <ul>
-            <li>{!! \Session::get('success') !!}</li>
-        </ul>
-    </div>
-        @endif
+        <div class="alert alert-success">
+            <ul>
+                <li>{!! \Session::get('success') !!}</li>
+            </ul>
+        </div>
+    @endif
     <div class="box-main bg-white p-3 px-4 mt-4 pb-5">
-         <form id="stripe-setting"  >
+        <form id="stripe-setting"  >
             @method('POST')
             @csrf
-        <div class="page-head  py-2 d-flex justify-content-between align-items-center mb-3">
-            <label class="d-flex align-items-center">
-                <span class="">Stripe Payment Form</span>
-            </label>
-            <div class="d-flex align-items-center">
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="option" data-on-toggle="Enable" data-off-toggle="Disable">
+            <div class="page-head  py-2 d-flex justify-content-between align-items-center mb-3">
+                <label class="d-flex align-items-center">
+                    <span class="">Stripe Payment Form</span>
+                </label>
+                <div class="d-flex align-items-center">
+                    <div class="form-check form-switch">
+                        <input type="hidden" id="option_id" name="option_id" value="{{ isset($option->id) ? $option->id : '' }}">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="option" data-on-toggle="Enable" data-off-toggle="Disable" {{ ( isset($option->setting_value) && $option->setting_value == "Enable") ? "checked" : ""}}>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-12 col-md-6">
-               
+            <div class="row">
+                <div class="col-12 col-md-6">
                     <div class="mb-3">
                         <label for="email" class="col-form-label p-0 mb-1">Secret Key <span class="pt-color-red pt-fs-16">*</span> </label>
-                        <input type="text" placeholder="Enter secret key" class="form-control" id="setting_key" name="setting_key">
 
-                            @error('setting_key')
-                            <span class="" role="alert" style="font-color:red;">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
+                        <input type="hidden" id="key_id" name="key_id" value="{{ isset($secret_key->id) ? $secret_key->id :''}}">
+                        <input type="text" placeholder="Enter secret key" class="form-control" id="setting_key" name="setting_key" value="{{ isset($secret_key->setting_value) ? $secret_key->setting_value : '' }}">
+
+                        @error('setting_key')
+                        <span class="" role="alert" style="font-color:red;">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
 
                     <div class="mb-5">
                         <label for="email" class="col-form-label p-0 mb-1">Public Key <span class="pt-color-red pt-fs-16">*</span> </label>
-                        <input type="text" placeholder="Enter public key" class="form-control" id="setting_value" name="setting_value">
+
+                        <input type="hidden" id="public_id" name="public_id" value="{{ isset($public_key->id) ? $public_key->id : '' }}">
+                        <input type="text" placeholder="Enter public key" class="form-control" id="setting_value" name="setting_value" value="{{ isset($public_key->setting_value) ? $public_key->setting_value:'' }}">
+
                         @error('setting_value')
                             <span class="" role="alert" style="font-color:red;">
                                 <strong>{{ $message }}</strong>
@@ -59,13 +64,8 @@
                             Save Settings
                         </button>
                     </div>
-                
+                </div>
             </div>
-
-            <div class="col-12 col-md-6">
-            
-            </div>
-        </div>
         </form>
     </div>
 </div>
