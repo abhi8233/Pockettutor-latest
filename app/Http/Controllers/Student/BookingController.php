@@ -217,7 +217,7 @@ class BookingController extends Controller
 
         // }else 
         if(isset($request->specialization_id) && isset($request->language_id)){
-            $tutors = User::where(['specialization_id'=>$request->specialization_id,'language_id'=>$request->language_id,'role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
+            $tutors = User::with(['languages'])->where(['specialization_id'=>$request->specialization_id,'language_id'=>$request->language_id,'role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
 
         // }else if(isset($request->specialization_id) && isset($request->rating)){
         //     $rating_wise_tutor = Feedback::where('rating',$request->rating)->get(['tutor_id'])->toArray();
@@ -232,13 +232,13 @@ class BookingController extends Controller
         //     $tutors = User::where(['language_id'=>$request->language_id,'role'=>'Tutor'])->whereIn('id',$rating_wise_tutor)->orderBy('first_name', 'Asc')->get();
 
         }else if(isset($request->specialization_id)){
-            $tutors = User::where(['specialization_id'=>$request->specialization_id,'role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
+            $tutors = User::with(['languages'])->where(['specialization_id'=>$request->specialization_id,'role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
 
         }else if(isset($request->language_id)){
-            $tutors = User::where(['language_id'=>$request->language_id,'role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
+            $tutors = User::with(['languages'])->where(['language_id'=>$request->language_id,'role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
 
         }else{
-            $tutors = User::where(['role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
+            $tutors = User::with(['languages'])->where(['role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
 
         }
        
@@ -248,14 +248,16 @@ class BookingController extends Controller
             foreach ($tutors as $tutor) {
                 $rating = Feedback::where('tutor_id',$tutor->id)->avg('rating');
                 $rating = isset($rating) ? $rating : 0;
-                
-
+                $flag_url = asset('assets/images/'.$tutor->languages->flag);
+               
                 if(isset($request->rating) && $request->rating >= $rating){
+                    // <img src="../assets/images/flag.png" class="flag" />
                     $html .= '<div class="col-12 col-md-3 mb-4" id="main_'.$tutor->id.'" rating="'.$rating.'">
                         <div class="d-flex flex-column justify-content-center align-items-center tutor-inner" id="'.$tutor->id.'">
                             <div class="profile-img">
                                 <img src="../assets/images/profile.png" class="pt-width-px-88 pt-height-p-auto mb-1 tutor-img" />
-                                <img src="../assets/images/flag.png" class="flag" />
+                                
+                                <img src="'.$flag_url.'" class="flag" />
                             </div>
                             <span class="tutor-name">'.$tutor->first_name .' '.$tutor->last_name.'</span>
                             <div class="rate">
@@ -296,7 +298,7 @@ class BookingController extends Controller
                         <div class="d-flex flex-column justify-content-center align-items-center tutor-inner" id="'.$tutor->id.'">
                             <div class="profile-img">
                                 <img src="../assets/images/profile.png" class="pt-width-px-88 pt-height-p-auto mb-1 tutor-img" />
-                                <img src="../assets/images/flag.png" class="flag" />
+                                <img src="'.$flag_url.'" class="flag" />
                             </div>
                             <span class="tutor-name">'.$tutor->first_name .' '.$tutor->last_name.'</span>
                             <div class="rate">

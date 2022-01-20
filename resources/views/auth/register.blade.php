@@ -1,5 +1,11 @@
 @extends('layouts.app')
-
+@section('css-hooks')
+<style type="text/css">
+    .hide{
+        display: none;
+    }
+</style>
+@endsection
 @section('content')
 
 <div class="container">
@@ -21,15 +27,17 @@
                     </div>
                 </div>
 
-                <form method="POST" action="{{ route('register') }}" id="frm-register-tutor" >
+                <form method="POST" id="frm-register-tutor" name="frm-register-tutor">
                     @csrf
                     <input type="hidden" name="role" id="tutor" value="Tutor" checked >
                     
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="first_name" class="col-form-label p-0 mb-1">{{ __('First Name') }} <span class="pt-color-red pt-fs-16">*</span></label>
-                            <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" autocomplete="name" autofocus>
-                            @error('first_name')
+                            <label for="tutor_first_name" class="col-form-label p-0 mb-1">{{ __('First Name') }} <span class="pt-color-red pt-fs-16">*</span></label>
+
+                            <input id="tutor_first_name" type="text" class="form-control @error('tutor_first_name') is-invalid @enderror" name="tutor_first_name" value="{{ old('tutor_first_name') }}" autocomplete="name" autofocus>
+
+                            @error('tutor_first_name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -37,11 +45,11 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="last_name" class="col-form-label p-0 mb-1">{{ __('Last Name') }} <span class="pt-color-red pt-fs-16">*</span></label>
+                            <label for="tutor_last_name" class="col-form-label p-0 mb-1">{{ __('Last Name') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
-                            <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" autocomplete="name" autofocus>
+                            <input id="tutor_last_name" type="text" class="form-control @error('tutor_last_name') is-invalid @enderror" name="tutor_last_name" value="{{ old('tutor_last_name') }}" autocomplete="name" autofocus>
 
-                            @error('last_name')
+                            @error('tutor_last_name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -55,9 +63,10 @@
                             <label for="email" class="col-form-label p-0 mb-1">{{ __('E-Mail Address') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
 
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email">
+                            <input id="tutor_email" type="email" class="form-control @error('tutor_email') is-invalid @enderror" name="tutor_email" value="{{ old('tutor_email') }}" autocomplete="email">
 
-                            @error('email')
+                            <div id="error_tutor_email" style="color:red;"></div>
+                            @error('tutor_email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -67,13 +76,13 @@
                         <div class="col-md-6">
                             <label for="country_id" class="col-form-label p-0 mb-1">{{ __('Country') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
-                            <div id="country_stud_div">
-                                <select class="form-control country_id select2 @error('country_id') is-invalid @enderror" name="country_id" id="country_id" data-placeholder="Select Country">
+                            <div id="tutor_country_stud_div">
+                                <select class="form-control tutor_country_id select2 @error('tutor_country_id') is-invalid @enderror" name="tutor_country_id" id="tutor_country_id" data-placeholder="Select Country">
                                     <option value=""> Select Country</option>
                                 </select>
                             </div>
 
-                            @error('country_id')
+                            @error('tutor_country_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -85,9 +94,9 @@
                         <div class="col-md-6">
                             <label for="password" class="col-form-label p-0 mb-1">{{ __('Password') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
+                            <input id="tutor_password" type="password" class="form-control @error('tutor_password') is-invalid @enderror" name="tutor_password" autocomplete="new-password">
 
-                            @error('password')
+                            @error('tutor_password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -95,9 +104,17 @@
                         </div>
                         
                         <div class="col-md-6">
-                            <label for="password-confirm" class="col-form-label p-0 mb-1">{{ __('Confirm Password') }} <span class="pt-color-red pt-fs-16">*</span></label>
+                            <label for="tutor_password_confirmation" class="col-form-label p-0 mb-1">{{ __('Confirm Password') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
+                            <input id="tutor_password_confirmation" type="password" class="form-control @error('tutor_password_confirmation') is-invalid @enderror" name="tutor_password_confirmation" autocomplete="new-password">
+
+                            
+
+                            @error('tutor_password_confirmation')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                     </div>
 
@@ -170,7 +187,7 @@
                             <label for="specialization" class="col-form-label p-0 mb-1">{{ __('
                                 Specialization') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
-                            <select class="form-control specialization select2  @error('specialization') is-invalid @enderror" name="specialization" data-placeholder="Select Specialization">
+                            <select class="form-control specialization select2  @error('specialization') is-invalid @enderror" id="specialization" name="specialization" data-placeholder="Select Specialization">
                                 <option value=""> Select Specialization</option>
                                 @foreach(\App\Models\Specialization::All() as $specialization)
                                 <option value="{{$specialization->id}}" {{ $specialization->id == old('specialization') ? 'selected' :'' }}>{{$specialization->name}}</option>
@@ -187,7 +204,7 @@
                         <div class="col-md-6">
                             <label for="language_id" class="col-form-label p-0 mb-1">{{ __('Language') }} <span class="pt-color-red pt-fs-16">*</span></label>
 
-                            <select class="form-control language_id @error('language_id') is-invalid @enderror" name="language_id">
+                            <select class="form-control language_id @error('language_id') is-invalid @enderror" id="language_id" name="language_id">
                                 <option value=""> Select Language</option>
                                 @foreach(\App\Models\Languages::all() as $language)
                                     <option value="{{$language->id}}" {{ $language->id == old('language_id') ? 'selected' :'' }}>{{$language->name}}</option>
@@ -203,13 +220,13 @@
                     </div>
                     
                     <div class="form-check mb-3">
-                        <input class="form-check-input @error('privacy_policy') is-invalid @enderror" type="checkbox" value="1" id="privacy_policy" name="privacy_policy" >
+                        <input class="form-check-input @error('tutor_privacy_policy') is-invalid @enderror" type="checkbox" value="1" id="tutor_privacy_policy" name="tutor_privacy_policy">
 
-                        <label class="form-check-label" for="privacy_policy">
+                        <label class="form-check-label" for="tutor_privacy_policy">
                             Accept <span class="pt-color-primary">Terms & Conditions</span> and <span class="pt-color-primary">Privacy Policy</span>
                         </label>
 
-                        @error('privacy_policy')
+                        @error('tutor_privacy_policy')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -229,7 +246,7 @@
                 data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
                 style="display: none;">
                     @csrf
-                    <input type="hidden" name="role" id="student" value="Student"  >
+                    <input type="hidden" name="role" id="student" value="Student">
                     
                     <div class="row mb-3">
                         <div class="col-md-6">
@@ -340,6 +357,7 @@
 
                                 <input type="text" id="card_holder" name="card_holder"  class=
                                 "form-control card-holder @error('card_holder') is-invalid @enderror"  size="4" value="demo">
+                                <!-- value="demo" -->
 
                                 @error('card_holder')
                                 <span class="invalid-feedback" role="alert">
@@ -353,6 +371,7 @@
                                 <label class="col-form-label p-0 mb-1">Card Number <span class="pt-color-red pt-fs-16">*</span></label>  
 
                                 <input type="text" id="card_number" name="card_number" class="form-control card-number @error('card_number') is-invalid @enderror"  size="20" autocomplete="off" value="4242 4242 4242 4242 ">
+                                <!-- value="4242 4242 4242 4242 " -->
 
                                 @error('card_number')
                                 <span class="invalid-feedback" role="alert">
@@ -366,6 +385,7 @@
                                 <label class="col-form-label p-0 mb-1">CVC <span class="pt-color-red pt-fs-16">*</span></label>
 
                                 <input type="text" id="cvc" name="cvc"  class="form-control card-cvc @error('cvc') is-invalid @enderror" placeholder="ex. 311" size="4" autocomplete="off" value="1234">
+                                <!-- value="1234" -->
 
                                 @error('cvc')
                                 <span class="invalid-feedback" role="alert">
@@ -377,6 +397,7 @@
                                 <label class="col-form-label p-0 mb-1">Expiration Month <span class="pt-color-red pt-fs-16">*</span></label> 
 
                                 <input type="text" id="month" name="month" class="form-control card-expiry-month @error('month') is-invalid @enderror" placeholder="MM" size="2" value="12">
+                                <!-- value="12" -->
 
                                 @error('month')
                                 <span class="invalid-feedback" role="alert">
@@ -388,6 +409,7 @@
                                 <label class="col-form-label p-0 mb-1">Expiration Year <span class="pt-color-red pt-fs-16">*</span></label> 
 
                                 <input type="text" id="year" name="year" class="form-control card-expiry-year @error('year') is-invalid @enderror" placeholder="YYYY" size="4" value="2024">
+                                <!--  -->
 
                                 @error('year')
                                 <span class="invalid-feedback" role="alert">
@@ -403,46 +425,6 @@
                             </div>
                         </div>
                     </div> 
-
-                        <!-- <div class='form-row row'>
-                            <div class='col-xs-12 form-group required'>
-                                <label class='control-label'>Name on Card</label> <input
-                                    class='form-control' size='4' type='text'>
-                            </div>
-                        </div>
-  
-                        <div class='form-row row'>
-                            <div class='col-xs-12 form-group card required'>
-                                <label class='control-label'>Card Number</label> <input
-                                    autocomplete='off' class='form-control card-number' size='20'
-                                    type='text'>
-                            </div>
-                        </div> -->
-  
-                        <!-- <div class='form-row row'>
-                            <div class='col-xs-12 col-md-4 form-group cvc required'>
-                                <label class='control-label'>CVC</label> <input autocomplete='off'
-                                    class='form-control card-cvc' placeholder='ex. 311' size='4'
-                                    type='text'>
-                            </div>
-                            <div class='col-xs-12 col-md-4 form-group expiration required'>
-                                <label class='control-label'>Expiration Month</label> <input
-                                    class='form-control card-expiry-month' placeholder='MM' size='2'
-                                    type='text'>
-                            </div>
-                            <div class='col-xs-12 col-md-4 form-group expiration required'>
-                                <label class='control-label'>Expiration Year</label> <input
-                                    class='form-control card-expiry-year' placeholder='YYYY' size='4'
-                                    type='text'>
-                            </div>
-                        </div> -->
-  
-                        <!-- <div class='form-row row'>
-                            <div class='col-md-12 error form-group hide'>
-                                <div class='alert-danger alert'>Please correct the errors and try
-                                    again.</div>
-                            </div>
-                        </div> -->
 
                     <div class="form-check mb-3">
                         <input class="form-check-input @error('privacy_policy') is-invalid @enderror" type="checkbox" value="1" id="privacy_policy" name="privacy_policy" >
@@ -466,6 +448,7 @@
 
                 </form>
 
+                <div class="msg"></div>
                 <div class="mb-3 d-flex justify-content-center">
                     <div class="pt-color-black">
                         Already have an account? <a class="p-0 text-decoration-none pt-color-primary" href="{{ route('login') }}">
@@ -484,7 +467,123 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script>
+
     $(function() {
+        $("#frm-register-tutor").validate({
+            rules: {
+                tutor_first_name: {
+                    required: true
+                }, 
+                tutor_last_name: {
+                    required: true
+                }, 
+                tutor_email: {
+                    required: true
+                }, 
+                tutor_country_id: {
+                    required: true
+                }, 
+                tutor_password: {
+                    required: true,
+                    minlength:8
+                },
+                tutor_password_confirmation: {
+                    required: true,
+                    minlength:8,
+                    equalTo : "#tutor_password"
+                },
+                institution: {
+                    required: true
+                },
+                country_institution: {
+                    required: true
+                },
+                state_institution: {
+                    required: true
+                },
+                city_institution: {
+                    required: true
+                },
+                specialization: {
+                    required: true
+                },
+                language_id: {
+                    required: true
+                },
+                tutor_privacy_policy: {
+                    required: true
+                },
+            },
+            messages: {
+                tutor_first_name: {
+                    required: "First Name is required"
+                },
+                tutor_last_name: {
+                    required: "Last Name is required"
+                },
+                tutor_email: {
+                    required: "Email is required"
+                },
+                tutor_country_id: {
+                    required: "Country is required"
+                },
+                tutor_password: {
+                    required: "New Password is required",
+                    minlength:"New password must be 8 character"
+                },
+                tutor_password_confirmation: {
+                    required: "Confirmed Password is required",
+                    minlength:"Confirmed Password must be 8 character",
+                    equalTo :"Confirmd Password  and New Password not same."
+                },
+                institution: {
+                    required: "Institution is required"
+                },
+                country_institution: {
+                    required: "Country of institution  is required"
+                },
+                state_institution: {
+                    required: "State of institution is required"
+                },
+                city_institution: {
+                    required: "City of institution is required"
+                },
+                specialization: {
+                    required: "Specialization is required"
+                },
+                language_id: {
+                    required: "Language is required"
+                },
+                tutor_privacy_policy: {
+                    required: "Privacy Policy is required"
+                },
+            },
+            submitHandler: function(form) {
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('register') }}",
+                    data: new FormData($('#frm-register-tutor')[0]),
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        // console.log(data);
+                        
+                        $(".msg").after('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Student Update Successfully.</div>');
+                            setTimeout(function(){
+                                window.location ="{{ route('login') }}";
+                            },1000);
+                        
+                    }, 
+                    error: function(response) {
+                        alert("ji");
+                        console.log(response.responseJSON.errors.tutor_email)
+                        $('#error_tutor_email').text(response.responseJSON.errors.tutor_email);
+                    }
+                }); 
+                return false;
+            }
+        });
+
         $("#frm-register-student").validate({
             rules: {
                 first_name: {
@@ -505,7 +604,8 @@
                 },
                 password_confirmation: {
                     required: true,
-                    minlength:8
+                    minlength:8,
+                    equalTo : "#password"
                 },
                 subscription_id: {
                     required: true
@@ -535,6 +635,9 @@
                     minlength:4,
                     maxlength:4
                 },
+                privacy_policy:{
+                    required : true
+                }
             },
             messages: {
                 first_name: {
@@ -556,7 +659,7 @@
                 password_confirmation: {
                     required: "Confirmed Password is required",
                     minlength:"Confirmed Password must be 8 character",
-                    // equalTo :"Confirmd Password  and New Password not same."
+                    equalTo :"Confirmd Password  and New Password not same."
                 },
                 subscription_id: {
                     required: "Subscription is required"
@@ -586,6 +689,9 @@
                     minlength:"Year must be 4 character",
                     maxlength:"Year no more than 4 characters.",
                 },
+                privacy_policy: {
+                    required: "Privacy Policy is required."
+                }
             },
             submitHandler: function(form) {
                 var $form = $(".require-validation");
@@ -631,7 +737,8 @@
                     } else {
                         /* token contains id, last4, and card type */
                         var token = response['id'];
-                           
+                        console.log(token);
+                        alert("hii");
                         $form.find('input[type=text]').empty();
                         $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
                         $form.get(0).submit();
@@ -639,8 +746,8 @@
                 }
             }
         });
-       
     });
+
     $(document).ready(function() {
         $(".select2").select2({
             placeholder: $(this).data('placeholder'),
@@ -698,6 +805,23 @@
             },
             success: function(result){
                 $("#country_stud_div").html(result);
+            }
+        });
+
+        $.ajax({
+            url:"{{url('get-country')}}",
+            type: "POST", 
+            data: {
+                _token: '{{csrf_token()}}', 
+                input_name : "tutor_country_id",
+                placeholder_name : "Select Country"
+            },
+            dataType : 'json',
+            beforeSend: function(){
+                $('#tutor_country_stud_div').html('Loading...');
+            },
+            success: function(result){
+                $("#tutor_country_stud_div").html(result);
             }
         });
     });
