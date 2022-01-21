@@ -29,7 +29,7 @@ class PlanController extends Controller
     {
         $userAllPlans = UserPlan::where('user_id', auth()->user()->id)->orderBy('id','desc')->get();
 
-        $userActivePlan = UserPlan::where('user_id', auth()->user()->id)->where('is_active',1)->first();
+        $userActivePlan = UserPlan::with(['subscription'])->where('user_id', auth()->user()->id)->where('is_active',1)->first();
         // dd($userActivePlan);
         return view('student.plan.index',compact('userAllPlans','userActivePlan'));
     }
