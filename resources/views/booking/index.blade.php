@@ -476,6 +476,7 @@ $(document).ready(function() {
                 },
                 success: function(data) {
                     $("#calendar").fullCalendar('refetchEvents');
+                    $("#tutor_html_id").html('');
                     $("#tutor_html_id").html(data);
                 }
             });
@@ -523,6 +524,7 @@ $(document).ready(function() {
                 $('#tutor_html_id').html('Loading...');
             },
             success: function(data) {
+                $("#tutor_html_id").html('');
                 $("#tutor_html_id").html(data);
             }
         });
@@ -543,6 +545,7 @@ $(document).ready(function() {
                     $('#tutor_html_id').html('Loading...');
                 },
                 success: function(data) {
+                    $("#tutor_html_id").html('');
                     $("#tutor_html_id").html(data);
                 }
             });
@@ -565,6 +568,7 @@ $(document).ready(function() {
                     $('#tutor_html_id').html('Loading...');
                 },
                 success: function(data) {
+                    $("#tutor_html_id").html('');
                     $("#tutor_html_id").html(data);
                 }
             });
