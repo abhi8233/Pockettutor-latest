@@ -575,9 +575,11 @@
                         
                     }, 
                     error: function(response) {
-                        alert("ji");
-                        console.log(response.responseJSON.errors.tutor_email)
-                        $('#error_tutor_email').text(response.responseJSON.errors.tutor_email);
+                        // alert("ji");
+                        // console.log(response.responseJSON.errors.tutor_email)
+                        if(response.responseJSON.errors != ''){
+                            $('#error_tutor_email').text(response.responseJSON.errors.tutor_email);
+                        }
                     }
                 }); 
                 return false;
