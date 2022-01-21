@@ -209,7 +209,7 @@ class BookingController extends Controller
         if(isset($request->specialization_id) && isset($slotDate) && isset($request->time) && isset($request->language_id)){
             $selectedTime = explode('-', $request->time);
             $slotTime = $selectedTime[0];
-            
+
             $getTutorIds = TutorSlot::whereHas('tutor_user',function($query)use($request){
                     return $query->where('specialization_id',$request->specialization_id);
                 
@@ -254,8 +254,9 @@ class BookingController extends Controller
                 $rating = Feedback::where('tutor_id',$tutor->id)->avg('rating');
                 $rating = isset($rating) ? $rating : 0;
                 $flag_url = asset('assets/images/'.$tutor->languages->flag);
-               
-                if(isset($request->rating) && $request->rating >= $rating){
+                
+                
+                if(isset($request->rating) && $request->rating > 0 &&$request->rating >= $rating){ 
                     // <img src="../assets/images/flag.png" class="flag" />
                     $html .= '<div class="col-12 col-md-3 mb-4" id="main_'.$tutor->id.'" rating="'.$rating.'">
                         <div class="d-flex flex-column justify-content-center align-items-center tutor-inner" id="'.$tutor->id.'">
@@ -298,7 +299,7 @@ class BookingController extends Controller
                             </div>
                         </div>
                     </div>';
-                }else if(!isset($request->rating)){
+                }else if(!isset($request->rating) || $request->rating == 0){
                     $html .= '<div class="col-12 col-md-3 mb-4" id="main_'.$tutor->id.'" rating="'.$rating.'">
                         <div class="d-flex flex-column justify-content-center align-items-center tutor-inner" id="'.$tutor->id.'">
                             <div class="profile-img">
@@ -339,10 +340,13 @@ class BookingController extends Controller
                             </div>
                         </div>
                     </div>';
+                }else {
+                    $html = '<div class="col-12 col-md-6" style="color:red">No tutor found.</div>';
                 }
+
             }
         }else{
-             $html .= '<div class="col-12 col-md-6" style="color:red">No tutor found.</div>';
+            $html .= '<div class="col-12 col-md-6" style="color:red">No tutor found.</div>';
         }
         echo $html;
         

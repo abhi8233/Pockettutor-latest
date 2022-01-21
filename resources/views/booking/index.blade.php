@@ -392,7 +392,7 @@
                         <div class="language-booking d-flex">
                                 @foreach($languages as $language)
                                     <label>
-                                        <input type="checkbox" name="language[]" value="{{$language->id}}" class="language">
+                                        <input type="radio" name="language[]" value="{{$language->id}}" class="language">
                                         <span>
                                             {{$language->name}}
                                         </span>
@@ -420,7 +420,7 @@
                         </div> -->
                         <div class="number">
                             <span class="minus">-</span>
-                            <input type="text" value="1+" />
+                            <input type="text" value="0" id="rating"  readonly />
                             <span class="plus">+</span>
                         </div>
                     </div>
@@ -538,6 +538,28 @@ $(document).ready(function() {
                     'date' : $('#selected_date').html(),
                     'time' : $('#selected_date_times').html(),
                     'language_id': $(this).val()
+                },
+                beforeSend: function(){
+                    $('#tutor_html_id').html('Loading...');
+                },
+                success: function(data) {
+                    $("#tutor_html_id").html(data);
+                }
+            });
+        }
+    });
+
+    $('#rating').change(function(){
+        if ($(this).val() != null) {
+            $.ajax({
+                type: "GET",
+                url: "{{route('getTutor')}}",
+                data: {
+                    'specialization_id': $('#specialization').val(),
+                    'date' : $('#selected_date').html(),
+                    'time' : $('#selected_date_times').html(),
+                    'language_id': $('.language').val(),
+                    'rating': $(this).val()
                 },
                 beforeSend: function(){
                     $('#tutor_html_id').html('Loading...');
@@ -680,25 +702,25 @@ $(document).ready(function() {
         //     }
         // });
 
-        $(document).on('change', '#rating', function() {
-            if ($(this).val() != null) {
-                $.ajax({
-                    type: "GET",
-                    url: "{{route('getTutor')}}",
-                    data: {
-                        'rating': $(this).val(),
-                        'language_id': $('#language').val(),
-                        'specialization_id': $('#specialization').val()
-                    },
-                    beforeSend: function(){
-                        $('#tutor_html_id').html('Loading...');
-                    },
-                    success: function(data) {
-                        $("#tutor_html_id").html(data);
-                    }
-                });
-            }
-        });
+        // $(document).on('change', '#rating', function() {
+        //     if ($(this).val() != null) {
+        //         $.ajax({
+        //             type: "GET",
+        //             url: "{{route('getTutor')}}",
+        //             data: {
+        //                 'rating': $(this).val(),
+        //                 'language_id': $('#language').val(),
+        //                 'specialization_id': $('#specialization').val()
+        //             },
+        //             beforeSend: function(){
+        //                 $('#tutor_html_id').html('Loading...');
+        //             },
+        //             success: function(data) {
+        //                 $("#tutor_html_id").html(data);
+        //             }
+        //         });
+        //     }
+        // });
 
         /* selected tutor identify and fill in tutor_id */
         $(document).on('click', '.tutor-inner', function() {
