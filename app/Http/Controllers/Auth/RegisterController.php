@@ -196,6 +196,9 @@ class RegisterController extends Controller
             $user->language_id       = isset($data['language_id']) ? $data['language_id'] : null;
             $user->stripe_customer_id =  '-';
             $user->save();
+
+            $targetfile = "/credential".$user->id.".json";
+            copy(env('CREDENTIAL_PATH')."/credential.json",env('CREDENTIAL_PATH').$targetfile);
         }
 
         try {
