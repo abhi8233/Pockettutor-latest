@@ -385,6 +385,7 @@
 
                             </div> --}}
                         </div>
+                        <div id="error_slotdatetime" style="color:red"></div>
                     </div>
                   
                     <div class="col-12 mb-2">
@@ -399,6 +400,7 @@
                                     </label>
                                 @endforeach
                         </div>
+                        <div id="error_slotlanguage" style="color:red"></div>
                     </div>
                     
                     <div class="col-12 mb-2">
@@ -436,7 +438,7 @@
                         Complete Booking
                     </button>
 
-
+                    <div id="msg"></div>
 
                 </div>
             </form>
@@ -780,21 +782,32 @@ $(document).ready(function() {
                     data: new FormData($('#frm-BookingSlot')[0]),
                     processData: false,
                     contentType: false,
+                    beforeSend: function(){
+                        $('#btn-booking').html('Loading...');
+                    },
                     success: function(data) {
                         // console.log(data);
                         // alert(data.status);
                         if (data.status == 200) {
-                            $(".date-time").after('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Booking booked successfully.</div>');
+                            $("#msg").after('<div class="alert alert-success alert-dismissible" id="myAlert"><strong>Success!</strong>Booking booked successfully.</div>');
                             setTimeout(function() {
                                 window.location = "{{ route('sbooking.index') }}";
                             }, 1000);
                         } else if (data.status == 401) {
-                            $(".date-time").after('<div class="alert alert-warning alert-dismissible" id="myAlert">You have no balance in you account.</div>');
+                            $("#msg").after('<div class="alert alert-warning alert-dismissible" id="myAlert">You have no balance in you account.</div>');
                         }else if (data.status == 500) {
-                            $(".date-time").after('<div class="alert alert-warning alert-dismissible" id="myAlert"><strong>Google Meet!</strong> Creadentials not found.</div>');
+                            $("#msg").after('<div class="alert alert-warning alert-dismissible" id="myAlert"><strong>Google Meet!</strong> Creadentials not found.</div>');
                         } else {
                             // alert("Opps..! Something Went to Wrong.")
-                            $(".date-time").after('<div class="alert alert-danger alert-dismissible" id="myAlert"><strong>Opps..!</strong> Something Went to Wrong.</div>');
+                            $("#msg").after('<div class="alert alert-danger alert-dismissible" id="myAlert"><strong>Opps..!</strong> Something Went to Wrong.</div>');
+                        }
+                    },
+                    error: function(response) {
+                        // alert("ji");
+                        // console.log(response.responseJSON.errors.tutor_email)
+                        if(response.responseJSON.errors != ''){
+                            $('#error_slotdatetime').text(response.responseJSON.errors.date);
+                            $('#error_slotlanguage').text(response.responseJSON.errors.language);
                         }
                     }
                 });

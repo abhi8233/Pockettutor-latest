@@ -93,13 +93,15 @@ class BookingController extends Controller
             $event_id = $event_details['event_id'];
 
             $user_details = UserPlan::with(['subscription'])->where('user_id',auth()->user()->id)->where('is_active',1)->first();
+            
+            if($user_details->remaining_minutes == $user_details->subscription->minutes){
+                return response()->Json(['status' => '401','msg' => 'You have no balance in you account.']);
+            }
 
             $total_min = ($user_details->remaining_minutes == 0) ? $user_details->subscription->minutes :$user_details->remaining_minutes;
             $remaining = $total_min - 15;
 
-            if($remaining == 0){
-                return response()->Json(['status' => '401','msg' => 'You have no balance in you account.']);
-            }
+            
             UserPlan::where('id',$user_details->id)->update(['remaining_minutes' => $remaining ]);
             
 
