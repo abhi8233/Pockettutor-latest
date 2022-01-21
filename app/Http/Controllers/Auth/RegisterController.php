@@ -152,7 +152,7 @@ class RegisterController extends Controller
 
         
             $payment = Stripe\Charge::create ([
-                "amount" => (isset($data['price']) && $data['price'] > 0) ? $data['price'] : 0,
+                "amount" => 10,
                 "currency" => "usd",
                 "source" => $data['stripeToken'],
                 "description" => "Test payment from itsolutionstuff.com." 
