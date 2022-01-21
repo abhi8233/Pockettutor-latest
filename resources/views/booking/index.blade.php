@@ -175,7 +175,8 @@
                                 </p>
                                 <p> 
                                     <i class="fa fa-clock"></i> 
-                                    <span id="selected_date_times">un-selected</span> <span class="btn btn-danger btn-xs mr-2" onclick="reset_input_val()">x Reset</span>
+                                    <span id="selected_date_times" class="badge badge-info">un-selected</span> 
+                                    <span class="btn btn-danger btn-xs mr-2" onclick="reset_input_val()">x Reset</span>
                                 </p>
                                 
                             </div>
@@ -458,106 +459,168 @@
     
 $(document).ready(function() {
 
+    $("#specialization").change(function(){
+        // alert("hii");
+        
+        if ($(this).val() != null) {
+            $.ajax({
+                type: "GET",
+                url: "{{route('getTutor')}}",
+                data: {
+                    // 'language_id': $(this).val(),
+                    'specialization_id': $('#specialization').val(),
+                    // 'rating': $('#rating').val()
+                },
+                beforeSend: function(){
+                    $('#tutor_html_id').html('Loading...');
+                },
+                success: function(data) {
+                    $("#calendar").fullCalendar('refetchEvents');
+                    $("#tutor_html_id").html(data);
+                }
+            });
+        }
+            /* if ($(this).val() != null) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('getTutorSlot')}}",
+                    data: {
+                        'specialization_id': $(this).val(),
+                        'start': "2021-12-26",
+                        'end': "2022-02-06"
+                    },
+                    beforeSend: function(){
+                        // $('#tutor_html_id').html('Loading...');
+                    },
+                    success: function(data) {
+                        // $("#tutor_html_id").html(data);
+                        $("#calendar").fullCalendar()
+                    }
+                });
+            } */
+    });
+
     var slot_time;
     $("#displaySlotTime").click(function () {
         $("#selected_date_times").html("");
+        var datetimes = '';
         $("input[name='slotList']:checked").each(function (index, obj) {
-            
             slot_time = ($(this).val() > "12:00:00") ? "PM" : "AM";
-            $("#selected_date_times").append(`<span class="badge badge-info">${$(this).val()} - ${slot_time}<span>`);
+            $("#selected_date_times").append(`${$(this).val()} -${slot_time}`);
+            datetimes = $(this).val();
+            // alert(datetimes);
         });
-    });
-
-    
-    $("#calendar").fullCalendar({
-            header: {
-            left: "next today",
-                // center: "title",
-                right: "title"
+        // alert(slot_time); 
+        $.ajax({
+            type: "GET",
+            url: "{{route('getTutor')}}",
+            data: {
+                'specialization_id': $('#specialization').val(),
+                'date' : $('#selected_date').html(),
+                'time' : datetimes
             },
-            // themeSystem: 'bootstrap',
-            defaultView: "month",
-            navLinks: true, // can click day/week names to navigate views
-            // selectable: true,
-            selectHelper: true,
-            editable: false,
-            eventLimit: true, // allow "more" link when too many events
-            selectable: true,
-           /*  events:{
-                    url: "{{ route('getTutorSlot') }}?specialization_id="+$('#specialization').val(),
-                }, */
-            events:[
-                {
-                    start: "2022-01-19",
-                    groupId: 4,
-                    title: "No Slot Available"
-                },
-                {
-                    start: "2022-01-20",
-                    groupId: 4,
-                    title: "No Slot Available"
-                }
-            ],
-            selectConstraint: {
-                start: $.fullCalendar.moment().subtract(1, 'days'),
-                end: $.fullCalendar.moment().startOf('month').add(1, 'month')
+            beforeSend: function(){
+                $('#tutor_html_id').html('Loading...');
             },
-            select: function(start, end) {
-              
-                // console.log("A-------",start,end);
-                var activeDate=JSON.stringify(start._d);
-                var specialization_id=$('#specialization').val();
-                var slot_time= $("input[name='slotList']:checked").val();
-                $.ajax({
-                        url: '{{ route("getDateSlotsList") }}',
-                        type: 'post',
-                        data: {activeDate:activeDate,slot_time:slot_time,specialization_id:specialization_id,_token:"{{ csrf_token() }}"},
-                        success: function (response) {
-                            $("input[name='date']").val(activeDate);
-                            $("#selected_date").html(start._d);
-                            $("#slotModalBtn").click();
-                            $("#BookingSlotBody").html(response);
-                            // console.log(response);
-                            // calendar.refetchEvents();
-                            // swal("Slots copied successfully.");
-                        }
-                    });
-                // console.log(activeStartDate);
-             
-            },
-
-            eventRender: function(event, element) {
-                console.log("B-------",event,element);
-            },
-
-            eventClick: function(calEvent, calEvent) {
-                console.log("C-------",calEvent,calEvent);
+            success: function(data) {
+                $("#tutor_html_id").html(data);
             }
-
-           
-    });
-    
-        $("#specialization").change(function(){
-            $("#calendar").fullCalendar('refetchEvents');
-                /* if ($(this).val() != null) {
-                    $.ajax({
-                        type: "GET",
-                        url: "{{route('getTutorSlot')}}",
-                        data: {
-                            'specialization_id': $(this).val(),
-                            'start': "2021-12-26",
-                            'end': "2022-02-06"
-                        },
-                        beforeSend: function(){
-                            // $('#tutor_html_id').html('Loading...');
-                        },
-                        success: function(data) {
-                            // $("#tutor_html_id").html(data);
-                            $("#calendar").fullCalendar()
-                        }
-                    });
-                } */
         });
+    });
+
+    $('.language').change(function(){
+        if ($(this).val() != null) {
+            $.ajax({
+                type: "GET",
+                url: "{{route('getTutor')}}",
+                data: {
+                    'specialization_id': $('#specialization').val(),
+                    'date' : $('#selected_date').html(),
+                    'time' : $('#selected_date_times').html(),
+                    'language_id': $(this).val()
+                },
+                beforeSend: function(){
+                    $('#tutor_html_id').html('Loading...');
+                },
+                success: function(data) {
+                    $("#tutor_html_id").html(data);
+                }
+            });
+        }
+    });
+
+
+    $("#calendar").fullCalendar({
+        header: {
+            left: "next today",
+            // center: "title",
+            right: "title"
+        },
+        // themeSystem: 'bootstrap',
+        defaultView: "month",
+        navLinks: true, // can click day/week names to navigate views
+        // selectable: true,
+        selectHelper: true,
+        editable: false,
+        eventLimit: true, // allow "more" link when too many events
+        selectable: true,
+        /*  events:{
+                url: "{{ route('getTutorSlot') }}?specialization_id="+$('#specialization').val(),
+            }, */
+        events:[
+            {
+                start: "2022-01-19",
+                groupId: 4,
+                title: "No Slot Available"
+            },
+            {
+                start: "2022-01-20",
+                groupId: 4,
+                title: "No Slot Available"
+            }
+        ],
+        selectConstraint: {
+            start: $.fullCalendar.moment().subtract(1, 'days'),
+            end: $.fullCalendar.moment().startOf('month').add(1, 'month')
+        },
+        select: function(start, end) {
+          
+            // console.log("A-------",start,end);
+            var activeDate = JSON.stringify(start._d);
+            var specialization_id = $('#specialization').val();
+            var slot_time = $("input[name='slotList']:checked").val();
+            $.ajax({
+                    url: '{{ route("getDateSlotsList") }}',
+                    type: 'post',
+                    data: {
+                        activeDate:activeDate,
+                        slot_time:slot_time,
+                        specialization_id:specialization_id,
+                        _token:"{{ csrf_token() }}"
+                    },
+                    success: function (response) {
+                        $("input[name='date']").val(activeDate);
+                        $("#selected_date").html(start._d);
+                        $("#slotModalBtn").click();
+                        $("#BookingSlotBody").html(response);
+                        // console.log(response);
+                        // calendar.refetchEvents();
+                        // swal("Slots copied successfully.");
+                    }
+                });
+            // console.log(activeStartDate);
+         
+        },
+
+        eventRender: function(event, element) {
+            console.log("B-------",event,element);
+        },
+
+        eventClick: function(calEvent, calEvent) {
+            console.log("C-------",calEvent,calEvent);
+        }
+    });
+
 });
 
 </script>
@@ -577,44 +640,45 @@ $(document).ready(function() {
 
        
 
-        $(document).on('change', '#specialization', function() {
-            if ($(this).val() != null) {
-                $.ajax({
-                    type: "GET",
-                    url: "{{route('getTutor')}}",
-                    data: {
-                        'language_id': $(this).val(),
-                        'specialization_id': $('#specialization').val(),
-                        'rating': $('#rating').val()
-                    },
-                    beforeSend: function(){
-                        $('#tutor_html_id').html('Loading...');
-                    },
-                    success: function(data) {
-                        $("#tutor_html_id").html(data);
-                    }
-                });
-            }
-        });
-        $(document).on('change', '.language', function() {
-            if ($(this).val() != null) {
-                $.ajax({
-                    type: "GET",
-                    url: "{{route('getTutor')}}",
-                    data: {
-                        'language_id': $(this).val(),
-                        'specialization_id': $('#specialization').val(),
-                        'rating': $('#rating').val()
-                    },
-                    beforeSend: function(){
-                        $('#tutor_html_id').html('Loading...');
-                    },
-                    success: function(data) {
-                        $("#tutor_html_id").html(data);
-                    }
-                });
-            }
-        });
+        // $(document).on('change', '#specialization', function() {
+        //     if ($(this).val() != null) {
+        //         $.ajax({
+        //             type: "GET",
+        //             url: "{{route('getTutor')}}",
+        //             data: {
+        //                 'language_id': $(this).val(),
+        //                 'specialization_id': $('#specialization').val(),
+        //                 'rating': $('#rating').val()
+        //             },
+        //             beforeSend: function(){
+        //                 $('#tutor_html_id').html('Loading...');
+        //             },
+        //             success: function(data) {
+        //                 $("#tutor_html_id").html(data);
+        //             }
+        //         });
+        //     }
+        // });
+
+        // $(document).on('change', '.language', function() {
+        //     if ($(this).val() != null) {
+        //         $.ajax({
+        //             type: "GET",
+        //             url: "{{route('getTutor')}}",
+        //             data: {
+        //                 'language_id': $(this).val(),
+        //                 'specialization_id': $('#specialization').val(),
+        //                 'rating': $('#rating').val()
+        //             },
+        //             beforeSend: function(){
+        //                 $('#tutor_html_id').html('Loading...');
+        //             },
+        //             success: function(data) {
+        //                 $("#tutor_html_id").html(data);
+        //             }
+        //         });
+        //     }
+        // });
 
         $(document).on('change', '#rating', function() {
             if ($(this).val() != null) {

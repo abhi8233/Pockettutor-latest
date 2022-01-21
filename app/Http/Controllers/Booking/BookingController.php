@@ -33,8 +33,8 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $specializations= Specialization::orderBy('id','desc')->get();
-        $languages= languages::orderBy('id','desc')->get();
+        $specializations = Specialization::orderBy('name','ASC')->get();
+        $languages = languages::orderBy('name','ASC')->get();
         // dd($languages);
         return view('booking.index',compact('specializations','languages'));
     }

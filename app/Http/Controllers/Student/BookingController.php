@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Specialization;
 use App\Models\languages;
 use App\Models\Feedback;
+use App\Models\TutorSlot;
 
 use Mail;
 use App\Mail\NotifyStudentBookingMail;
@@ -21,16 +22,7 @@ use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        
-    }
-
+    
     /**
      * Show the application dashboard.
      *
@@ -43,6 +35,7 @@ class BookingController extends Controller
         return view('student.booking.index',compact('bookingslots'));
         
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -201,44 +194,56 @@ class BookingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-     public function destroy($id)
+    public function destroy($id)
     {
         //
     }
 
     public function getTutor(Request $request)
     {
-        // dd($request->specialization_id);
-        // if(isset($request->specialization_id) && isset($request->language_id) && isset($request->rating)){
-        //     $rating_wise_tutor = Feedback::where('rating',$request->rating)->get(['tutor_id'])->toArray();
-        //     $rating_wise_tutor = array_column($rating_wise_tutor, 'tutor_id');
+        
+        $selectedDate = trim(preg_replace('/\s*\([^)]*\)/', '', $request->date));
+        $slotDate = date('Y-m-d', strtotime($selectedDate));
+        
+        
+        if(isset($request->specialization_id) && isset($slotDate) && isset($request->time) && isset($request->language_id)){
+            $selectedTime = explode('-', $request->time);
+            $slotTime = $selectedTime[0];
             
-        //     $tutors = User::where(['specialization_id'=>$request->specialization_id,'language_id'=>$request->language_id,'role'=>'Tutor'])->whereIn('id',$rating_wise_tutor)->orderBy('first_name', 'Asc')->get();
+            $getTutorIds = TutorSlot::whereHas('tutor_user',function($query)use($request){
+                    return $query->where('specialization_id',$request->specialization_id);
+                
+                })->whereDate('slot_date',$slotDate)->where('slot_start_time',$slotTime)->get(['tutor_id'])->toArray();
+           
 
-        // }else 
-        if(isset($request->specialization_id) && isset($request->language_id)){
-            $tutors = User::with(['languages'])->where(['specialization_id'=>$request->specialization_id,'language_id'=>$request->language_id,'role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
+            $tutors = User::with(['languages'])->where([
+                'is_document' => 1,
+                'is_google_meet' => 1,
+                'specialization_id' => $request->specialization_id,
+                'language_id' => $request->language_id,
+                'role' => 'Tutor'
+            ])->whereIn('id',$getTutorIds)->orderBy('first_name', 'Asc')->get();
 
-        // }else if(isset($request->specialization_id) && isset($request->rating)){
-        //     $rating_wise_tutor = Feedback::where('rating',$request->rating)->get(['tutor_id'])->toArray();
-        //     $rating_wise_tutor = array_column($rating_wise_tutor, 'tutor_id');
+        
+        }else if(isset($request->specialization_id) && isset($slotDate) && isset($request->time)){
+           
+            $getTutorIds = TutorSlot::whereHas('tutor_user',function($query)use($request){
+                    return $query->where('specialization_id',$request->specialization_id);
 
-        //     $tutors = User::where(['specialization_id'=>$request->specialization_id,'role'=>'Tutor'])->whereIn('id',$rating_wise_tutor)->orderBy('first_name', 'Asc')->get();
+                })->whereDate('slot_date',$slotDate)->where('slot_start_time',$request->time)->get(['tutor_id'])->toArray();
 
-        // }else if(isset($request->rating) && isset($request->language_id)){
-        //     $rating_wise_tutor = Feedback::where('rating',$request->rating)->get(['tutor_id'])->toArray();
-        //     $rating_wise_tutor = array_column($rating_wise_tutor, 'tutor_id');
-
-        //     $tutors = User::where(['language_id'=>$request->language_id,'role'=>'Tutor'])->whereIn('id',$rating_wise_tutor)->orderBy('first_name', 'Asc')->get();
-
+            $tutors = User::with(['languages'])->where([
+                'is_document' => 1,
+                'is_google_meet' => 1,
+                'specialization_id' => $request->specialization_id,
+                'role' => 'Tutor'
+            ])->whereIn('id',$getTutorIds)->orderBy('first_name', 'Asc')->get();
+        
         }else if(isset($request->specialization_id)){
-            $tutors = User::with(['languages'])->where(['specialization_id'=>$request->specialization_id,'role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
-
-        }else if(isset($request->language_id)){
-            $tutors = User::with(['languages'])->where(['language_id'=>$request->language_id,'role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
-
+            $tutors = User::with(['languages'])->where(['is_document' => 1,'is_google_meet' => 1,'specialization_id'=>$request->specialization_id,'role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
+       
         }else{
-            $tutors = User::with(['languages'])->where(['role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
+            $tutors = User::with(['languages'])->where(['is_document' => 1,'is_google_meet' => 1,'role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
 
         }
        
