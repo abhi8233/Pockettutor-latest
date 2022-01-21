@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Bookings;
 use App\Models\User;
+use App\Models\UserPlan;
 use App\Models\Specialization;
 use App\Models\languages;
 use App\Models\Feedback;
@@ -90,6 +91,17 @@ class BookingController extends Controller
 
             $meetlink = $event_details['conference_link'];
             $event_id = $event_details['event_id'];
+
+            $user_details = UserPlan::with(['subscription'])->where('user_id',auth()->user()->id)->where('is_active',1)->first();
+
+            $total_min = ($user_details->remaining_minutes == 0) ? $user_details->subscription->minutes :$user_details->remaining_minutes;
+            $remaining = $total_min - 15;
+
+            if($remaining == 0){
+                return response()->Json(['status' => '401','msg' => 'You have no balance in you account.']);
+            }
+            UserPlan::where('id',$user_details->id)->update(['remaining_minutes' => $remaining ]);
+            
 
             $bookingslot = new Bookings;
             $bookingslot->tutor_id = $request->tutor_id;

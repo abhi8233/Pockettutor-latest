@@ -788,7 +788,9 @@ $(document).ready(function() {
                             setTimeout(function() {
                                 window.location = "{{ route('sbooking.index') }}";
                             }, 1000);
-                        } else if (data.status == 500) {
+                        } else if (data.status == 401) {
+                            $(".date-time").after('<div class="alert alert-warning alert-dismissible" id="myAlert">You have no balance in you account.</div>');
+                        }else if (data.status == 500) {
                             $(".date-time").after('<div class="alert alert-warning alert-dismissible" id="myAlert"><strong>Google Meet!</strong> Creadentials not found.</div>');
                         } else {
                             // alert("Opps..! Something Went to Wrong.")
