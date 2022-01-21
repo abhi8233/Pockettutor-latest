@@ -14,7 +14,7 @@ class AddStatusToSubscriptionsTable extends Migration
     public function up()
     {
         Schema::table('subscriptions', function (Blueprint $table) {
-           $table->string('status')->default('Active')->after('slots');
+           $table->string('status')->default('Active')->after('minutes');
         });
     }
 

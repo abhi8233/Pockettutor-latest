@@ -144,7 +144,6 @@ class RegisterController extends Controller
             $user->state_institution  = isset($data['state_institution']) ? $data['state_institution'] : null;
             $user->country_institution= isset($data['country_institution']) ? $data['country_institution'] : null;
             $user->country_id        = isset($data['country_id']) ? $data['country_id'] : null;
-            $user->state_id          = isset($data['state_id']) ? $data['state_id'] : null;
             $user->stripe_customer_id =  '-';
             $user->save();
 
@@ -152,7 +151,7 @@ class RegisterController extends Controller
 
         
             $payment = Stripe\Charge::create ([
-                "amount" => 50.00,
+                "amount" => (isset($data['price']) && floatval($data['price']) > 0) ? floatval($data['price']) : 0,
                 "currency" => "usd",
                 "source" => $data['stripeToken'],
                 "description" => "Test payment from itsolutionstuff.com." 

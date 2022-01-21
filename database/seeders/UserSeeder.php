@@ -76,7 +76,7 @@ class UserSeeder extends Seeder
         		'price' => 44.99,
         		'minutes' => 90,
         		'remaining_minutes' => 0,
-        		'slots' => 6,
+        		// 'slots' => 6,
         		'is_active' => 1
         	]);
 

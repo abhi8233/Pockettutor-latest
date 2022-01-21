@@ -18,7 +18,7 @@ class UserPlan extends Model
         'price',
         'minutes',
         'remaining_minutes',
-        'slots'
+        // 'slots'
     ];
     
     public function subscription()

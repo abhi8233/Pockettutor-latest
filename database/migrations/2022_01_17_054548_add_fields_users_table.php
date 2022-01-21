@@ -27,7 +27,7 @@ class AddFieldsUsersTable extends Migration
            $table->string('state_institution')->nullable()->after('city_institution');
            $table->string('country_institution')->nullable()->after('state_institution');
            $table->integer('country_id')->nullable()->after('country_institution');
-           $table->integer('state_id')->nullable()->after('country_id');
+          
         });
     }
 
@@ -51,7 +51,7 @@ class AddFieldsUsersTable extends Migration
             $table->dropColumn('state_institution');
             $table->dropColumn('country_institution');
             $table->dropColumn('country_id');
-            $table->dropColumn('state_id');
+            
         });
     }
 }

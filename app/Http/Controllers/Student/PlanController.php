@@ -55,7 +55,7 @@ class PlanController extends Controller
         $request->validate([  
             'subscription_id' => 'required',
             'price'           => 'required',
-            'slots'           => 'required',
+            // 'slots'           => 'required',
             'minutes'         => 'required'
         ]);
 
@@ -72,7 +72,7 @@ class PlanController extends Controller
             $userplan->user_id = auth()->user()->id;
             $userplan->subscription_id = $request->subscription_id;
             $userplan->price = $request->price;
-            $userplan->slots = $request->slots;
+            // $userplan->slots = $request->slots;
             $userplan->minutes = $request->minutes;
             $userplan->remaining_minutes = 0;
             $userplan->is_active = 1;

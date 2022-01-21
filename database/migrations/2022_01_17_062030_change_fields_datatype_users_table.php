@@ -15,7 +15,7 @@ class ChangeFieldsDatatypeUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
            $table->string('country_id')->change();
-           $table->string('state_id')->change();
+           
         });
     }
 

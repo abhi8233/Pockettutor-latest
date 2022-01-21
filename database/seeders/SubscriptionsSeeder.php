@@ -22,7 +22,7 @@ class SubscriptionsSeeder extends Seeder
         		'plan' => 'Basic',
         		'price' => 44.99,
         		'minutes' => 90,
-        		'slots' => 6,
+        		// 'slots' => 6,
         		'status' => 'Active',
         		'stripe_product_id' => '',
         	]);
@@ -32,7 +32,7 @@ class SubscriptionsSeeder extends Seeder
         		'plan' => 'Plus',
         		'price' => 74.99,
         		'minutes' => 180,
-        		'slots' => 12,
+        		// 'slots' => 12,
         		'status' => 'Active',
         		'stripe_product_id' => '',
         	]);
@@ -42,7 +42,7 @@ class SubscriptionsSeeder extends Seeder
         		'plan' => 'Premium',
         		'price' => 114.99,
         		'minutes' => 300,
-        		'slots' => 20,
+        		// 'slots' => 20,
         		'status' => 'Active',
         		'stripe_product_id' => '',
         	]);
@@ -52,7 +52,7 @@ class SubscriptionsSeeder extends Seeder
         		'plan' => 'Mentor',
         		'price' => 299.99,
         		'minutes' => 900,
-        		'slots' => 60,
+        		// 'slots' => 60,
         		'status' => 'Active',
         		'stripe_product_id' => '',
         	]);
