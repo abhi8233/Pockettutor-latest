@@ -42,7 +42,7 @@ class User extends Authenticatable
         'city_institution',
         'country_institution',
         'country_id',
-        'state_id',
+        // 'state_id',
         'remember_token'
     ];
 

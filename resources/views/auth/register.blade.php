@@ -737,8 +737,8 @@
                     } else {
                         /* token contains id, last4, and card type */
                         var token = response['id'];
-                        console.log(token);
-                        alert("hii");
+                        // console.log(token);
+                        // alert("hii");
                         $form.find('input[type=text]').empty();
                         $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
                         $form.get(0).submit();

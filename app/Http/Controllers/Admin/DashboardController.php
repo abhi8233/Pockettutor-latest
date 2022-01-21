@@ -50,7 +50,7 @@ class DashboardController extends Controller
             $users->specialization_id = $request->specialization;
             $users->country_id =$request->country_id;
             $users->language_id =$request->language_id;
-           $users->state_id = $request->state_id;
+           // $users->state_id = $request->state_id;
            $users->subscriptions_id=$request->subscription_id;
            $users->save();
            if($users->role == 'Student'){

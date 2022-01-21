@@ -111,7 +111,7 @@ class RegisterController extends Controller
             return Validator::make($data, [
                 'role' => ['required'],
             ]);
-        }
+        } 
         
     }
 
@@ -152,13 +152,13 @@ class RegisterController extends Controller
 
         
             $payment = Stripe\Charge::create ([
-                "amount" => 50,
+                "amount" => (isset($data['price']) && $data['price'] > 0) ? $data['price'] : 0,
                 "currency" => "usd",
                 "source" => $data['stripeToken'],
                 "description" => "Test payment from itsolutionstuff.com." 
             ]);
             
-            if($payment){
+            // if($payment){
             
                 $userPlan = new UserPlan();
                 $userPlan->user_id = $user->id;
@@ -177,7 +177,7 @@ class RegisterController extends Controller
                 $updateUser = User::where('id',$user->id)->update([
                     'subscriptions_id' => isset($userPlan->id) ? $userPlan->id : null,
                     'stripe_customer_id' =>  '-' ]);
-            }
+            // }
         }else{
             $user = new User();
             $user->name        = '-';
