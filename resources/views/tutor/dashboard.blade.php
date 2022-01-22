@@ -19,6 +19,13 @@
         {
             content: '';
         }
+        .fc .fc-col-header-cell-cushion
+        {
+            display: inline-block;
+            text-decoration: unset;
+            padding: 2px 4px;
+            pointer-events: none;
+        }
     </style>
 
 @endsection
@@ -469,6 +476,7 @@
                 editable: true,
                 selectable: true,
                 selectMirror: true,
+                allDaySlot: false,
                 dayMaxEvents: true, // allow "more" link when too many events
                 events:{
                     url: "{{ route('getTutorSlot') }}"
