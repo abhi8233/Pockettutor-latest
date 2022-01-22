@@ -36,9 +36,10 @@
             <i class="mdi mdi-view-dashboard-outline" aria-hidden="true"></i>
             <span class="ps-1">Dashboard</span>
         </label>
-        <!-- <div class="date-filter">
-            <input type="text" class="form-control" id="stu_list_daterange" />
-        </div> -->
+        <div class="page-title">
+            <i class="mdi mdi-calendar-clock" aria-hidden="true" title="total meeting hours"></i>
+             {{ $totalMeetingHours }} Hrs
+        </div>
     </div>
 
 

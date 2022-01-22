@@ -9,6 +9,10 @@
         </label>
         <div class="d-flex align-items-center">
             <input type="text" class="form-control" id="stu_list_daterange" />
+            <span class="page-title col-md-5" style="margin-left:10px; ">
+                <i class="mdi mdi-calendar-clock" aria-hidden="true" title="total meeting hours"></i>
+                {{ $totalRemainingMinutes }} Min
+            </span>
         </div>
     </div>
     <!-- <div class="card-tools">
