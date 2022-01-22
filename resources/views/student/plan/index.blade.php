@@ -32,7 +32,7 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $plan->subscription->plan }}</td>
-                    <td>$ {{ $plan->price }}</td>
+                    <td>$ {{ $plan->subscription->price }}</td>
                     <td>
                         @if($plan->is_active == 1)
                             {{ 'Active' }}
@@ -40,7 +40,7 @@
                             {{ 'Expire' }}
                         @endif
                     </td>
-                    <td>{{ $plan->minutes }} Min</td>
+                    <td>{{ $plan->subscription->minutes }} Min</td>
                     <td>{{ $plan->remaining_minutes }} Min</td>
                 </tr>
                 @Endforeach

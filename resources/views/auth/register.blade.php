@@ -575,9 +575,11 @@
                         
                     }, 
                     error: function(response) {
-                        alert("ji");
-                        console.log(response.responseJSON.errors.tutor_email)
-                        $('#error_tutor_email').text(response.responseJSON.errors.tutor_email);
+                        // alert("ji");
+                        // console.log(response.responseJSON.errors.tutor_email)
+                        if(response.responseJSON.errors != ''){
+                            $('#error_tutor_email').text(response.responseJSON.errors.tutor_email);
+                        }
                     }
                 }); 
                 return false;
@@ -737,8 +739,8 @@
                     } else {
                         /* token contains id, last4, and card type */
                         var token = response['id'];
-                        console.log(token);
-                        alert("hii");
+                        // console.log(token);
+                        // alert("hii");
                         $form.find('input[type=text]').empty();
                         $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
                         $form.get(0).submit();

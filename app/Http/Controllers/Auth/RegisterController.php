@@ -111,7 +111,7 @@ class RegisterController extends Controller
             return Validator::make($data, [
                 'role' => ['required'],
             ]);
-        }
+        } 
         
     }
 
@@ -144,7 +144,6 @@ class RegisterController extends Controller
             $user->state_institution  = isset($data['state_institution']) ? $data['state_institution'] : null;
             $user->country_institution= isset($data['country_institution']) ? $data['country_institution'] : null;
             $user->country_id        = isset($data['country_id']) ? $data['country_id'] : null;
-            $user->state_id          = isset($data['state_id']) ? $data['state_id'] : null;
             $user->stripe_customer_id =  '-';
             $user->save();
 
@@ -152,13 +151,14 @@ class RegisterController extends Controller
 
         
             $payment = Stripe\Charge::create ([
-                "amount" => 50,
+                "amount" => 50.00,
+                // "amount" => (isset($data['price']) && floatval($data['price']) > 0) ? floatval($data['price']) : 0,
                 "currency" => "usd",
                 "source" => $data['stripeToken'],
                 "description" => "Test payment from itsolutionstuff.com." 
             ]);
             
-            if($payment){
+            // if($payment){
             
                 $userPlan = new UserPlan();
                 $userPlan->user_id = $user->id;
@@ -177,7 +177,7 @@ class RegisterController extends Controller
                 $updateUser = User::where('id',$user->id)->update([
                     'subscriptions_id' => isset($userPlan->id) ? $userPlan->id : null,
                     'stripe_customer_id' =>  '-' ]);
-            }
+            // }
         }else{
             $user = new User();
             $user->name        = '-';
@@ -196,6 +196,9 @@ class RegisterController extends Controller
             $user->language_id       = isset($data['language_id']) ? $data['language_id'] : null;
             $user->stripe_customer_id =  '-';
             $user->save();
+
+            $targetfile = "/credential".$user->id.".json";
+            copy(env('CREDENTIAL_PATH')."/credential.json",env('CREDENTIAL_PATH').$targetfile);
         }
 
         try {

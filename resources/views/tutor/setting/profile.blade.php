@@ -157,7 +157,7 @@
                                 <div class="col-12 col-md-6">
                                     <div class="mb-3">
                                         <label for="email" class="col-form-label p-0 mb-1">Language <span class="pt-color-red pt-fs-16">*</span> </label>
-                                        <select class="select2 language select2-hidden-accessible" name="language_id">
+                                        <select class="language" name="language_id">
                                            @foreach(\App\Models\Languages::all() as $language)
                                                 <option value="{{$language->id}}" {{$language->id == $user->language_id ?'selected':''}}>{{$language->name}}</option>
                                             @endforeach
