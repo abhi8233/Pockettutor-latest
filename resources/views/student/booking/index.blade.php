@@ -30,7 +30,7 @@
                 @foreach($bookingslots as $bookingslot)
                     <tr>
                         <td>{{ $loop->iteration}}</td>
-                        <td>{{$bookingslot->tutor->first_name}} {{$bookingslot->tutor->last_name}}</td>
+                        <td>{{isset($bookingslot->tutor->first_name) ? $bookingslot->tutor->first_name : ''}} {{isset($bookingslot->tutor->last_name) ? $bookingslot->tutor->last_name : ''}}</td>
                         <td>{{$bookingslot->date_time}}</td>
                         <td>{{$bookingslot->specialization->name}}</td>
                         <td><a href="{{$bookingslot->google_link}}" target="_blank">{{$bookingslot->google_link}}</a></td>
