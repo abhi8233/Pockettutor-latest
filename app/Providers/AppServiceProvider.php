@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Bookings;
+use App\Models\UserPlan;
 use App\Models\TutorSlot;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
@@ -25,23 +27,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        view()->composer('student.booking.index', function ($view) 
+        {
+            $user_details = UserPlan::with(['subscription'])->where('user_id',Auth::id())->where('is_active',1)->first();
+            $totalRemainingMinutes=$user_details->subscription->minutes-$user_details->remaining_minutes;
+            $view->with(['totalRemainingMinutes'=>$totalRemainingMinutes]);    
+        });  
         view()->composer('tutor.dashboard', function ($view) 
         {
-            
-           /*  $TutorSlot=TutorSlot::where('tutor_id',Auth::id())->get();
-            $TutorSlotsList=[];
-            foreach($TutorSlot as $item)
-            {
-                $TutorSlotsList[]=[
-                        "groupId"=>999,
-                        "title"=>$item->slot_note,
-                        "start"=>$item->slot_date.'T'.$item->slot_start_time,
-                        "end"=>$item->slot_date.'T'.$item->slot_end_time,
-                ];
-            } */
-            // dd($TutorSlotsList);
-            // $view->with(['TutorSlotsList'=>collect($TutorSlotsList)->toArray()]);    
-            // dd($myClientList,auth()->user());
+            $totalMeetingHours=Bookings::where('tutor_id',Auth::id())->where('meeting_status',1)->count();
+            $view->with(['totalMeetingHours'=>date("H:i",$totalMeetingHours*strtotime("0:30:00"))]);    
         });  
     }
 }

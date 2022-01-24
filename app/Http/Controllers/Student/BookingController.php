@@ -3,23 +3,24 @@
 namespace App\CustomClass;
 namespace App\Http\Controllers\Student;
 
-use App\CustomClass\Meet;
-use App\Http\Controllers\Controller;
+use Mail;
+use App\Models\User;
 
 use App\Models\Bookings;
-use App\Models\User;
-use App\Models\UserPlan;
-use App\Models\Specialization;
-use App\Models\languages;
 use App\Models\Feedback;
+use App\Models\UserPlan;
+use App\CustomClass\Meet;
+use App\Models\languages;
 use App\Models\TutorSlot;
+use Illuminate\Http\Request;
 
-use Mail;
-use App\Mail\NotifyStudentBookingMail;
+use App\Models\Specialization;
+use App\Http\Controllers\Controller;
 use App\Mail\NotifyTutorBookingMail;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\NotifyStudentBookingMail;
+use Illuminate\Support\Facades\Session;
 
 class BookingController extends Controller
 {
@@ -31,6 +32,7 @@ class BookingController extends Controller
      */
     public function index()
     {
+        
         $bookingslots = Bookings::with(['tutor','specialization'])->where('user_id',auth()->user()->id)->orderBy('id','desc')->get();
         // dd($bookingslots);
         return view('student.booking.index',compact('bookingslots'));
@@ -219,6 +221,7 @@ class BookingController extends Controller
         $selectedDate = trim(preg_replace('/\s*\([^)]*\)/', '', $request->date));
         $slotDate = date('Y-m-d', strtotime($selectedDate));
         
+        Session::put('specialization_id',$request->specialization_id);
         
         if(isset($request->specialization_id) && isset($slotDate) && isset($request->time) && isset($request->language_id)){
             $selectedTime = explode('-', $request->time);

@@ -114,7 +114,7 @@
         }
         .fc-day-grid-event .fc-content
         {
-            height: 76px;
+            /* height: 76px; */
         }
         tr:first-child>td>.fc-day-grid-event
         {    
@@ -122,7 +122,8 @@
             line-height: 118px;
             background: #ffa2a287;
             color: black;
-            width: 93px;
+            width: 97%;
+            height: 74px;
             margin-left: 0px;
 
         }
@@ -176,7 +177,7 @@
                                 <p> 
                                     <i class="fa fa-clock"></i> 
                                     <span id="selected_date_times" class="badge badge-info">un-selected</span> 
-                                    <span class="btn btn-danger btn-xs mr-2" onclick="reset_input_val()">x Reset</span>
+                                    <span class="btn btn-danger btn-xs mr-2" style="display: none;width:100px" id="reset_btn" onclick="reset_input_val()">x Reset Slot</span>
                                 </p>
                                 
                             </div>
@@ -191,16 +192,16 @@
                                   <div class="modal-content">
                                     <div class="modal-header">
                                       <h5 class="modal-title" id="slotModalLabel" style="margin-right: 270px;">Here is the available slots</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <button type="button" class="close" data-dismiss="modal" onclick="reset_input_val()" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="language-booking d-flex" id="BookingSlotBody">
+                                        <div class="language-booking d-flex row" id="BookingSlotBody">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Not Now</button>
+                                      <button type="button" class="btn btn-secondary" onclick="reset_input_val()" data-dismiss="modal">Not Now</button>
                                       <button type="button" class="btn btn-primary" data-dismiss="modal" id="displaySlotTime">Save Now</button>
                                     </div>
                                   </div>
@@ -460,18 +461,18 @@
 <script>
     
 $(document).ready(function() {
-
+    var specialization_id=0;
     $("#specialization").change(function(){
         // alert("hii");
-        
+        specialization_id=$('#specialization').val();
         if ($(this).val() != null) {
             $.ajax({
                 type: "GET",
                 url: "{{route('getTutor')}}",
                 data: {
                     // 'language_id': $(this).val(),
-                    'specialization_id': $('#specialization').val(),
-                    // 'rating': $('#rating').val()
+                    'specialization_id':specialization_id ,
+                    'rating': $('#rating').val()
                 },
                 beforeSend: function(){
                     $('#tutor_html_id').html('Loading...');
@@ -513,23 +514,30 @@ $(document).ready(function() {
             datetimes = $(this).val();
             // alert(datetimes);
         });
-        // alert(slot_time); 
-        $.ajax({
-            type: "GET",
-            url: "{{route('getTutor')}}",
-            data: {
-                'specialization_id': $('#specialization').val(),
-                'date' : $('#selected_date').html(),
-                'time' : datetimes
-            },
-            beforeSend: function(){
-                $('#tutor_html_id').html('Loading...');
-            },
-            success: function(data) {
-                $("#tutor_html_id").html('');
-                $("#tutor_html_id").html(data);
-            }
-        });
+        if(datetimes!="")
+        {
+            
+            $.ajax({
+                type: "GET",
+                url: "{{route('getTutor')}}",
+                data: {
+                    'specialization_id': $('#specialization').val(),
+                    'date' : $('#selected_date').html(),
+                    'time' : datetimes
+                },
+                beforeSend: function(){
+                    $('#tutor_html_id').html('Loading...');
+                },
+                success: function(data) {
+                    $("#tutor_html_id").html('');
+                    $("#tutor_html_id").html(data);
+                }
+            });
+        }
+        else
+        {
+            reset_input_val();
+        }
     });
 
     $('.language').change(function(){
@@ -577,8 +585,9 @@ $(document).ready(function() {
         }
     });
 
-
+   
     $("#calendar").fullCalendar({
+
         header: {
             left: "next today",
             // center: "title",
@@ -592,10 +601,12 @@ $(document).ready(function() {
         editable: false,
         eventLimit: true, // allow "more" link when too many events
         selectable: true,
-        /*  events:{
-                url: "{{ route('getTutorSlot') }}?specialization_id="+$('#specialization').val(),
-            }, */
-        events:[
+         events:{
+                url: "{{ route('getTutorSlotlist') }}",
+                type:"post",
+                data:{_token:"{{ csrf_token() }}"}
+            },
+       /*  events:[
             {
                 start: "2022-01-19",
                 groupId: 4,
@@ -606,7 +617,7 @@ $(document).ready(function() {
                 groupId: 4,
                 title: "No Slot Available"
             }
-        ],
+        ], */
         selectConstraint: {
             start: $.fullCalendar.moment().subtract(1, 'days'),
             end: $.fullCalendar.moment().startOf('month').add(1, 'month')
@@ -631,6 +642,8 @@ $(document).ready(function() {
                         $("#selected_date").html(start._d);
                         $("#slotModalBtn").click();
                         $("#BookingSlotBody").html(response);
+                        $("#reset_btn").css("display","block");
+
                         // console.log(response);
                         // calendar.refetchEvents();
                         // swal("Slots copied successfully.");
@@ -651,8 +664,7 @@ $(document).ready(function() {
 
 });
 
-</script>
-<script type="text/javascript">
+
     $(document).ready(function() {
         $.ajax({
             type: "GET",
@@ -661,6 +673,7 @@ $(document).ready(function() {
                 $('#tutor_html_id').html('Loading...');
             },
             success: function(data) {
+
                 $("#tutor_html_id").html(data);
                 $("#calendar").fullCalendar('refetchEvents');
             }
@@ -819,9 +832,11 @@ $(document).ready(function() {
 
     function reset_input_val()
     {
-        $("input[name='slotList']:checked").attr('checked','false');
+        $("input[name='slotList']").attr('checked','false');
         $("#selected_date_times").html("un-selected");
         $("#selected_date").html("un-selected");
+        $("input[name='date']").val("");
+        $("#reset_btn").css("display","none");
     }
 </script>
 @endsection

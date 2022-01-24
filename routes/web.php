@@ -133,13 +133,14 @@ Route::group(['middleware' => ['auth', 'verified','tutor']], function () {
 		Route::group(['prefix'=>'slots'],function(){
 			Route::post('store', [TutorSlotController::class, 'store'])->name('storeTutorSlot');
 			Route::get('index', [TutorSlotController::class,'index'])->name('getTutorSlot');
+			
 			Route::post('copy', [TutorSlotController::class,'copy'])->name('copyForNextWeek');
 		});
 	});
 	
 });
 
-
+Route::post('no_available_slot', [TutorSlotController::class,'no_available_slot'])->name('getTutorSlotlist');
 /*------------------------------------ BOOKING -------------------------------------*/
 /*Route::group(['middleware' => ['auth', 'verified','booking']], function () { 
 	Route::get('booking', [App\Http\Controllers\Booking\BookingController::class, 'index'])->name('booking');

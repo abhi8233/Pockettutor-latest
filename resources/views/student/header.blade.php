@@ -6,6 +6,9 @@
         </div>
         <div class="right-side d-flex align-items-center flex-wrap">
             <div class="card-tools me-3">
+                {{-- <a class="btn pt-bg-primary pt-color-white" href="{{route('booking.index')}}">Book Your Slot</a> --}}
+            
+                    
                 <a class="btn pt-bg-primary pt-color-white" href="{{route('booking.index')}}">Book Your Slot</a>
             </div>
             <span class="notification-icon"><i class="mdi mdi-bell"></i></span>

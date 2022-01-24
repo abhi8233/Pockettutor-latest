@@ -2,16 +2,17 @@
 namespace App\CustomClass;
 namespace App\Http\Controllers\Booking;
 
+use App\Models\User;
 use App\CustomClass\Meet;
-use App\Http\Controllers\Controller;
 
 // use App\Models\Bookings;
-use App\Models\User;
-use App\Models\Specialization;
 use App\Models\languages;
-
 use Illuminate\Http\Request;
+use App\Models\Specialization;
+
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class BookingController extends Controller
 {
@@ -33,6 +34,9 @@ class BookingController extends Controller
      */
     public function index()
     {
+        
+        Session::forget('specialization_id');
+        
         $specializations = Specialization::orderBy('name','ASC')->get();
         $languages = languages::orderBy('name','ASC')->get();
         // dd($languages);

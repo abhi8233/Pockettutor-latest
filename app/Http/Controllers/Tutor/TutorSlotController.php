@@ -10,6 +10,7 @@ use App\Models\TutorSlot;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class TutorSlotController extends Controller
 {
@@ -35,6 +36,60 @@ class TutorSlotController extends Controller
                     // "title"=>$item->slot_note,
                     "start"=>$item->slot_date.'T'.$item->slot_start_time,
                     "end"=>$item->slot_end_time=="00:00:00"?$all_day.'T'.$item->slot_end_time:$item->slot_date.'T'.$item->slot_end_time,
+            ];
+        }
+        return json_encode($TutorSlotsList);
+    }
+    public function no_available_slot(Request $request)
+    {
+        $specialization_id=Session::get('specialization_id');
+        if(!isset($specialization_id))
+        {
+            return [];
+        }
+        // return $request->all();
+        $period = new DatePeriod(
+            new DateTime(date("Y-m-d")),
+            new DateInterval('P1D'),
+            new DateTime(explode("T",$request->end)[0])
+        );
+        $TutorSlot = TutorSlot::with('tutor_user')
+        ->whereHas('tutor_user',function($query)use($specialization_id){
+            if(isset($specialization_id))
+            {            
+                return $query->where('specialization_id',$specialization_id);
+            }
+            
+        })
+        ->whereBetween('slot_date',[explode("T",$request->start)[0],explode("T",$request->end)[0]])
+        ->groupBy('slot_date')
+        ->pluck('slot_date')->toArray();
+        
+        foreach ($period as $key => $value) {
+            if(!in_array($value->format('Y-m-d'),$TutorSlot))
+            {
+                $TutorSlotsList[]=[
+                        "groupId"=>$key,
+                        "title"=>"No Slot Available",
+                        "start"=>$value->format('Y-m-d'),
+                        // "end"=>$item->slot_end_time=="00:00:00"?$all_day.'T'.$item->slot_end_time:$item->slot_date.'T'.$item->slot_end_time,
+                ];
+            }
+        }
+        return json_encode($TutorSlotsList);
+
+        
+        // ->toSql();
+        // dd($TutorSlot,$specialization_id,[explode("T",$request->start)[0],explode("T",$request->end)[0]]);
+      
+        $TutorSlotsList=[];
+        foreach($TutorSlot as $item){
+            $all_day=date("Y-m-d",strtotime('+ 1 day',strtotime($item->slot_date)));
+            $TutorSlotsList[]=[
+                    "groupId"=>$item->id,
+                    "title"=>"No Slot Available",
+                    "start"=>$item->slot_date,
+                    // "end"=>$item->slot_end_time=="00:00:00"?$all_day.'T'.$item->slot_end_time:$item->slot_date.'T'.$item->slot_end_time,
             ];
         }
         return json_encode($TutorSlotsList);
@@ -134,13 +189,15 @@ class TutorSlotController extends Controller
         ->whereHas('tutor_user',function($query)use($request){
             return $query->where('specialization_id',$request->specialization_id);
             
-        })->whereDate('slot_date',$activeDate)->orderBy('slot_date')->get();
-        // dd($TutorSlotList,$request->all());
+        })->whereDate('slot_date',$activeDate)->orderBy('slot_date')->groupBy('slot_start_time')
+        ->get();
+        // ->toSql();
+        
         $slotList=[];
         foreach($TutorSlotList as $slotItem){
             $status=$request->slot_time==$slotItem->slot_start_time?"checked":"";
             $slotList[]='
-            <label>
+            <label class="col-md-4 col-sm-6">
                 <input type="radio" name="slotList" value="'.$slotItem->slot_start_time.'" '.$status.'>
                 <span>
                 '.date("H:i A",strtotime($slotItem->slot_start_time)).'
