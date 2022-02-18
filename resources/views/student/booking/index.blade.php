@@ -26,6 +26,7 @@
                     <th>Tutor Name</th>
                     <th>Date Time</th>
                     <th>Specialization</th>
+                    <th>Status</th>
                     <th>Google Meet Link</th>
                     <!-- <th>Action</th> -->
                 </tr>
@@ -37,6 +38,17 @@
                         <td>{{isset($bookingslot->tutor->first_name) ? $bookingslot->tutor->first_name : ''}} {{isset($bookingslot->tutor->last_name) ? $bookingslot->tutor->last_name : ''}}</td>
                         <td>{{$bookingslot->date_time}}</td>
                         <td>{{$bookingslot->specialization->name}}</td>
+                        <td> 
+                            @if($bookingslot->date_time >= Carbon\Carbon::now())
+                                @if ($bookingslot->meeting_status)
+                                    <span class="badge bg-success">Done</span>
+                                @else
+                                    <span class="badge bg-warning">Pending</span>
+                                @endif
+                            @else
+                                <span class="badge bg-danger">Expired</span>
+                            @endif
+                        </td>
                         <td><a href="{{$bookingslot->google_link}}" target="_blank">{{$bookingslot->google_link}}</a></td>
                         <!-- <td>
                             <a href="{{ route('sbooking.edit',$bookingslot->id) }}" title="edit" ><i class="fas fa-pen"></i></a>

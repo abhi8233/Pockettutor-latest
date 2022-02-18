@@ -64,30 +64,28 @@ class DashboardController extends Controller
     
     public function updateProfile(Request $request)
     {
-        $this->validate($request,
-            ['first_name' => ['required', 'string'],
-            'last_name' => ['required', 'string'],
-            ]);
+        $this->validate($request, [
+          'first_name' => ['required', 'string'],
+          'last_name' => ['required', 'string'],
+        ]);
 
-        $user=User::find($request->user_id);
-
-                if ($request->hasFile('profile')) {
-                $image = $request->file('profile');
-                $name = time().'.'.$image->getClientOriginalExtension();
-                $destinationPath = public_path('assets/images/profile');
-                $image->move($destinationPath, $name);
-                $user->profile =$name;
-            }
-              $user->first_name = $request['first_name'];
-              $user->last_name = $request->last_name;
-              $user->save();
-              
-
-                if($user){
-                    return response()->Json(['status' => '200','msg'=>'User Password Update successfully.']);
-                }else{
-                    return response()->Json(['status' => '400','msg' => 'Something want wrong.']);
-                }
+        $user = User::find($request->user_id);
+        if ($request->hasFile('profile')) {
+            $image = $request->file('profile');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('assets/images/profile');
+            $image->move($destinationPath, $name);
+            $user->profile =$name;
+        }
+        $user->first_name = $request['first_name'];
+        $user->last_name = $request->last_name;
+        $user->save();
+        
+        if($user){
+          return response()->Json(['status' => '200','msg'=>'User Password Update successfully.']);
+        }else{
+          return response()->Json(['status' => '400','msg' => 'Something want wrong.']);
+        }
     }
 
     public function updatePassword(Request $request)

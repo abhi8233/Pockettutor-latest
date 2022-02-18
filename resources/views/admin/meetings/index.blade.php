@@ -30,11 +30,17 @@
 
                     <td>{{isset($booking->user->first_name) ? $booking->user->first_name : ''}} {{isset($booking->user->last_name) ? $booking->user->last_name: ''}}</td>
                     <td>{{ $booking->date_time }} </td>
-                    <td>@if($booking->date_time >= Carbon\Carbon::now())
-                        Pending
+                    <td> 
+                        @if($booking->date_time >= Carbon\Carbon::now())
+                            @if ($booking->meeting_status)
+                                <span class="badge bg-success">Done</span>
+                            @else
+                                <span class="badge bg-warning">Pending</span>
+                            @endif
                         @else
-                        Expired
-                        @endif</td>
+                            <span class="badge bg-danger">Expired</span>
+                        @endif
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

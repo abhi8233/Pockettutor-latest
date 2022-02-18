@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call([
-			EmailNotificationSeeder::class,
 			SpecializationSeeder::class,
 			LanguagesSeeder::class,
 			SettingSeeder::class,

@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Setting;
-use App\Models\EmailNotification;
+
 
 class SettingsController extends Controller
 {
@@ -86,9 +86,9 @@ class SettingsController extends Controller
 
     public function getSettingEmailNotification()
     {
-        $admin_email = Setting::where("setting_key","admin_email")->first();
-        $sender_name = Setting::where("setting_key","sender_name")->first();
-        $sender_email = Setting::where("setting_key","sender_email")->first();
+        $admin_email = Setting::where("setting_key","notification_admin_email")->first();
+        $sender_name = Setting::where("setting_key","notification_sender_name")->first();
+        $sender_email = Setting::where("setting_key","notification_sender_email")->first();
 
         return view('admin/settings/settingsnotification',compact('admin_email','sender_name','sender_email'));
     }
@@ -106,39 +106,31 @@ class SettingsController extends Controller
         ]);
 
         if(isset($request->admin_email_id) && !empty($request->admin_email_id)){
-            $setting = Setting::where("setting_key","admin_email")->update(["setting_value" => $request->admin_email]);
+            $setting = Setting::where("setting_key","notification_admin_email")->update(["setting_value" => $request->admin_email]);
         }else{
             $setting = new Setting();
-            $setting->setting_key = 'admin_email';
+            $setting->setting_key = 'notification_admin_email';
             $setting->setting_value = $request->admin_email;
             $setting->save();
         }
 
         if(isset($request->sender_name_id) && !empty($request->sender_name_id)){
-            $setting = Setting::where("setting_key","sender_name")->update(["setting_value" => $request->sender_name]);
+            $setting = Setting::where("setting_key","notification_sender_name")->update(["setting_value" => $request->sender_name]);
         }else{
             $setting = new Setting();
-            $setting->setting_key = 'sender_name';
+            $setting->setting_key = 'notification_sender_name';
             $setting->setting_value = $request->sender_name;
             $setting->save();
         }
 
         if(isset($request->sender_email_id) && !empty($request->sender_email_id)){
-            $setting = Setting::where("setting_key","sender_email")->update(["setting_value" => $request->sender_email]);
+            $setting = Setting::where("setting_key","notification_sender_email")->update(["setting_value" => $request->sender_email]);
         }else{
             $setting = new Setting();
-            $setting->setting_key = 'sender_email';
+            $setting->setting_key = 'notification_sender_email';
             $setting->setting_value = $request->sender_email;
             $setting->save();
         }
-
-
-        // $email_notification=new EmailNotification();
-        // $email_notification->admin_email=$request->admin_email;
-        // $email_notification->name=$request->name;
-
-        // $email_notification->email=$request->email;
-        // $email_notification->save();
 
         if($setting){
             return response()->Json(['status' => '200','msg'=>'Email Notification update successfully.']);

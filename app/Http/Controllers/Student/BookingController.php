@@ -103,8 +103,12 @@ class BookingController extends Controller
             $total_min = ($user_details->remaining_minutes == 0) ? $user_details->subscription->minutes :$user_details->remaining_minutes;
             $remaining = $total_min - 15;
 
-            
-            UserPlan::where('id',$user_details->id)->update(['remaining_minutes' => $remaining ]);
+            if($remaining == 0){
+                UserPlan::where('id',$user_details->id)->update(['remaining_minutes' => $remaining,'is_active' => 0 ]);
+            }else{
+
+                UserPlan::where('id',$user_details->id)->update(['remaining_minutes' => $remaining ]);
+            }
             
 
             $bookingslot = new Bookings;
@@ -315,7 +319,7 @@ class BookingController extends Controller
                                 </div>
                             </div>
                         </div>';
-                    }else if($request->rating != 0 && $rating!= 0 && $rating >= $request->rating){
+                    }else if($request->rating != 0 && $rating!= 0 && $rating > $request->rating){
                         
                         $html .= '<div class="col-12 col-md-3 mb-4" id="main_'.$tutor->id.'" rating="'.$rating.'">
                             <div class="d-flex flex-column justify-content-center align-items-center tutor-inner" id="'.$tutor->id.'">

@@ -5,7 +5,8 @@ use App\Http\Controllers\Controller;
 
 use App\Models\User;
 use App\Models\Document;
-use App\Models\EmailNotification;
+use App\Models\Setting;
+
 
 use Mail;
 use App\Mail\NotifySuperAdminMail;
@@ -192,7 +193,7 @@ class DashboardController extends Controller
             // $updateUser = User::where("id",auth()->user()->id)->update([
             //     "is_document" => 1
             // ]);
-            $email = EmailNotification::get('admin_email')->first();
+            $email = Setting::where("setting_key","notification_admin_email")->first();
             $documents = Document::where('user_id',$user->id)->get();
             Mail::to($email->admin_email)->send(new NotifySuperAdminMail($user,$documents));
         }

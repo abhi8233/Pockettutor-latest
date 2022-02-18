@@ -22,7 +22,7 @@ class LanguagesSeeder extends Seeder
         		DB::table('languages')->insert([
 	        		'id' => $i++,
 	        		'name' => $row,
-                    'flag' => ''
+                    'flag' => 'flag.png'
 	        	]);
         	}
         }

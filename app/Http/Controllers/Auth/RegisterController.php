@@ -7,7 +7,8 @@ use App\Providers\RouteServiceProvider;
 
 use App\Models\User;
 use App\Models\UserPlan;
-use App\Models\EmailNotification;
+use App\Models\Setting;
+
 use Mail;
 use App\Mail\NotifyUserRegisterMail;
 use App\Mail\NotifySuperAdminTurtor;
@@ -155,7 +156,7 @@ class RegisterController extends Controller
                 // "amount" => (isset($data['price']) && floatval($data['price']) > 0) ? floatval($data['price']) : 0,
                 "currency" => "usd",
                 "source" => $data['stripeToken'],
-                "description" => "Test payment from itsolutionstuff.com." 
+                "description" => "Test payment from pocket tutor." 
             ]);
             
             // if($payment){
@@ -208,8 +209,8 @@ class RegisterController extends Controller
         }
         
         if($user->role == 'Tutor'){
-            $email = EmailNotification::get('admin_email')->first();
-            Mail::to($email->admin_email)->send(new NotifySuperAdminTurtor($user));
+            $email = Setting::where("setting_key","notification_admin_email")->first();
+            Mail::to($email->notification_admin_email)->send(new NotifySuperAdminTurtor($user));
         }
         
         return $user;

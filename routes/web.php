@@ -32,7 +32,7 @@ Route::group(['middleware' => ['auth', 'verified','superadmin']], function () {
 
 
 	Route::resource('admin/dashboard', App\Http\Controllers\Admin\DashboardController::class)->names('SAdashboard');
-	Route::get('admin/profile', [App\Http\Controllers\Admin\DashboardController::class, 'profile'])->name('SAprofile');
+	Route::get('admin/profile', [App\Http\Controllers\Admin\DashboardController::class, 'profile'])->name('SAprofile'); 
 	Route::post('admin/update-profile', [App\Http\Controllers\Admin\DashboardController::class, 'updateProfile'])->name('updateSAProfile');
 	Route::post('admin/update-pasword', [App\Http\Controllers\Admin\DashboardController::class, 'updatePassword'])->name('updateSAPassword');
 
