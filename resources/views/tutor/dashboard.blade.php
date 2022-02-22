@@ -453,15 +453,14 @@
      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
 <script>
     
-    
-        
-        document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
             
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
 
                 initialDate: new Date(),
                 initialView: 'timeGridWeek',
+                slotDuration: '00:15:00',
                 nowIndicator: true,
                 customButtons: {
                     btnCopyEvents: {
@@ -598,5 +597,5 @@
                 });
             }
     });
-	</script>
+</script>
 @endsection

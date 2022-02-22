@@ -51,6 +51,8 @@ class BookingController extends Controller
     public function create()
     {
         $this->meet = new Meet(auth()->user()->id);
+        $meetings = $this->meet->getMeetingList();
+        // dd($meetings);
         if(!$this->meet->isCredentialLoaded()){
             // dd("credential");
             return view('booking.create');

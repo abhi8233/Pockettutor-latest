@@ -239,7 +239,11 @@
                     </div>
                     
                     <div class="col-12 mb-2">
-                        <label class="col-form-label">Rating</label>
+                       
+                        <label class="col-form-label">Rating</label> 
+                        <span class="btn btn-danger btn-xs mr-2" style="display: none;width:100px" id="reset_rating_btn" onclick="resetRating()">x Reset Rating</span>
+                        
+                       
                         <div class="mb-3 py-2 ">
                             <div class="col-2 ml-auto">
                                 <input type="hidden" name="star" id="star" value="0.0">
@@ -254,7 +258,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div id="test" class="col-3 mr-auto display-4">0.0</div>
+                            <div id="rating" class="col-3 mr-auto display-4">0.0</div>
                         </div>
                     </div>
 
@@ -578,11 +582,38 @@
     }
 
         
+    function resetRating()
+    {
+        $("#star").val("0.0");
+        $("#rating").html("0.0");
+        $("#reset_rating_btn").css('display','none');
+        $.ajax({
+            type: "GET",
+            url: "{{route('getTutor')}}",
+            data: {
+                'specialization_id': $('#specialization').val(),
+                'date' : $('#selected_date').html(),
+                'time' : $('#selected_date_times').html(),
+                'language_id': $('.language').val(),
+                'rating': 0.0
+            },
+            beforeSend: function(){
+                $('#tutor_html_id').html('Loading...');
+            },
+            success: function(data) {
+                $("#tutor_html_id").html('');
+                $("#tutor_html_id").html(data);
+            }
+        });
+    }
     var valueHover = 0;
 
     $(".starrate").on("click", function () {
         // alert("starrate click");
+
         $(this).data('val', valueHover);
+
+        $("#reset_rating_btn").css('display','block');
         $(this).addClass('saved');
 
         $.ajax({
@@ -627,7 +658,7 @@
     function upStars(val) {
 
         var val = parseFloat(val);
-        $("#test").html(val.toFixed(1));
+        $("#rating").html(val.toFixed(1));
         $("#starrate").attr('data-val',val.toFixed(1));
         $("#star").val(val.toFixed(1));
 
