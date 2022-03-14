@@ -33,7 +33,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('tutor.dashboard');
+		$is_lifetime_slot=User::where('id',auth()->user()->id)->pluck('is_lifetime_slot')->first();
+        return view('tutor.dashboard',compact('is_lifetime_slot'));
     }
     
     public function profile()

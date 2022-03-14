@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\EmailTemplate;
 
 class superadminApproveDocOfTutor extends Mailable
 {
@@ -28,6 +29,9 @@ class superadminApproveDocOfTutor extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.superadminApproveDocOfTutor')->with('user',$this->user);
+		
+		$templatesEmail = EmailTemplate::where('tag_name','approve-document')->where('role','SuperAdmin')->first();
+        // return $this->view('mail.superadminApproveDocOfTutor')->with(['user'=>$this->user,'html'=>]);
+		return $this->view('mail.subscriptionPlan')->subject($templatesEmail->subject)->with(['user'=>$this->user,'html'=>$templatesEmail]);
     }
 }

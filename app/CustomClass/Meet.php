@@ -27,7 +27,6 @@ class Meet {
         $credential = 'credential'.$owner_id.'.json';
         $token = 'token'.$owner_id.'.json';
 
-
 		$this->credential_path = env('CREDENTIAL_PATH') . '/'.$credential;
         $this->token_path = env('CREDENTIAL_PATH') . '/'.$token;
         $this->google_callback_url = env('GOOGLE_MEET_REDIRECT');
@@ -139,6 +138,24 @@ class Meet {
             
         return $list;
     }
+	 public function getMeetingDuration($event_id) {
+        try {
+            $event = $this->service->events->get($this->current_calendar, $event_id);
+			$startTime = \Carbon\Carbon::parse($event->start->dateTime);
+			$endTime = \Carbon\Carbon::parse($event->end->dateTime);
+			
+			$startTime1 = \Carbon\Carbon::parse($event->created);
+			$endTime1 = \Carbon\Carbon::parse($event->updated);
+			$totalDuration = str_replace(" after","",$endTime->diffForHumans($startTime));
+			$totalDuration1 = str_replace(" after","",$endTime1->diffForHumans($startTime1));
+			
+			// return  [$event->start->dateTime,$event->end->dateTime,$totalDuration,$totalDuration1,$event];
+			return $totalDuration;
+        } catch(\Exception $e) {
+            return $e;
+        }
+		return "-";
+    }
 
     public function getMeetingList() {
 
@@ -150,9 +167,10 @@ class Meet {
         );
 
         $results = $this->service->events->listEvents($this->current_calendar, $optParams);
+		
         $pageToken = $results->getNextPageToken();
         $list = array();
-
+		
         foreach ($results->getItems() as $event) {
             $start = $event->start->dateTime;
             if (empty($start)) {

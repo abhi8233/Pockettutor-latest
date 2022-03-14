@@ -7,8 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\Models\EmailTemplate;
-
-class NotifySuperAdminTurtor extends Mailable
+class NotifyUserSubscriptionPlanMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -19,7 +18,7 @@ class NotifySuperAdminTurtor extends Mailable
      */
     public function __construct($user)
     {
-        $this->user=$user;
+         $this->user = $user;
     }
 
     /**
@@ -29,9 +28,7 @@ class NotifySuperAdminTurtor extends Mailable
      */
     public function build()
     {
-		
-        // return $this->view('mail.notifysuperadmintutor')->with('user',$this->user);
-		$templatesEmail = EmailTemplate::where('tag_name','approve-tutor')->where('role','SuperAdmin')->first();
+		$templatesEmail = EmailTemplate::where('tag_name','plan-upgreaded')->where('role','Student')->first();
         return $this->view('mail.subscriptionPlan')->subject($templatesEmail->subject)->with(['user'=>$this->user,'html'=>$templatesEmail]);
     }
 }

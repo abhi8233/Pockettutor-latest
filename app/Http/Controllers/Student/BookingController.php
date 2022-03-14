@@ -10,7 +10,7 @@ use App\Models\Bookings;
 use App\Models\Feedback;
 use App\Models\UserPlan;
 use App\CustomClass\Meet;
-use App\Models\languages;
+use App\Models\Languages;
 use App\Models\TutorSlot;
 use Illuminate\Http\Request;
 
@@ -47,7 +47,7 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->all();
+       
         $request->validate([  
             'specialization' => 'required',
             'language'       => 'required',
@@ -70,10 +70,12 @@ class BookingController extends Controller
         // dd($activeDate,$request->slotList[0],$start_date_time,$end_date_time);
         
         $this->meet = new Meet($request->tutor_id);
-        
-        if($this->meet->isCredentialLoaded() && $this->meet->isAppPermitted() ){
+		
+        //dd($request->tutor_id,$this->meet,$this->meet->isCredentialLoaded(),$request->tutor_id);
+        if($this->meet->isCredentialLoaded() && $this->meet->isAppPermitted() )
+		{
             $specialization_details = Specialization::find($request->specialization);
-            $languages_details = languages::find($request->language[0]);
+            $languages_details = Languages::find($request->language[0]);
             
             $tutor_details = User::find($request->tutor_id);
 
@@ -261,7 +263,11 @@ class BookingController extends Controller
             ])->whereIn('id',$getTutorIds)->orderBy('first_name', 'Asc')->get();
         
         }else if(isset($request->specialization_id)){
-            $tutors = User::with(['languages'])->where(['is_document' => 1,'is_google_meet' => 1,'specialization_id'=>$request->specialization_id,'role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
+            $tutors = User::with(['languages'])
+			->where(['is_document' => 1,'is_google_meet' => 1,'specialization_id'=>$request->specialization_id,'role'=>'Tutor'])
+			->orderBy('first_name', 'Asc')
+			->get();
+			
        
         }else{
             $tutors = User::with(['languages'])->where(['is_document' => 1,'is_google_meet' => 1,'role'=>'Tutor'])->orderBy('first_name', 'Asc')->get();
@@ -278,54 +284,12 @@ class BookingController extends Controller
 
                 if(isset($request->rating)){
                     
-                    if($request->rating == 0){
+                    if($request->rating == 0)
+					{
                         $html .= '<div class="col-12 col-md-3 mb-4" id="main_'.$tutor->id.'" rating="'.$rating.'">
                             <div class="d-flex flex-column justify-content-center align-items-center tutor-inner" id="'.$tutor->id.'">
                                 <div class="profile-img">
                                     <img src="../assets/images/profile.png" class="pt-width-px-88 pt-height-p-auto mb-1 tutor-img" />
-                                    <img src="'.$flag_url.'" class="flag" />
-                                </div>
-                                <span class="tutor-name">'.$tutor->first_name .' '.$tutor->last_name.'</span>
-                                <div class="rate">
-                                    <div id="starrate" class="starrate mt-3" data-val="'. $rating.'" data-max="5">
-                                        <span class="ctrl"></span>
-                                        <span class="cont m-1">';
-                                        if ($rating == 0) {
-                                            $html .= '<i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i>';
-                                        }else if ($rating <= 0.5 && $rating > 0) {
-                                            $html .= '<i class="fas fa-fw fa-star-half-alt"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i>';
-                                        }else if ($rating <= 1 && $rating > 0.5) {
-                                            $html .= '<i class="fas fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i>';
-                                        }else if ($rating <= 1.5 && $rating > 1) {
-                                            $html .= '<i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star-half-alt"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i>';
-                                        }else if ($rating <= 2 && $rating > 1.5) {
-                                            $html .= '<i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i>';
-                                        }else if ($rating <= 2.5 && $rating > 2) {
-                                            $html .= '<i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star-half-alt"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i>';
-                                        }else if ($rating <= 3 && $rating > 2.5) {
-                                            $html .= '<i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i>';
-                                        }else if ($rating <= 3.5 && $rating > 3) {
-                                            $html .= '<i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star-half-alt"></i><i class="far fa-fw fa-star"></i>';
-                                        }else if ($rating <= 4 && $rating > 3.5) {
-                                            $html .= '<i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="far fa-fw fa-star"></i>';
-                                        }else if ($rating <= 4.5 && $rating > 4) {
-                                            $html .= '<i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star-half-alt"></i>';
-                                        }else if ($rating <= 5 && $rating > 4.5) {
-                                            $html .= '<i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i>';
-                                        }
-                                        
-                                        $html .= '</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>';
-                    }else if($request->rating != 0 && $rating!= 0 && $rating > $request->rating){
-                        
-                        $html .= '<div class="col-12 col-md-3 mb-4" id="main_'.$tutor->id.'" rating="'.$rating.'">
-                            <div class="d-flex flex-column justify-content-center align-items-center tutor-inner" id="'.$tutor->id.'">
-                                <div class="profile-img">
-                                    <img src="../assets/images/profile.png" class="pt-width-px-88 pt-height-p-auto mb-1 tutor-img" />
-                                    
                                     <img src="'.$flag_url.'" class="flag" />
                                 </div>
                                 <span class="tutor-name">'.$tutor->first_name .' '.$tutor->last_name.'</span>
@@ -363,7 +327,52 @@ class BookingController extends Controller
                             </div>
                         </div>';
                     }
-                }else if(!isset($request->rating)){
+					else if($request->rating != 0 && $rating!= 0 && $rating >= $request->rating){
+                        
+                        $html .= '<div class="col-12 col-md-3 mb-4" id="main_'.$tutor->id.'" rating="'.$rating.'">
+                            <div class="d-flex flex-column justify-content-center align-items-center tutor-inner" id="'.$tutor->id.'">
+                                <div class="profile-img">
+                                    <img src="../assets/images/profile.png" class="pt-width-px-88 pt-height-p-auto mb-1 tutor-img" />
+                                    
+                                    <img src="'.$flag_url.'" class="flag" />
+                                </div>
+                                <span class="tutor-name">'.$tutor->first_name .' '.$tutor->last_name.'</span>
+                                <div class="rate">
+                                    <div id="starrate" class="starrate mt-3" data-val="'. $rating.'" data-max="5">
+                                        <span class="ctrl"></span>
+                                        <span class="cont m-1">';
+                                        if ($rating == 0) {
+                                            $html .= '<i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i>';
+                                        }else if ($rating <= 0.5 && $rating > 0) {
+                                            $html .= '<i class="fas fa-fw fa-star-half-alt"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i>';
+                                        }else if ($rating <= 1 && $rating >= 0.5) {
+                                            $html .= '<i class="fas fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i>';
+                                        }else if ($rating <= 1.5 && $rating > 1) {
+                                            $html .= '<i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star-half-alt"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i>';
+                                        }else if ($rating <= 2 && $rating > 1.5) {
+                                            $html .= '<i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i>';
+                                        }else if ($rating <= 2.5 && $rating > 2) {
+                                            $html .= '<i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star-half-alt"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i>';
+                                        }else if ($rating <= 3 && $rating > 2.5) {
+                                            $html .= '<i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="far fa-fw fa-star"></i><i class="far fa-fw fa-star"></i>';
+                                        }else if ($rating <= 3.5 && $rating > 3) {
+                                            $html .= '<i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star-half-alt"></i><i class="far fa-fw fa-star"></i>';
+                                        }else if ($rating <= 4 && $rating > 3.5) {
+                                            $html .= '<i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="far fa-fw fa-star"></i>';
+                                        }else if ($rating <= 4.5 && $rating > 4) {
+                                            $html .= '<i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star-half-alt"></i>';
+                                        }else if ($rating <= 5 && $rating > 4.5) {
+                                            $html .= '<i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i><i class="fas fa-fw fa-star"></i>';
+                                        }
+                                        
+                                        $html .= '</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>';
+                    }
+                }else if(!isset($request->rating))
+				{
                     $html .= '<div class="col-12 col-md-3 mb-4" id="main_'.$tutor->id.'" rating="'.$rating.'">
                         <div class="d-flex flex-column justify-content-center align-items-center tutor-inner" id="'.$tutor->id.'">
                             <div class="profile-img">

@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\EmailTemplate;
 
 class NotifyUserRegisterMail extends Mailable
 {
@@ -28,6 +29,8 @@ class NotifyUserRegisterMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.userregister')->with('user',$this->user);
+        // return $this->view('mail.userregister')->with('user',$this->user);
+		$templatesEmail = EmailTemplate::where('tag_name','user-register')->where('role','SuperAdmin')->first();
+        return $this->view('mail.subscriptionPlan')->subject($templatesEmail->subject)->with(['user'=>$this->user,'html'=>$templatesEmail]);
     }
 }

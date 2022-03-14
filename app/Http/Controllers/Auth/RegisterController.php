@@ -8,9 +8,10 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\UserPlan;
 use App\Models\Setting;
-
+use Session;
 use Mail;
 use App\Mail\NotifyUserRegisterMail;
+use App\Models\Subscription;
 use App\Mail\NotifySuperAdminTurtor;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -55,9 +56,39 @@ class RegisterController extends Controller
     //create a new method that overrides default register 
     public function register(Request $request)
     {
-        // dd($request->all());
-        $this->validator($request->all())->validate();
+	
+		
+        if(isset($request->email))
+		{
+			$check_email = $request->email;
 
+		}elseif(isset($request->tutor_email)){
+
+			$check_email = $request->tutor_email;
+
+		}
+		$userExct = User::where('email',$check_email)->count();
+		
+		if($userExct){
+
+			if($request->is_email_check){
+
+				return ["message"=>"Email already exists!, try another email","status"=>1];
+
+			}else{
+
+				Session::flash('error', 'Email already exists!, try another email');
+				return back();
+			}
+		}
+
+        if($request->is_email_check){
+
+            return ["message"=>"Email use","status"=>0];
+        }
+		
+        $this->validator($request->all())->validate();
+		
         event(new Registered($user = $this->create($request->all())));
 
         // $this->guard()->login($user);
@@ -75,8 +106,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-
-        if(isset($data['role']) && $data['role'] == 'Tutor'){
+		if(isset($data['role']) && $data['role'] == 'Tutor'){
             return Validator::make($data, [
                 'tutor_first_name' => ['required', 'string', 'max:255'],
                 'tutor_last_name' => ['required', 'string', 'max:255'],
@@ -125,10 +155,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
         
 
         if(isset($data['role']) && $data['role'] == 'Student'){
+            $subscription = Subscription::where('id',$data['plan_id'])->where('status','Active')->first();
+
             $user = new User();
             $user->name        = '-';
             $user->first_name        = $data['first_name'];
@@ -148,34 +179,33 @@ class RegisterController extends Controller
             $user->stripe_customer_id =  '-';
             $user->save();
 
-            Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-
-        
-            $payment = Stripe\Charge::create ([
-                "amount" => 50.00,
-                // "amount" => (isset($data['price']) && floatval($data['price']) > 0) ? floatval($data['price']) : 0,
-                "currency" => "usd",
-                "source" => $data['stripeToken'],
-                "description" => "Test payment from pocket tutor." 
-            ]);
             
+            Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+			$Stripe_data=Stripe\Charge::create ([
+					"amount" =>($subscription->price*100),
+					"currency" => "usd",
+					"source" => $data['stripeToken'],
+					"description" => "Test payment from shop.zinnfy.com" 
+			]);
+			
             // if($payment){
             
-                $userPlan = new UserPlan();
-                $userPlan->user_id = $user->id;
-                $userPlan->subscription_id = isset($data['subscription_id']) ? $data['subscription_id'] : null;
-                $userPlan->price = isset($data['price']) ? $data['price'] : null;
-                $userPlan->minutes = isset($data['minutes']) ? $data['minutes'] : null;
-                $userPlan->remaining_minutes = 0;
-               
-                $userPlan->is_active  = 1;
-                $userPlan->stripe_plan_id  = 1;
-                $userPlan->save();
+			$userPlan = new UserPlan();
+			$userPlan->user_id = $user->id;
+			
+			$userPlan->subscription_id = isset($data['subscription_id']) ? $data['subscription_id'] : null;
+			$userPlan->price = isset($subscription->price) ? $Stripe_data->amount/100 : null;
+			$userPlan->minutes = isset($subscription['minutes']) ? $subscription['minutes'] : null;
+			$userPlan->remaining_minutes = isset($subscription['minutes']) ? $subscription['minutes'] : 0;
+			$userPlan->is_active  = $Stripe_data->paid;
+			$userPlan->stripe_plan_id = $Stripe_data->id;
+			$userPlan->save();
+			
 
                 // $updateUser = User::where('id',$user->id)->update([
                 //     'subscriptions_id' => isset($userPlan->id) ? $userPlan->id : null,
                 //     'stripe_customer_id' => isset($customer->id) ? $customer->id : null ]);
-                $updateUser = User::where('id',$user->id)->update([
+            $updateUser = User::where('id',$user->id)->update([
                     'subscriptions_id' => isset($userPlan->id) ? $userPlan->id : null,
                     'stripe_customer_id' =>  '-' ]);
             // }

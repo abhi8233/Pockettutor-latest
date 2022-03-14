@@ -6,7 +6,7 @@ use App\Models\User;
 use App\CustomClass\Meet;
 
 // use App\Models\Bookings;
-use App\Models\languages;
+use App\Models\Languages;
 use Illuminate\Http\Request;
 use App\Models\Specialization;
 
@@ -34,7 +34,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        
+    
         Session::forget('specialization_id');
         
         $specializations = Specialization::orderBy('name','ASC')->get();
@@ -51,10 +51,9 @@ class BookingController extends Controller
     public function create()
     {
         $this->meet = new Meet(auth()->user()->id);
-        $meetings = $this->meet->getMeetingList();
-        // dd($meetings);
+		  // $meetings = $this->meet->getMeetingList();
         if(!$this->meet->isCredentialLoaded()){
-            // dd("credential");
+            
             return view('booking.create');
         } else if(!$this->meet->isAppPermitted()){
             // dd("url");

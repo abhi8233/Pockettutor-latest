@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
-
+use Mail;
+use App\Mail\NotifyUserSubscriptionPlanMail;
 use App\Models\UserPlan;
 use App\Models\Subscription;
 
@@ -27,7 +28,9 @@ class PlanController extends Controller
      */
     public function index()
     {
-        $userAllPlans = UserPlan::where('user_id', auth()->user()->id)->orderBy('id','desc')->get();
+		// Mail::to(auth()->user()->email)->send(new NotifyUserSubscriptionPlanMail(auth()->user()));
+		
+		$userAllPlans = UserPlan::where('user_id', auth()->user()->id)->orderBy('id','desc')->get();
 
         $userActivePlan = UserPlan::with(['subscription'])->where('user_id', auth()->user()->id)->where('is_active',1)->first();
         // dd($userActivePlan);
@@ -74,7 +77,7 @@ class PlanController extends Controller
             $userplan->price = $request->price;
             // $userplan->slots = $request->slots;
             $userplan->minutes = $request->minutes;
-            $userplan->remaining_minutes = 0;
+            $userplan->remaining_minutes = $request->minutes;
             $userplan->is_active = 1;
             $userplan->save();
             

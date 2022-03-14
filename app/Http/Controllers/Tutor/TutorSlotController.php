@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tutor;
 use DateTime;
 use DatePeriod;
 use DateInterval;
+use App\Models\User;
 use App\Models\Bookings;
 use App\Models\TutorSlot;
 use Illuminate\Http\Request;
@@ -17,17 +18,52 @@ class TutorSlotController extends Controller
     
     public function index(Request $request)
     {
-        
+		$is_lifetime_slot=User::where('id',auth()->user()->id)->pluck('is_lifetime_slot')->first();
+        if($is_lifetime_slot)
+		{
+			
+			
+			$activeStartDate=date("Y-m-d",strtotime("-1 day",strtotime(explode("T",$request->start)[0])));
+			$activeEndDate=date("Y-m-d",strtotime("-1 day",strtotime(explode("T",$request->end)[0])));
+			
+			$current_copyDateObject = $this->displayDates($activeStartDate,$activeEndDate);
+		   
+			$start_date_a=date('Y-m-d',strtotime('-7 day', strtotime($activeStartDate)));
+			$previus_copyDateObject = $this->displayDates($start_date_a,$activeStartDate);
+			
+			
+			
+			$i=1;
+			foreach($previus_copyDateObject as $pc_date_item){
+
+				$itemTutorSlot=TutorSlot::where('tutor_id',Auth::id())->whereDate('slot_date',$pc_date_item)->get();
+				
+				foreach($itemTutorSlot as $item)
+				{
+					
+					$input=collect($item)->toArray();
+					$input['slot_date']=$current_copyDateObject[$i];
+					// dd($input,$item,$current_copyDateObject,$itemTutorSlot,$start_date_a,$previus_copyDateObject,$pc_date_item);
+					$TutorSlotExsits = TutorSlot::with('tutor_user')
+					->where('tutor_id',Auth::id())
+					->whereDate('slot_date',$input['slot_date'])->where('slot_start_time',$item->slot_start_time)->where('slot_end_time',$item->slot_end_time)->count();
+					// dd(Auth::id(),$input['slot_date'],$TutorSlotExsits,$item->slot_end_time,$item->slot_start_time,empty($itemTutorSlot),$itemTutorSlot,$is_lifetime_slot,$current_copyDateObject,$previus_copyDateObject);	
+					if($TutorSlotExsits==0)
+					{
+						TutorSlot::create($input);
+					}
+				}
+				
+			   $i++;
+			}
+			
+		}
+		$start_date=explode("T",$request->start)[0];
+		$end_date=explode("T",$request->end)[0];
+		
         $TutorSlot = TutorSlot::with('tutor_user')
-      /*   ->whereHas('tutor_user',function($query)use($request){
-            if(isset($request->specialization_id))
-            {            
-                return $query->where('specialization_id',$request->specialization_id);
-            }
-            
-        }) */
         ->where('tutor_id',Auth::id())
-        ->whereBetween('slot_date',[explode("T",$request->start)[0],explode("T",$request->end)[0]])->get();
+        ->whereBetween('slot_date',[$start_date,$end_date])->get();
         $TutorSlotsList=[];
         foreach($TutorSlot as $item){
             $all_day=date("Y-m-d",strtotime('+ 1 day',strtotime($item->slot_date)));
@@ -42,6 +78,7 @@ class TutorSlotController extends Controller
     }
     public function no_available_slot(Request $request)
     {
+		// return $request->all();
         $specialization_id=Session::get('specialization_id');
         if(!isset($specialization_id))
         {
@@ -51,8 +88,10 @@ class TutorSlotController extends Controller
         $period = new DatePeriod(
             new DateTime(date("Y-m-d")),
             new DateInterval('P1D'),
-            new DateTime(explode("T",$request->end)[0])
+            new DateTime(date("Y-m-d",strtotime("+2.5 month",strtotime(date("Y-m-d")))))
         );
+		// return [explode("T",$request->start)[0],explode("T",$request->end)[0],date("Y-m-d"),date("Y-m-d",strtotime("+2 month",strtotime(date("Y-m-d"))))];
+		
         $TutorSlot = TutorSlot::with('tutor_user')
         ->whereHas('tutor_user',function($query)use($specialization_id){
             if(isset($specialization_id))
@@ -61,19 +100,24 @@ class TutorSlotController extends Controller
             }
             
         })
-        ->whereBetween('slot_date',[explode("T",$request->start)[0],explode("T",$request->end)[0]])
+        ->whereBetween('slot_date',[date("Y-m-d"),date("Y-m-d",strtotime("+2 month",strtotime(date("Y-m-d"))))])
         ->groupBy('slot_date')
         ->pluck('slot_date')->toArray();
         
         foreach ($period as $key => $value) {
             if(!in_array($value->format('Y-m-d'),$TutorSlot))
             {
-                $TutorSlotsList[]=[
-                        "groupId"=>$key,
-                        "title"=>"No Slot Available",
-                        "start"=>$value->format('Y-m-d'),
-                        // "end"=>$item->slot_end_time=="00:00:00"?$all_day.'T'.$item->slot_end_time:$item->slot_date.'T'.$item->slot_end_time,
-                ];
+				$itemTutorSlot=TutorSlot::where('tutor_id',Auth::id())->whereDate('slot_date',$value->format('Y-m-d'))->first();
+				if(!isset($itemTutorSlot))
+				{
+					$TutorSlotsList[]=[
+							"groupId"=>$key,
+							"title"=>"No Slot Available",
+							// "title"=>$value->format('Y-m-d'),
+							"start"=>$value->format('Y-m-d'),
+							// "end"=>$item->slot_end_time=="00:00:00"?$all_day.'T'.$item->slot_end_time:$item->slot_date.'T'.$item->slot_end_time,
+					];
+				}
             }
         }
         return json_encode($TutorSlotsList);
@@ -211,6 +255,13 @@ class TutorSlotController extends Controller
     {
         Bookings::where('id',$request->booking_id)->update(['meeting_status'=>1,'is_feedback'=>1]);
         return 1;
+    } 
+	public function is_lifetime_slot()
+    {
+		
+		$is_lifetime_slot=User::where('id',auth()->user()->id)->pluck('is_lifetime_slot')->first();
+        User::where('id',auth()->user()->id)->update(['is_lifetime_slot'=>$is_lifetime_slot?0:1]);
+        return $is_lifetime_slot?0:1;
     }
 }
 
